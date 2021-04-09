@@ -1,1 +1,1 @@
-return () => 'plugin goes here';
+export default () => 'plugin goes here';
