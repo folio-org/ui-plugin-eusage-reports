@@ -17,7 +17,7 @@
     ],
     "pluginType": "eusage-reports",
     "displayName": "ui-plugin-eusage-reports.meta.title",
-    "okapiInterfaces": {
+    "optionalOkapiInterfaces": {
       "eusage-reports": "1.0"
     },
     "permissionSets": [
