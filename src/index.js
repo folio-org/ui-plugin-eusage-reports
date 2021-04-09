@@ -1,0 +1,1 @@
+return () => 'plugin goes here';

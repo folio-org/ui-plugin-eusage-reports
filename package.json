@@ -1,0 +1,62 @@
+{
+  "name": "@folio/plugin-eusage-reports",
+  "version": "1.0.0",
+  "description": "Stripes plugin module to View eUsage reports",
+  "repository": "folio-org/ui-plugin-eusage-reports",
+  "publishConfig": {
+    "registry": "https://repository.folio.org/repository/npm-folio/"
+  },
+  "license": "Apache-2.0",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "stripes": {
+    "actsAs": [
+      "plugin"
+    ],
+    "pluginType": "eusage-reports",
+    "displayName": "ui-plugin-eusage-reports.meta.title",
+    "okapiInterfaces": {
+      "eusage-reports": "1.0"
+    },
+    "permissionSets": [
+      {
+        "permissionName": "module.ui-plugin-eusage-reports.enabled",
+        "displayName": "UI: eusage-reports plugin is enabled"
+      }
+    ]
+  },
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@folio/eslint-config-stripes": "^5.2.0",
+    "@folio/stripes": "^6.0.0",
+    "@folio/stripes-cli": "^2.0.0",
+    "@folio/stripes-core": "^7.0.0",
+    "@folio/stripes-components": "^9.0.0",
+    "babel-eslint": "^10.0.3",
+    "core-js": "^3.6.4",
+    "eslint": "^6.2.1",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-intl": "^5.8.0",
+    "react-router-dom": "^5.2.0",
+    "regenerator-runtime": "^0.13.3"
+  },
+  "probably-not-dependencies": {
+    "faker": "^4.1.0",
+    "inflected": "^2.0.4",
+    "miragejs": "^0.1.40"
+  },
+  "dependencies": {
+  },
+  "peerDependencies": {
+    "@folio/stripes": "^6.0.0",
+    "prop-types": "*",
+    "react": "*",
+    "react-intl": "^5.8.0",
+    "react-router-dom": "^5.2.0"
+  }
+}
