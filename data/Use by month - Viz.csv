@@ -1,0 +1,37 @@
+Title,Access type,Metric type,Jan-2020,Feb-2020,Mar-2020,Apr-2020,May-2020,Jun-2020,,,Title,Access type,Metric type,Reporting period total
+Totals - Total item requests,,,684,828,666,1330,1038,287,,,Book G,Controlled,Total_Item_Requests,2
+Totals - Unique item requests,,,949,1419,483,1216,996,514,,,Book A,Controlled,Total_Item_Requests,4
+Book A,Controlled,Total_Item_Requests,19,69,0,217,206,144,,,Book D,Controlled,Total_Item_Requests,345
+Book A,Controlled,Unique_Item_Requests,27,428,0,404,63,59,,,Book C,Controlled,Total_Item_Requests,345
+Book A,OA_Gold,Total_Item_Requests,152,474,0,449,342,144,,,Book H,Controlled,Total_Item_Requests,"2,346"
+Book A,OA_Gold,Unique_Item_Requests,444,492,0,465,111,455,,,Book B,Controlled,Total_Item_Requests,"6,456"
+Book B,Controlled,Total_Item_Requests,76,211,313,322,176,-,,,Book E,Controlled,Total_Item_Requests,"12,353"
+Book B,Controlled,Unique_Item_Requests,467,137,241,175,331,-,,,Book F,Controlled,Total_Item_Requests,"23,467"
+Book B,OA_Gold,Total_Item_Requests,436,75,353,341,313,-,,,,,,
+Book B,OA_Gold,Unique_Item_Requests,11,362,242,173,491,-,,,Start date,2020-01-01,,
+,,,,,,,,,,,End date,2020-06-30,"(If report period is more than 1 year, aggregate data by year)",
+,,,,,,,,,,,Format,Books,"(choices include Journals, Books, Databases)",
+,,,,,,,,,,,Include OA use?,N,(choices are Y/N),
+Start date,2020-01-01,,,,,,,,,,,,,
+End date,2020-06-30,"(If report period is more than 1 year, aggregate data by year)",,,,,,,,,,,,
+Format,Books,"(choices include Journals, Books, Databases)",,,,,,,,,,,,
+Include OA use?,N,(choices are Y/N),,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,The goal of this vizualization is to see how many titles have very low use versus very high use.,,,
+,,,,,,,,,,,"In a real-life situation, we might have hundreds or thousands of titles, so we won't actualy be able to show the labels for every book or journal along the horizontal axis.",,,
+,,,,,,,,,,,We just want to plot the values in ascending order.,,,
