@@ -1,0 +1,32 @@
+Title,Period of use,Access type,Metric_Type,Reporting_Period_Total,Published 2020,Published 2019,Published 2018,Published 2017
+Journal A,2020,Controlled,Total_Item_Requests,598,206,79,150,163
+Journal A,2020,Controlled,Unique_Item_Requests,928,354,117,260,197
+Journal A,2019,Controlled,Total_Item_Requests,"1,005",0,288,450,267
+Journal A,2019,Controlled,Unique_Item_Requests,807,0,162,225,420
+Journal A,2018,Controlled,Total_Item_Requests,71,0,0,37,34
+Journal A,2018,Controlled,Unique_Item_Requests,78,0,0,77,1
+Journal A,2020,Gold_OA,Total_Item_Requests,452,156,209,60,28
+Journal A,2020,Gold_OA,Unique_Item_Requests,814,337,131,122,223
+Journal A,2019,Gold_OA,Total_Item_Requests,675,0,246,84,345
+Journal A,2019,Gold_OA,Unique_Item_Requests,951,0,238,301,412
+Journal A,2018,Gold_OA,Total_Item_Requests,721,0,0,396,325
+Journal A,2018,Gold_OA,Unique_Item_Requests,753,0,0,401,353
+Journal B,2020,Controlled,Total_Item_Requests,999,459,284,109,147
+Journal B,2020,Controlled,Unique_Item_Requests,632,303,14,33,282
+Journal B,2019,Controlled,Total_Item_Requests,446,0,55,145,246
+Journal B,2019,Controlled,Unique_Item_Requests,"1,286",0,398,431,457
+Journal B,2018,Controlled,Total_Item_Requests,525,0,0,110,415
+Journal B,2018,Controlled,Unique_Item_Requests,562,0,0,92,470
+Journal B,2020,Gold_OA,Total_Item_Requests,"1,043",76,261,464,241
+Journal B,2020,Gold_OA,Unique_Item_Requests,"1,112",34,229,360,488
+Journal B,2019,Gold_OA,Total_Item_Requests,852,0,47,317,488
+Journal B,2019,Gold_OA,Unique_Item_Requests,958,0,337,426,195
+Journal B,2018,Gold_OA,Unique_Item_Requests,639,0,0,280,359
+Journal B,2018,Gold_OA,Unique_Item_Requests,551,0,0,204,348
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,Start date,2018-01-01,,,,,
+,,End date,2020-12-31,,,,,
+,,Reporting interval,1Y,"(format ""nY"" or nM)",,,,
+,,Include OA use?,N,(choices are Y/N),,,,

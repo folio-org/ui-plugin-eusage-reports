@@ -1,5 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import { Accordion } from '@folio/stripes/components';
+import CostPerUse from './reports/CostPerUse';
 
 const PluginEusageReports = () => {
   return (
@@ -8,7 +9,7 @@ const PluginEusageReports = () => {
       label={<FormattedMessage id="ui-plugin-eusage-reports.accordion.label" />}
       closedByDefault
     >
-      Visualization Plugin goes here.
+      <CostPerUse />
     </Accordion>
   );
 };
