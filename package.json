@@ -35,8 +35,8 @@
     "@folio/eslint-config-stripes": "^5.2.0",
     "@folio/stripes": "^6.0.0",
     "@folio/stripes-cli": "^2.0.0",
-    "@folio/stripes-core": "^7.0.0",
     "@folio/stripes-components": "^9.0.0",
+    "@folio/stripes-core": "^7.0.0",
     "babel-eslint": "^10.0.3",
     "core-js": "^3.6.4",
     "eslint": "^6.2.1",
@@ -52,6 +52,9 @@
     "miragejs": "^0.1.40"
   },
   "dependencies": {
+    "@folio/stripes-webpack": "^1.2.0",
+    "lodash": "^4.17.21",
+    "react-chartjs-2": "^2.11.1"
   },
   "peerDependencies": {
     "@folio/stripes": "^6.0.0",
