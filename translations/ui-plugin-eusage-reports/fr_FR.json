@@ -1,4 +1,7 @@
 {
-    "meta.title": "eUsage reports (plugin)",
-    "accordion.label": "eUsage reports"
+    "meta.title": "Rapports d'utilisation (plugin)",
+    "accordion.label": "Rapports d'utilisation",
+    "costPerUse.cpr-total": "Cost per request - total",
+    "costPerUse.cpr-unique": "Cost per request — unique",
+    "SENTINEL": ""
 }
