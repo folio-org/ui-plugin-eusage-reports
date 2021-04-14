@@ -7,7 +7,7 @@ const PluginEusageReports = () => {
     <Accordion
       id="plugin-eusage-reports"
       label={<FormattedMessage id="ui-plugin-eusage-reports.accordion.label" />}
-      closedByDefault
+      closedByDefault={false}
     >
       <CostPerUse />
     </Accordion>
