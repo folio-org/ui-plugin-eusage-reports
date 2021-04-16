@@ -15,7 +15,7 @@
     "actsAs": [
       "plugin"
     ],
-    "pluginType": "eusage-reports",
+    "pluginType": "ui-agreements-extension",
     "displayName": "ui-plugin-eusage-reports.meta.title",
     "optionalOkapiInterfaces": {
       "eusage-reports": "1.0"
