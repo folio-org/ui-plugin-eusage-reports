@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/extensions
 import compileCostPerUseData from '../src/reports/CostPerUse/compileCostPerUseData.js';
 
 const csv = [
@@ -9,4 +10,5 @@ const csv = [
   ['Line C', '2017', '7.67', '11.42'],
 ];
 
+// eslint-disable-next-line no-console
 console.log(compileCostPerUseData(csv));
