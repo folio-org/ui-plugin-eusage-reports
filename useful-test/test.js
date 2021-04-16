@@ -1,4 +1,4 @@
-import compileCostPerUseData from '../src/reports/CostPerUse/compile.js';
+import compileCostPerUseData from '../src/reports/CostPerUse/compileCostPerUseData.js';
 
 const csv = [
   ['Agreement line', 'Reporting year', 'Cost per request - total', 'Cost per request - unique'],

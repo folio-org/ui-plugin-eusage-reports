@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { Bar } from 'react-chartjs-2';
 import CostPerUseData from '../../../data/Cost per use - Viz.csv';
-import compileCostPerUseData from './compile';
+import compileCostPerUseData from './compileCostPerUseData';
 
 
 const CostPerUse = () => {
