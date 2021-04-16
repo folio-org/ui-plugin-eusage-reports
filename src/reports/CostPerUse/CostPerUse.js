@@ -7,19 +7,20 @@ import compileCostPerUseData from './compile';
 
 const CostPerUse = () => {
   const intl = useIntl();
-  const cpuData = useMemo(() => compileCostPerUseData(CostPerUseData), []);
+  const compiledData = useMemo(() => compileCostPerUseData(CostPerUseData), []);
+  const allLinesData = compiledData[''];
 
   const data = {
-    labels: cpuData.labels,
+    labels: allLinesData.labels,
     datasets: [
       {
         label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.costPerUse.cpr-total' }),
-        data: cpuData.total,
+        data: allLinesData.total,
         backgroundColor: 'blue',
       },
       {
         label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.costPerUse.cpr-unique' }),
-        data: cpuData.unique,
+        data: allLinesData.unique,
         backgroundColor: 'red',
       },
     ],
@@ -45,7 +46,7 @@ const CostPerUse = () => {
         options={options}
       />
       <pre>
-        {JSON.stringify(cpuData, null, 2)}
+        {JSON.stringify(compiledData, null, 2)}
       </pre>
     </>
   );

@@ -1,4 +1,8 @@
-import { camelCase } from 'lodash';
+import pkg from 'lodash';
+
+// We use this roundabout way of importing because standalone Node needs it
+const { camelCase } = pkg;
+
 
 
 function array2object(row, fieldNames) {
@@ -13,35 +17,79 @@ function array2object(row, fieldNames) {
 }
 
 
-function compileCostPerUseData(raw) {
-  const rawFieldNames = raw[0];
-  const cookedFieldNames = rawFieldNames.map(camelCase);
+function compileCostPerUseData(csv) {
+  const fieldNames = csv[0].map(camelCase);
 
-  cookedFieldNames.push(1);
+  // First, transform tabular data into a set of records
+  const entries = [];
+  for (let i = 1; i < csv.length; i++) {
+    const row = csv[i];
+    if (row[0] === '') break; // Stop on first row with blank 1st column
 
-  const cooked = [];
-  for (let i = 1; i < raw.length; i++) {
-    const row = raw[i];
-    if (row[0] === '') break;
-    const obj = array2object(row, cookedFieldNames);
-    if (obj.agreementLine.startsWith('Agreement line B')) {
-      cooked.push(obj);
-    } else {
-      // XXX We need to better understand the requirement here
-    }
+    const obj = array2object(row, fieldNames);
+    entries.push(obj);
   }
 
-  cooked.sort((a, b) => (
-    a.reportingYear < b.reportingYear ? -1 :
-      a.reportingYear > b.reportingYear ? 1 :
-        0));
+  // Gather all reporting years
+  // (Some agreement lines may be reported for years when others are not.)
+  const reportingYears = {};
+  for (let i = 0; i < entries.length; i++) {
+    const obj = entries[i];
+    reportingYears[obj.reportingYear] = true;
+  }
 
-  return {
-    total: cooked.map(o => o.costPerRequestTotal),
-    unique: cooked.map(o => o.costPerRequestUnique),
-    labels: cooked.map(o => o.reportingYear),
-    DEBUG: cooked,
+  const sortedReportingYears = Object.keys(reportingYears).sort();
+
+  // Accumulate data for each individual agreement line
+  const agreementLines = {};
+  for (let i = 0; i < entries.length; i++) {
+    const obj = entries[i];
+    const name = obj.agreementLine;
+    const date = obj.reportingYear;
+    if (!agreementLines[name]) agreementLines[name] = {};
+    agreementLines[name][date] = obj;
+  }
+
+  const res = {};
+  Object.keys(agreementLines).sort().forEach(key => {
+    res[key] = {
+      labels: sortedReportingYears,
+      total: [],
+      unique: [],
+    };
+
+    const al = agreementLines[key];
+    sortedReportingYears.forEach(ry => {
+      const obj = al[ry] || { costPerRequestTotal: 0, costPerRequestUnique: 0 };
+      res[key].total.push(obj.costPerRequestTotal);
+      res[key].unique.push(obj.costPerRequestUnique);
+    });
+  });
+
+  // Now, the data accumulated across all agreement lines
+  const acc = {
+    labels: sortedReportingYears,
+    total: [],
+    unique: [],
   };
+
+  sortedReportingYears.forEach(ry => {
+    let total = 0;
+    let unique = 0;
+
+    Object.keys(agreementLines).sort().forEach(key => {
+      const obj = agreementLines[key][ry] || { costPerRequestTotal: 0, costPerRequestUnique: 0 };
+      total += Number(obj.costPerRequestTotal);
+      unique += Number(obj.costPerRequestUnique);
+    });
+
+    acc.total.push(total);
+    acc.unique.push(unique);
+  });
+
+  res[''] = acc;
+
+  return res;
 }
 
 
