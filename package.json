@@ -15,8 +15,10 @@
   },
   "stripes": {
     "actsAs": [
+      "handler",
       "plugin"
     ],
+    "handlerName": "eventHandler",
     "pluginType": "ui-agreements-extension",
     "displayName": "ui-plugin-eusage-reports.meta.title",
     "optionalOkapiInterfaces": {
