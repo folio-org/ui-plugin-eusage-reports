@@ -1,7 +1,8 @@
 {
-    "meta.title": "eUsage reports (plugin)",
-    "accordion.label": "eUsage reports",
-    "costPerUse.cpr-total": "Cost per request - total",
-    "costPerUse.cpr-unique": "Cost per request — unique",
-    "SENTINEL": ""
+    "meta.title": "电子使用报告（插件）",
+    "accordion.label": "电子使用报告",
+    "costPerUse.cpr-total": "每个请求的费用-总计",
+    "costPerUse.cpr-unique": "每个请求费用-独特的",
+    "SENTINEL": "空",
+    "costPerUse.select-agreement-line": "Select agreement line"
 }

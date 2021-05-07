@@ -3,5 +3,6 @@
     "accordion.label": "تقارير الاستخدام الإلكتروني",
     "costPerUse.cpr-total": "التكلفة لكل طلب - إجمالي",
     "costPerUse.cpr-unique": "التكلفة لكل طلب — منفردة",
-    "SENTINEL": "فارغ"
+    "SENTINEL": "فارغ",
+    "costPerUse.select-agreement-line": "حدد بند الاتفاقية"
 }
