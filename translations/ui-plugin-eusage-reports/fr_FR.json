@@ -3,5 +3,6 @@
     "accordion.label": "Rapports d'utilisation",
     "costPerUse.cpr-total": "Cost per request - total",
     "costPerUse.cpr-unique": "Cost per request — unique",
-    "SENTINEL": ""
+    "SENTINEL": "",
+    "costPerUse.select-agreement-line": "Sélectionnez la ligne d'accord"
 }

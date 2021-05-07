@@ -3,5 +3,6 @@
     "accordion.label": "Relatórios do eUso",
     "costPerUse.cpr-total": "Custo por requisição - total",
     "costPerUse.cpr-unique": "Custo por requisição - único",
-    "SENTINEL": ""
+    "SENTINEL": "",
+    "costPerUse.select-agreement-line": "Select agreement line"
 }
