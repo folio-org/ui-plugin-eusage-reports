@@ -1,8 +1,8 @@
 {
     "meta.title": "Rapports d'utilisation (plugin)",
     "accordion.label": "Rapports d'utilisation",
-    "costPerUse.cpr-total": "Cost per request - total",
-    "costPerUse.cpr-unique": "Cost per request — unique",
+    "costPerUse.cpr-total": "Coût par demande/réservation - total",
+    "costPerUse.cpr-unique": "Coût par demande/réservation - unique",
     "SENTINEL": "",
     "costPerUse.select-agreement-line": "Sélectionnez la ligne d'accord"
 }
