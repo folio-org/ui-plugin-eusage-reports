@@ -14,12 +14,8 @@ const PluginEusageReports = () => {
   );
 };
 
-PluginEusageReports.eventHandler = (event, _stripes, _data) => {
-  if (event === 'ui-agreements-extension') {
-    return PluginEusageReports;
-  } else {
-    return null;
-  }
-};
+PluginEusageReports.eventHandler = (event, _stripes, _data) => (
+  event === 'ui-agreements-extension' ? PluginEusageReports : null
+);
 
 export default PluginEusageReports;
