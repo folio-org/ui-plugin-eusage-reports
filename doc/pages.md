@@ -31,7 +31,13 @@ This is search-and-filter popup similar to the user-in-user popup used to select
 This apparently already exists, having been implemented by K-Int. They will give us a link to a place where we can see it in action.
 
 > **Owen Stephens** _16 minutes ago_  
-> The place we have this in the UI at the moment is from the ERM Comparisons app. To see how this works in the UI https://folio-snapshot.dev.folio.org/comparisons-erm?sort=-started and then click “Select package” in the search & filter panel
+> The place we have this in the UI at the moment is from the ERM Comparisons app. To see how this works in the UI
+https://folio-snapshot.dev.folio.org/comparisons-erm?sort=-started and then click “Select package” in the search & filter panel
+>
+> It should be the same plugin but pass a filter of 
+> class==org.olf.kb.TitleInstance
+> instead of
+> class==org.olf.kb.Pkg
 
 
 ## 4. Title record
