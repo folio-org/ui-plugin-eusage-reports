@@ -4,5 +4,6 @@
     "costPerUse.cpr-total": "Coût par demande/réservation - total",
     "costPerUse.cpr-unique": "Coût par demande/réservation - unique",
     "SENTINEL": "",
-    "costPerUse.select-agreement-line": "Sélectionnez la ligne d'accord"
+    "costPerUse.select-agreement-line": "Sélectionnez la ligne d'accord",
+    "matching-summary.label": "Matching summary"
 }

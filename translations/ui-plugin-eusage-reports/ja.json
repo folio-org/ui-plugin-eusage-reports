@@ -4,5 +4,6 @@
     "costPerUse.cpr-total": "Cost per request - total",
     "costPerUse.cpr-unique": "Cost per request — unique",
     "SENTINEL": "",
-    "costPerUse.select-agreement-line": "契約明細を選択"
+    "costPerUse.select-agreement-line": "契約明細を選択",
+    "matching-summary.label": "Matching summary"
 }

@@ -4,5 +4,6 @@
     "costPerUse.cpr-total": "Cost per request - total",
     "costPerUse.cpr-unique": "Cost per request — unique",
     "SENTINEL": "",
-    "costPerUse.select-agreement-line": "Selezionare la riga del contratto"
+    "costPerUse.select-agreement-line": "Selezionare la riga del contratto",
+    "matching-summary.label": "Matching summary"
 }

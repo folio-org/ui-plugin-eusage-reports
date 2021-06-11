@@ -4,5 +4,6 @@
     "costPerUse.cpr-total": "Custo por requisição - total",
     "costPerUse.cpr-unique": "Custo por requisição - único",
     "SENTINEL": "",
-    "costPerUse.select-agreement-line": "Selecione a linha de acordo"
+    "costPerUse.select-agreement-line": "Selecione a linha de acordo",
+    "matching-summary.label": "Matching summary"
 }
