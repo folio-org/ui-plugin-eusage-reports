@@ -11,7 +11,7 @@ const PluginEusageReports = ({ data }) => {
         label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.label" />}
         closedByDefault={false}
       >
-        <MatchingSummary />
+        <MatchingSummary data={data.data} />
       </Accordion>
     );
   } else {
