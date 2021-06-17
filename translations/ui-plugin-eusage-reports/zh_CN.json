@@ -5,5 +5,11 @@
     "costPerUse.cpr-unique": "每个请求费用-独特的",
     "SENTINEL": "空",
     "costPerUse.select-agreement-line": "选择协议行",
-    "matching-summary.label": "Matching summary"
+    "matching-summary.label": "Matching summary",
+    "matching-summary.date-of-last-harvest": "Date of last harvest",
+    "matching-summary.status": "Status",
+    "matching-summary.records-loaded": "Records loaded",
+    "matching-summary.matched": "Matched",
+    "matching-summary.unmatched": "Unmatched",
+    "matching-summary.ignored": "Ignored"
 }
