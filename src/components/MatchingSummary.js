@@ -6,10 +6,30 @@ import { AccordionSet, Accordion, Row, Col, KeyValue } from '@folio/stripes/comp
 
 function MatchingSummary({ data, resources }) {
   const { records } = resources.reportTitles;
-  const nLoaded = records.length;
-  const nMatched = records.filter(r => r.kbTitleId).length;
   const nUnmatched = records.filter(r => !r.kbTitleId && !r.kbManualMatch).length;
-  const nIgnored = records.filter(r => !r.kbTitleId && r.kbManualMatch).length;
+
+  const categories = [
+    {
+      label: 'records-loaded',
+      value: records.length,
+      token: 'loaded',
+    },
+    {
+      label: 'matched',
+      value: records.filter(r => r.kbTitleId).length,
+      token: 'matched',
+    },
+    {
+      label: 'unmatched',
+      value: nUnmatched,
+      token: 'unmatched',
+    },
+    {
+      label: 'ignored',
+      value: records.filter(r => !r.kbTitleId && r.kbManualMatch).length,
+      token: 'ignored',
+    },
+  ];
 
   return (
     <>
@@ -29,30 +49,16 @@ function MatchingSummary({ data, resources }) {
       </Row>
 
       <Row>
-        <Col xs={3}>
-          <KeyValue
-            label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.records-loaded" />}
-            value={nLoaded}
-          />
-        </Col>
-        <Col xs={3}>
-          <KeyValue
-            label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.matched" />}
-            value={nMatched}
-          />
-        </Col>
-        <Col xs={3}>
-          <KeyValue
-            label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.unmatched" />}
-            value={nUnmatched}
-          />
-        </Col>
-        <Col xs={3}>
-          <KeyValue
-            label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.ignored" />}
-            value={nIgnored}
-          />
-        </Col>
+        {
+          categories.map(cat => (
+            <Col key={cat.token} xs={3}>
+              <KeyValue
+                label={<FormattedMessage id={`ui-plugin-eusage-reports.matching-summary.${cat.label}`} />}
+                value={cat.value}
+              />
+            </Col>
+          ))
+        }
       </Row>
 
       <hr />
