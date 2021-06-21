@@ -5,6 +5,12 @@ import { AccordionSet, Accordion, Row, Col, KeyValue } from '@folio/stripes/comp
 
 
 function MatchingSummary({ data, resources }) {
+  const { records } = resources.reportTitles;
+  const nLoaded = records.length;
+  const nMatched = records.filter(r => r.kbTitleId).length;
+  const nUnmatched = records.filter(r => !r.kbTitleId && !r.kbManualMatch).length;
+  const nIgnored = records.filter(r => !r.kbTitleId && r.kbManualMatch).length;
+
   return (
     <>
       <Row>
@@ -17,7 +23,7 @@ function MatchingSummary({ data, resources }) {
         <Col xs={3}>
           <KeyValue
             label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.status" />}
-            value="Pending review"
+            value={<FormattedMessage id={`ui-plugin-eusage-reports.matching-summary.status.${nUnmatched === 0 ? 'reviewed' : 'pending'}`} />}
           />
         </Col>
       </Row>
@@ -26,25 +32,25 @@ function MatchingSummary({ data, resources }) {
         <Col xs={3}>
           <KeyValue
             label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.records-loaded" />}
-            value="50"
+            value={nLoaded}
           />
         </Col>
         <Col xs={3}>
           <KeyValue
             label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.matched" />}
-            value="48"
+            value={nMatched}
           />
         </Col>
         <Col xs={3}>
           <KeyValue
             label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.unmatched" />}
-            value="2"
+            value={nUnmatched}
           />
         </Col>
         <Col xs={3}>
           <KeyValue
             label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.ignored" />}
-            value="Pending review"
+            value={nIgnored}
           />
         </Col>
       </Row>
