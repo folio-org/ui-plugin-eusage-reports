@@ -6,30 +6,13 @@ import { AccordionSet, Accordion, Row, Col, KeyValue } from '@folio/stripes/comp
 
 function MatchingSummary({ data, resources }) {
   const { records } = resources.reportTitles;
-  const nUnmatched = records.filter(r => !r.kbTitleId && !r.kbManualMatch).length;
-
   const categories = [
-    {
-      label: 'loaded',
-      value: records.length,
-      token: 'loaded',
-    },
-    {
-      label: 'matched',
-      value: records.filter(r => r.kbTitleId).length,
-      token: 'matched',
-    },
-    {
-      label: 'unmatched',
-      value: nUnmatched,
-      token: 'unmatched',
-    },
-    {
-      label: 'ignored',
-      value: records.filter(r => !r.kbTitleId && r.kbManualMatch).length,
-      token: 'ignored',
-    },
+    { key: 'loaded', value: records.length },
+    { key: 'matched', value: records.filter(r => r.kbTitleId).length },
+    { key: 'unmatched', value: records.filter(r => !r.kbTitleId && !r.kbManualMatch).length },
+    { key: 'ignored', value: records.filter(r => !r.kbTitleId && r.kbManualMatch).length },
   ];
+  const nUnmatched = categories.filter(c => c.key === 'unmatched')[0].value;
 
   return (
     <>
@@ -51,9 +34,9 @@ function MatchingSummary({ data, resources }) {
       <Row>
         {
           categories.map(cat => (
-            <Col key={cat.token} xs={3}>
+            <Col key={cat.key} xs={3}>
               <KeyValue
-                label={<FormattedMessage id={`ui-plugin-eusage-reports.matching-summary.${cat.label}`} />}
+                label={<FormattedMessage id={`ui-plugin-eusage-reports.matching-summary.${cat.key}`} />}
                 value={cat.value}
               />
             </Col>
