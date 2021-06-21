@@ -5,5 +5,11 @@
     "costPerUse.cpr-unique": "التكلفة لكل طلب — منفردة",
     "SENTINEL": "فارغ",
     "costPerUse.select-agreement-line": "حدد بند الاتفاقية",
-    "matching-summary.label": "ملخص المطابقة"
+    "matching-summary.label": "ملخص المطابقة",
+    "matching-summary.date-of-last-harvest": "تاريخ آخر حصاد",
+    "matching-summary.status": "الحالة",
+    "matching-summary.records-loaded": "تم تحميل التسجيلات",
+    "matching-summary.matched": "متطابق",
+    "matching-summary.unmatched": "غير متطابق",
+    "matching-summary.ignored": "تجاهل"
 }

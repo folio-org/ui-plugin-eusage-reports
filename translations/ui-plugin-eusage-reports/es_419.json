@@ -5,5 +5,11 @@
     "costPerUse.cpr-unique": "Cost per request — unique",
     "SENTINEL": "Vacío",
     "costPerUse.select-agreement-line": "Select agreement line",
-    "matching-summary.label": "Matching summary"
+    "matching-summary.label": "Matching summary",
+    "matching-summary.date-of-last-harvest": "Date of last harvest",
+    "matching-summary.status": "Status",
+    "matching-summary.records-loaded": "Records loaded",
+    "matching-summary.matched": "Matched",
+    "matching-summary.unmatched": "Unmatched",
+    "matching-summary.ignored": "Ignored"
 }
