@@ -10,7 +10,7 @@ function MatchingSummary({ data, resources }) {
 
   const categories = [
     {
-      label: 'records-loaded',
+      label: 'loaded',
       value: records.length,
       token: 'loaded',
     },

@@ -9,7 +9,7 @@
   "matching-summary.status": "Status",
   "matching-summary.status.reviewed": "Reviewed",
   "matching-summary.status.pending": "Pending review",
-  "matching-summary.records-loaded": "Records loaded",
+  "matching-summary.loaded": "Records loaded",
   "matching-summary.matched": "Matched",
   "matching-summary.unmatched": "Unmatched",
   "matching-summary.ignored": "Ignored",
