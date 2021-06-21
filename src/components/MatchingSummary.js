@@ -97,7 +97,7 @@ MatchingSummary.propTypes = {
       PropTypes.object.isRequired, // XXX tighten up
     ),
     usageDataProvider: PropTypes.shape({
-      harvestingDate: PropTypes.string.isRequired,
+      harvestingDate: PropTypes.string,
     }).isRequired,
   }).isRequired,
   resources: PropTypes.shape({
