@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import { stripesConnect } from '@folio/stripes/core';
-import { Row, Col, KeyValue } from '@folio/stripes/components';
+import { AccordionSet, Accordion, Row, Col, KeyValue } from '@folio/stripes/components';
 
 
 function MatchingSummary({ data, resources }) {
@@ -50,20 +50,25 @@ function MatchingSummary({ data, resources }) {
       </Row>
 
       <hr />
-      <h3>COUNTER Reports</h3>
-      <pre>
-        {JSON.stringify(data.counterReports, null, 2)}
-      </pre>
+      <AccordionSet>
+        <Accordion closedByDefault label={`${data.counterReports.length} COUNTER Reports`}>
+          <pre>
+            {JSON.stringify(data.counterReports, null, 2)}
+          </pre>
+        </Accordion>
 
-      <h3>Report titles</h3>
-      <pre>
-        {JSON.stringify(resources.reportTitles.records, null, 2)}
-      </pre>
+        <Accordion closedByDefault label={`${resources.reportTitles.records.length} report titles`}>
+          <pre>
+            {JSON.stringify(resources.reportTitles.records, null, 2)}
+          </pre>
+        </Accordion>
 
-      <h3>Title data</h3>
-      <pre>
-        {JSON.stringify(resources.titleData.records, null, 2)}
-      </pre>
+        <Accordion closedByDefault label={`${resources.titleData.records.length} title-data entries`}>
+          <pre>
+            {JSON.stringify(resources.titleData.records, null, 2)}
+          </pre>
+        </Accordion>
+      </AccordionSet>
     </>
   );
 }
