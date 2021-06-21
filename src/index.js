@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Accordion } from '@folio/stripes/components';
 import CostPerUse from './reports/CostPerUse';
@@ -30,5 +31,12 @@ const PluginEusageReports = ({ data }) => {
 PluginEusageReports.eventHandler = (event, _stripes, _data) => (
   event === 'ui-agreements-extension' ? PluginEusageReports : null
 );
+
+PluginEusageReports.propTypes = {
+  data: PropTypes.shape({
+    op: PropTypes.string.isRequired,
+    data: PropTypes.object.isRequired,
+  }),
+};
 
 export default PluginEusageReports;
