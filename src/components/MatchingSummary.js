@@ -40,7 +40,7 @@ function MatchingSummary({ data, resources }) {
             <Col key={cat.key} xs={3} onClick={() => setShowMatches(true)} style={{ cursor: 'pointer' }}>
               <KeyValue
                 label={<FormattedMessage id={`ui-plugin-eusage-reports.matching-summary.${cat.key}`} />}
-                value={cat.value}
+                value={<span style={{ color: '#008', textDecoration: 'underline' }}>{cat.value}</span>}
               />
             </Col>
           ))
