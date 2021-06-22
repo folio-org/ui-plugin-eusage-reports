@@ -70,13 +70,16 @@ function MatchingSummaryView({ data, resources }) {
         </Accordion>
       </AccordionSet>
 
-      <Layer isOpen={showMatches} contentLabel="eUsage titles">
-        <Paneset isRoot>
-          <Pane defaultWidth="fill">
-            <MatchEditor matchType={matchType} onClose={() => setShowMatches(false)} />
-          </Pane>
-        </Paneset>
-      </Layer>
+      {
+        showMatches &&
+        <Layer isOpen={true} contentLabel="eUsage titles">
+          <Paneset isRoot>
+            <Pane defaultWidth="fill">
+              <MatchEditor matchType={matchType} onClose={() => setShowMatches(false)} />
+            </Pane>
+          </Paneset>
+        </Layer>
+      }
     </>
   );
 }
