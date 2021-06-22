@@ -7,6 +7,8 @@ import { AccordionSet, Accordion, Row, Col, KeyValue, Button, Layer, Paneset, Pa
 
 function MatchingSummary({ data, resources }) {
   const [showMatches, setShowMatches] = useState(false);
+  const [matchType, setMatchType] = useState();
+  const matchTitlesOfType = (key) => { setShowMatches(true); setMatchType(key); };
 
   const { records } = resources.reportTitles;
   const categories = [
@@ -37,7 +39,7 @@ function MatchingSummary({ data, resources }) {
       <Row>
         {
           categories.map(cat => (
-            <Col key={cat.key} xs={3} onClick={() => setShowMatches(true)} style={{ cursor: 'pointer' }}>
+            <Col key={cat.key} xs={3} onClick={() => matchTitlesOfType(cat.key)} style={{ cursor: 'pointer' }}>
               <KeyValue
                 label={<FormattedMessage id={`ui-plugin-eusage-reports.matching-summary.${cat.key}`} />}
                 value={<span style={{ color: '#008', textDecoration: 'underline' }}>{cat.value}</span>}
@@ -71,7 +73,7 @@ function MatchingSummary({ data, resources }) {
       <Layer isOpen={showMatches} contentLabel="eUsage titles">
         <Paneset isRoot>
           <Pane defaultWidth="fill">
-            Match editor goes here
+            Match editor for <code>{matchType}</code> goes here
             <Button onClick={() => setShowMatches(false)}>Dismiss</Button>
           </Pane>
         </Paneset>
