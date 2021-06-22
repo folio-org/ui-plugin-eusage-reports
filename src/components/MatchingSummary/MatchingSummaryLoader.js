@@ -4,7 +4,13 @@ import MatchingSummaryView from './MatchingSummaryView';
 
 
 function MatchingSummaryLoader({ data, resources }) {
-  return <MatchingSummaryView data={data} resources={resources} />;
+  return <MatchingSummaryView
+    data={{
+      ...data,
+      reportTitles: resources.reportTitles.records,
+      titleData: resources.titleData.records,
+    }}
+  />;
 }
 
 

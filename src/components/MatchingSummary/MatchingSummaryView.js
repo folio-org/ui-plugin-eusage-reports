@@ -5,12 +5,12 @@ import { AccordionSet, Accordion, Row, Col, KeyValue, Layer } from '@folio/strip
 import MatchEditor from './MatchEditor';
 
 
-function MatchingSummaryView({ data, resources }) {
+function MatchingSummaryView({ data }) {
   const [showMatches, setShowMatches] = useState(false);
   const [matchType, setMatchType] = useState();
   const matchTitlesOfType = (key) => { setShowMatches(true); setMatchType(key); };
 
-  const { records } = resources.reportTitles;
+  const records = data.reportTitles;
   const categories = [
     { key: 'loaded', value: records.length },
     { key: 'matched', value: records.filter(r => r.kbTitleId).length },
@@ -57,15 +57,15 @@ function MatchingSummaryView({ data, resources }) {
           </pre>
         </Accordion>
 
-        <Accordion closedByDefault label={`${resources.reportTitles.records.length} report titles`}>
+        <Accordion closedByDefault label={`${data.reportTitles.length} report titles`}>
           <pre>
-            {JSON.stringify(resources.reportTitles.records, null, 2)}
+            {JSON.stringify(data.reportTitles, null, 2)}
           </pre>
         </Accordion>
 
-        <Accordion closedByDefault label={`${resources.titleData.records.length} title-data entries`}>
+        <Accordion closedByDefault label={`${data.titleData.length} title-data entries`}>
           <pre>
-            {JSON.stringify(resources.titleData.records, null, 2)}
+            {JSON.stringify(data.titleData, null, 2)}
           </pre>
         </Accordion>
       </AccordionSet>
@@ -89,10 +89,12 @@ MatchingSummaryView.propTypes = {
     usageDataProvider: PropTypes.shape({
       harvestingDate: PropTypes.string,
     }).isRequired,
-  }).isRequired,
-  resources: PropTypes.shape({
-    reportTitles: PropTypes.object, // XXX tighten up
-    titleData: PropTypes.object, // XXX tighten up
+    reportTitles: PropTypes.arrayOf(
+      PropTypes.object.isRequired, // XXX tighten up
+    ),
+    titleData: PropTypes.arrayOf(
+      PropTypes.object.isRequired, // XXX tighten up
+    ),
   }).isRequired,
 };
 
