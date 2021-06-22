@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import { stripesConnect } from '@folio/stripes/core';
 import { AccordionSet, Accordion, Row, Col, KeyValue, Button, Layer, Paneset, Pane } from '@folio/stripes/components';
 
 
-function MatchingSummary({ data, resources }) {
+function MatchingSummaryView({ data, resources }) {
   const [showMatches, setShowMatches] = useState(false);
   const [matchType, setMatchType] = useState();
   const matchTitlesOfType = (key) => { setShowMatches(true); setMatchType(key); };
@@ -83,29 +82,7 @@ function MatchingSummary({ data, resources }) {
 }
 
 
-MatchingSummary.manifest = {
-  reportTitles: {
-    type: 'okapi',
-    path: 'eusage-reports/report-titles',
-    records: 'titles',
-  },
-  titleData: {
-    type: 'okapi',
-    path: 'eusage-reports/title-data',
-    records: 'data',
-  },
-  /*
-  // NOT YET USED
-  reportData: {
-    type: 'okapi',
-    path: 'eusage-reports/report-data',
-    records: 'data',
-  },
-  */
-};
-
-
-MatchingSummary.propTypes = {
+MatchingSummaryView.propTypes = {
   data: PropTypes.shape({
     counterReports: PropTypes.arrayOf(
       PropTypes.object.isRequired, // XXX tighten up
@@ -121,4 +98,4 @@ MatchingSummary.propTypes = {
 };
 
 
-export default stripesConnect(MatchingSummary);
+export default MatchingSummaryView;

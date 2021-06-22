@@ -1,1 +1,1 @@
-export { default } from './MatchingSummary';
+export { default } from './MatchingSummaryLoader';
