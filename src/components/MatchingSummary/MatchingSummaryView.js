@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import { AccordionSet, Accordion, Row, Col, KeyValue, Layer, Paneset, Pane } from '@folio/stripes/components';
+import { AccordionSet, Accordion, Row, Col, KeyValue, Layer } from '@folio/stripes/components';
 import MatchEditor from './MatchEditor';
 
 
@@ -72,12 +72,8 @@ function MatchingSummaryView({ data, resources }) {
 
       {
         showMatches &&
-        <Layer isOpen={true} contentLabel="eUsage titles">
-          <Paneset isRoot>
-            <Pane defaultWidth="fill">
-              <MatchEditor matchType={matchType} onClose={() => setShowMatches(false)} />
-            </Pane>
-          </Paneset>
+        <Layer isOpen contentLabel="Match editor">
+          <MatchEditor matchType={matchType} onClose={() => setShowMatches(false)} />
         </Layer>
       }
     </>

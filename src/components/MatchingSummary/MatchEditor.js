@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
-import { Button } from '@folio/stripes/components';
+import { Paneset, Pane, Button } from '@folio/stripes/components';
 
 
 function MatchEditor({ matchType, onClose }) {
   return (
-    <>
-      <h1>Match editor for <code>{matchType}</code></h1>
-      <Button onClick={onClose}>Dismiss</Button>
-    </>
+    <Paneset isRoot>
+      <Pane defaultWidth="fill">
+        <h1>Match editor for <code>{matchType}</code></h1>
+        <Button onClick={onClose}>Dismiss</Button>
+      </Pane>
+    </Paneset>
   );
 }
 
