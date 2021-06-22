@@ -5,8 +5,12 @@ import { Paneset, Pane, Button } from '@folio/stripes/components';
 function MatchEditor({ matchType, onClose }) {
   return (
     <Paneset isRoot>
-      <Pane defaultWidth="fill">
-        <h1>Match editor for <code>{matchType}</code></h1>
+      <Pane
+        defaultWidth="fill"
+        dismissible
+        onClose={onClose}
+        paneTitle={<>Match editor for <code>{matchType}</code></>}
+      >
         <Button onClick={onClose}>Dismiss</Button>
       </Pane>
     </Paneset>
