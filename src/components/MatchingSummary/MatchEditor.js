@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Paneset, Pane, ButtonGroup, Button } from '@folio/stripes/components';
+import { Paneset, Pane, Layout, ButtonGroup, Button } from '@folio/stripes/components';
 import generateTitleCategories from '../../util/generateTitleCategories';
 
 
@@ -18,7 +18,7 @@ function MatchEditor({ matchType, onClose, data }) {
         onClose={onClose}
         paneTitle={<>Match editor for <code>{currentMatchType}</code></>}
       >
-        <div style={{ textAlign: 'center', margin: 'auto' }}>
+        <Layout className="textCentered">
           <ButtonGroup>
             {
               categories.map(cat => (
@@ -33,7 +33,7 @@ function MatchEditor({ matchType, onClose, data }) {
               ))
             }
           </ButtonGroup>
-        </div>
+        </Layout>
 
         <ol>
           {
