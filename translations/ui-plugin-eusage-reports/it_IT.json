@@ -8,8 +8,10 @@
     "matching-summary.label": "Matching summary",
     "matching-summary.date-of-last-harvest": "Date of last harvest",
     "matching-summary.status": "Status",
-    "matching-summary.records-loaded": "Records loaded",
     "matching-summary.matched": "Matched",
     "matching-summary.unmatched": "Unmatched",
-    "matching-summary.ignored": "Ignored"
+    "matching-summary.ignored": "Ignored",
+    "matching-summary.status.reviewed": "Reviewed",
+    "matching-summary.status.pending": "Pending review",
+    "matching-summary.loaded": "Records loaded"
 }

@@ -6,10 +6,12 @@
     "SENTINEL": "",
     "costPerUse.select-agreement-line": "Selecione a linha de acordo",
     "matching-summary.label": "Matching summary",
-    "matching-summary.date-of-last-harvest": "Date of last harvest",
+    "matching-summary.date-of-last-harvest": "Data da último harvest",
     "matching-summary.status": "Status",
-    "matching-summary.records-loaded": "Records loaded",
     "matching-summary.matched": "Matched",
     "matching-summary.unmatched": "Unmatched",
-    "matching-summary.ignored": "Ignored"
+    "matching-summary.ignored": "Ignorado",
+    "matching-summary.status.reviewed": "Revisado",
+    "matching-summary.status.pending": "Revisão pendente",
+    "matching-summary.loaded": "Registros carregados"
 }

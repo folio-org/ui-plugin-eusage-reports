@@ -8,8 +8,10 @@
     "matching-summary.label": "Matching summary",
     "matching-summary.date-of-last-harvest": "Date du dernier moissonnage",
     "matching-summary.status": "Statut",
-    "matching-summary.records-loaded": "Enregistrements chargés",
     "matching-summary.matched": "Matched",
     "matching-summary.unmatched": "Unmatched",
-    "matching-summary.ignored": "Ignoré"
+    "matching-summary.ignored": "Ignoré",
+    "matching-summary.status.reviewed": "Reviewed",
+    "matching-summary.status.pending": "Pending review",
+    "matching-summary.loaded": "Enregistrements chargés"
 }
