@@ -16,7 +16,10 @@ function MatchEditor({ matchType, onClose, data }) {
         defaultWidth="fill"
         dismissible
         onClose={onClose}
-        paneTitle={<>Match editor for <code>{currentMatchType}</code></>}
+        paneTitle={<FormattedMessage
+          id="ui-plugin-eusage-reports.matching-summary.matcher-heading"
+          values={{ label: data.usageDataProvider.label }}
+        />}
       >
         <Layout className="textCentered">
           <ButtonGroup>
@@ -58,7 +61,7 @@ function MatchEditor({ matchType, onClose, data }) {
           formatter={{
             id: r => r.id.substring(0, 8),
             kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
-            action: r => '...',
+            action: () => '...',
           }}
         />
       </Pane>

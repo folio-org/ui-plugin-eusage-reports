@@ -13,6 +13,7 @@
   "matching-summary.matched": "Matched",
   "matching-summary.unmatched": "Unmatched",
   "matching-summary.ignored": "Ignored",
+  "matching-summary.matcher-heading": "eUsage titles — {label}",
   "column.id": "ID",
   "column.counterReportTitle": "Title",
   "column.kbTitleName": "Title in KB",
