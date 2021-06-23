@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Paneset, Pane, Layout, ButtonGroup, Button } from '@folio/stripes/components';
+import { Paneset, Pane, Layout, ButtonGroup, Button, MultiColumnList } from '@folio/stripes/components';
 import generateTitleCategories from '../../util/generateTitleCategories';
 
 
@@ -35,15 +35,32 @@ function MatchEditor({ matchType, onClose, data }) {
           </ButtonGroup>
         </Layout>
 
-        <ol>
-          {
-            dataSet.map((entry, i) => (
-              <li key={i}>
-                {JSON.stringify(entry)}
-              </li>
-            ))
-          }
-        </ol>
+        <MultiColumnList
+          autosize
+          contentData={dataSet}
+          visibleColumns={['id', 'counterReportTitle', 'kbTitleName', 'kbTitleId', 'kbManualMatch', 'action']}
+          columnMapping={{
+            id: <FormattedMessage id="ui-plugin-eusage-reports.column.id" />,
+            counterReportTitle: <FormattedMessage id="ui-plugin-eusage-reports.column.counterReportTitle" />,
+            kbTitleName: <FormattedMessage id="ui-plugin-eusage-reports.column.kbTitleName" />,
+            kbTitleId: <FormattedMessage id="ui-plugin-eusage-reports.column.kbTitleId" />,
+            kbManualMatch: <FormattedMessage id="ui-plugin-eusage-reports.column.kbManualMatch" />,
+            action: <FormattedMessage id="ui-plugin-eusage-reports.column.action" />,
+          }}
+          columnWidths={{
+            id: '90px',
+            counterReportTitle: '300px',
+            kbTitleName: '300px',
+            kbTitleId: '90px',
+            kbManualMatch: '120px',
+            action: '100px',
+          }}
+          formatter={{
+            id: r => r.id.substring(0, 8),
+            kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
+            action: r => '...',
+          }}
+        />
       </Pane>
     </Paneset>
   );

@@ -13,5 +13,11 @@
   "matching-summary.matched": "Matched",
   "matching-summary.unmatched": "Unmatched",
   "matching-summary.ignored": "Ignored",
+  "column.id": "ID",
+  "column.counterReportTitle": "Title",
+  "column.kbTitleName": "Title in KB",
+  "column.kbTitleId": "ID in KB",
+  "column.kbManualMatch": "Manual Match?",
+  "column.action": "Action",
   "SENTINEL": ""
 }
