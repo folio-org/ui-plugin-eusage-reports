@@ -8,8 +8,10 @@
     "matching-summary.label": "ملخص المطابقة",
     "matching-summary.date-of-last-harvest": "تاريخ آخر حصاد",
     "matching-summary.status": "الحالة",
-    "matching-summary.records-loaded": "تم تحميل التسجيلات",
     "matching-summary.matched": "متطابق",
     "matching-summary.unmatched": "غير متطابق",
-    "matching-summary.ignored": "تجاهل"
+    "matching-summary.ignored": "تجاهل",
+    "matching-summary.status.reviewed": "تم مراجعته",
+    "matching-summary.status.pending": "في انتظار المراجعة",
+    "matching-summary.loaded": "تم تحميل التسجيلات"
 }
