@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import { AccordionSet, Accordion, Row, Col, KeyValue, Layer } from '@folio/stripes/components';
@@ -13,6 +13,12 @@ function MatchingSummaryView({ data }) {
 
   const categories = generateTitleCategories(data.reportTitles);
   const nUnmatched = categories.filter(c => c.key === 'unmatched')[0].data.length;
+
+  const pluginPaneTitleRef = React.useRef();
+  const focusHandler = () => {
+    // eslint-disable-next-line no-unused-expressions
+    pluginPaneTitleRef.current?.focus();
+  };
 
   return (
     <>
@@ -67,11 +73,12 @@ function MatchingSummaryView({ data }) {
 
       {
         showMatches &&
-        <Layer isOpen contentLabel="Match editor">
+        <Layer isOpen contentLabel="Match editor" afterOpen={focusHandler}>
           <MatchEditor
             onClose={() => setShowMatches(false)}
             matchType={matchType}
             data={data}
+            paneTitleRef={pluginPaneTitleRef}
           />
         </Layer>
       }

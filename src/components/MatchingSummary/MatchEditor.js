@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Paneset, Pane, Layout, ButtonGroup, Button, MultiColumnList } from '@folio/stripes/components';
+import { HasCommand, Paneset, Pane, Layout, ButtonGroup, Button, MultiColumnList } from '@folio/stripes/components';
 import generateTitleCategories from '../../util/generateTitleCategories';
 
 
-function MatchEditor({ matchType, onClose, data }) {
+function MatchEditor({ matchType, onClose, data, paneTitleRef }) {
   const [currentMatchType, setCurrentMatchType] = useState(matchType);
   const categories = generateTitleCategories(data.reportTitles);
   const dataSet = categories.filter(c => c.key === currentMatchType)[0].data;
 
   return (
+    <HasCommand commands={[{ name: 'close', handler: onClose }]}>
     <Paneset isRoot>
       <Pane
         defaultWidth="fill"
@@ -20,6 +21,7 @@ function MatchEditor({ matchType, onClose, data }) {
           id="ui-plugin-eusage-reports.matching-summary.matcher-heading"
           values={{ label: data.usageDataProvider.label }}
         />}
+        paneTitleRef={paneTitleRef}
       >
         <Layout className="textCentered">
           <ButtonGroup>
@@ -66,6 +68,7 @@ function MatchEditor({ matchType, onClose, data }) {
         />
       </Pane>
     </Paneset>
+    </HasCommand>
   );
 }
 
@@ -74,6 +77,7 @@ MatchEditor.propTypes = {
   matchType: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired, // XXX tighten this up
+  paneTitleRef: PropTypes.object.isRequired,
 };
 
 
