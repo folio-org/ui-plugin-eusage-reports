@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Accordion } from '@folio/stripes/components';
 import CostPerUse from './reports/CostPerUse';
-import MatchingSummary from './components/MatchingSummary';
+import MatchingSummary from './loaders/MatchingSummaryLoader.js';
 
 const PluginEusageReports = ({ data }) => {
   if (data?.op === 'match-names') {

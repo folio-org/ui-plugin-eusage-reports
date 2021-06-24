@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { stripesConnect } from '@folio/stripes/core';
-import MatchingSummaryView from './MatchingSummaryView';
+import MatchingSummaryView from '../components/MatchingSummaryView';
 
 
 function MatchingSummaryLoader({ data, resources }) {

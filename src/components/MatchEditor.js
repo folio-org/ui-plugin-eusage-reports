@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { HasCommand, Paneset, Pane, Layout, ButtonGroup, Button, MultiColumnList } from '@folio/stripes/components';
-import generateTitleCategories from '../../util/generateTitleCategories';
+import generateTitleCategories from '../util/generateTitleCategories';
 
 
 function MatchEditor({ matchType, onClose, data, paneTitleRef }) {

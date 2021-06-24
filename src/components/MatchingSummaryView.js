@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import { AccordionSet, Accordion, Row, Col, KeyValue, Layer } from '@folio/stripes/components';
 import MatchEditor from './MatchEditor';
-import generateTitleCategories from '../../util/generateTitleCategories';
+import generateTitleCategories from '../util/generateTitleCategories';
 
 
 function MatchingSummaryView({ data }) {
