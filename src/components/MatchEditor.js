@@ -1,11 +1,23 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import { HasCommand, Paneset, Pane, Layout, ButtonGroup, Button, MultiColumnList } from '@folio/stripes/components';
+import { useIntl, FormattedMessage } from 'react-intl';
+import {
+  HasCommand,
+  Paneset,
+  Pane,
+  Layout,
+  ButtonGroup,
+  Button,
+  MultiColumnList,
+  Dropdown,
+  IconButton,
+  DropdownMenu
+} from '@folio/stripes/components';
 import generateTitleCategories from '../util/generateTitleCategories';
 
 
 function MatchEditor({ matchType, onClose, data, paneTitleRef }) {
+  const intl = useIntl();
   const [currentMatchType, setCurrentMatchType] = useState(matchType);
   const categories = generateTitleCategories(data.reportTitles);
   const dataSet = categories.filter(c => c.key === currentMatchType)[0].data;
@@ -63,7 +75,44 @@ function MatchEditor({ matchType, onClose, data, paneTitleRef }) {
             formatter={{
               id: r => r.id.substring(0, 8),
               kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
-              action: () => '...',
+              action: r => (
+                <Dropdown
+                  id={`menu-${r.id}`}
+                  renderTrigger={({ getTriggerProps }) => (
+                    <IconButton
+                      {...getTriggerProps()}
+                      icon="ellipsis"
+                      aria-label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.column.action' })}
+                    />
+                  )}
+                  renderMenu={({ onToggle }) => (
+                    <DropdownMenu role="menu" aria-label="XXX actions">
+                      <Button
+                        role="menuitem"
+                        buttonStyle="dropdownItem"
+                        data-test-dropdown-edit
+                        onClick={e => {
+                          console.log('edit', e);
+                          onToggle(e);
+                        }}
+                      >
+                        Edit match
+                      </Button>
+                      <Button
+                        role="menuitem"
+                        buttonStyle="dropdownItem"
+                        data-test-dropdown-ignore
+                        onClick={e => {
+                          console.log('ignore', e);
+                          onToggle(e);
+                        }}
+                      >
+                        Ignore
+                      </Button>
+                    </DropdownMenu>
+                  )}
+                />
+              ),
             }}
           />
         </Pane>
