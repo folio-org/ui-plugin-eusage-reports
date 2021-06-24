@@ -13,6 +13,7 @@ function MatchingSummaryView({ data }) {
 
   const categories = generateTitleCategories(data.reportTitles);
   const nUnmatched = categories.filter(c => c.key === 'unmatched')[0].data.length;
+  const status = nUnmatched === 0 ? 'reviewed' : 'pending';
 
   const pluginPaneTitleRef = React.useRef();
   const focusHandler = () => {
@@ -32,7 +33,7 @@ function MatchingSummaryView({ data }) {
         <Col xs={3}>
           <KeyValue
             label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.status" />}
-            value={<FormattedMessage id={`ui-plugin-eusage-reports.matching-summary.status.${nUnmatched === 0 ? 'reviewed' : 'pending'}`} />}
+            value={<FormattedMessage id={`ui-plugin-eusage-reports.matching-summary.status.${status}`} />}
           />
         </Col>
       </Row>
