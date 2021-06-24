@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import { AccordionSet, Accordion, Row, Col, KeyValue, Layer } from '@folio/stripes/components';
-import MatchEditor from './MatchEditor';
+import MatchEditorLoader from '../loaders/MatchEditorLoader';
 import generateTitleCategories from '../util/generateTitleCategories';
 
 
@@ -74,7 +74,7 @@ function MatchingSummaryView({ data }) {
       {
         showMatches &&
         <Layer isOpen contentLabel="Match editor" afterOpen={focusHandler}>
-          <MatchEditor
+          <MatchEditorLoader
             onClose={() => setShowMatches(false)}
             matchType={matchType}
             data={data}
