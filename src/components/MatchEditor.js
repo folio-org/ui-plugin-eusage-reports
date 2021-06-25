@@ -144,7 +144,17 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
 MatchEditor.propTypes = {
   matchType: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired, // XXX tighten this up
+  data: PropTypes.shape({
+    usageDataProvider: PropTypes.shape({
+      label: PropTypes.string.isRequired,
+    }).isRequired,
+    reportTitles: PropTypes.arrayOf(
+      PropTypes.shape({
+        kbTitleId: PropTypes.string,
+        kbManualMatch: PropTypes.bool.isRequired,
+      }).isRequired,
+    ).isRequired,
+  }).isRequired,
   mutator: PropTypes.shape({
     updateReportTitles: PropTypes.shape({
       POST: PropTypes.func.isRequired,
