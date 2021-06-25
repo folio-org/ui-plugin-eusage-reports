@@ -6,7 +6,7 @@ import MatchEditorLoader from '../loaders/MatchEditorLoader';
 import generateTitleCategories from '../util/generateTitleCategories';
 
 
-function MatchingSummaryView({ data }) {
+function MatchingSummaryView({ data, mutator }) {
   const [showMatches, setShowMatches] = useState(false);
   const [matchType, setMatchType] = useState();
   const matchTitlesOfType = (key) => { setShowMatches(true); setMatchType(key); };
@@ -79,6 +79,7 @@ function MatchingSummaryView({ data }) {
             onClose={() => setShowMatches(false)}
             matchType={matchType}
             data={data}
+            mutator={mutator}
             paneTitleRef={pluginPaneTitleRef}
           />
         </Layer>
@@ -103,6 +104,7 @@ MatchingSummaryView.propTypes = {
       PropTypes.object.isRequired, // XXX tighten up
     ),
   }).isRequired,
+  mutator: PropTypes.object.isRequired,
 };
 
 

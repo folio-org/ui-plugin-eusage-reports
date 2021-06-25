@@ -16,7 +16,63 @@ import {
 import generateTitleCategories from '../util/generateTitleCategories';
 
 
-function MatchEditor({ matchType, onClose, data, paneTitleRef }) {
+function actionMenu(intl, mutator, rec) {
+  const ignored = rec.kbManualMatch && !rec.kbTitleId;
+
+  return (
+    <Dropdown
+      id={`menu-${rec.id}`}
+      renderTrigger={({ getTriggerProps }) => (
+        <IconButton
+          {...getTriggerProps()}
+          icon="ellipsis"
+          aria-label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.column.action' })}
+        />
+      )}
+      renderMenu={({ onToggle }) => (
+        <DropdownMenu role="menu" aria-label="XXX actions">
+          <Button
+            role="menuitem"
+            buttonStyle="dropdownItem"
+            data-test-dropdown-edit
+            onClick={e => {
+              console.log('edit', e);
+              onToggle(e);
+            }}
+          >
+            <FormattedMessage id="ui-plugin-eusage-reports.action.edit" />
+          </Button>
+          <Button
+            role="menuitem"
+            buttonStyle="dropdownItem"
+            data-test-dropdown-ignore
+            onClick={e => {
+              if (ignored) {
+                rec.kbManualMatch = false;
+              } else {
+                rec.kbManualMatch = true;
+              }
+              console.log('mutator =', mutator);
+              mutator.updateReportTitles.POST(rec)
+                .then(res => {
+                  console.log('mutation completed:', res);
+                })
+                .catch(err => {
+                  console.log('mutation failed:', err);
+                });
+              onToggle(e);
+            }}
+          >
+            <FormattedMessage id={`ui-plugin-eusage-reports.action.${ignored ? 'unignore' : 'ignore'}`} />
+          </Button>
+        </DropdownMenu>
+      )}
+    />
+  );
+}
+
+
+function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
   const intl = useIntl();
   const [currentMatchType, setCurrentMatchType] = useState(matchType);
   const categories = generateTitleCategories(data.reportTitles);
@@ -75,44 +131,7 @@ function MatchEditor({ matchType, onClose, data, paneTitleRef }) {
             formatter={{
               id: r => r.id.substring(0, 8),
               kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
-              action: r => (
-                <Dropdown
-                  id={`menu-${r.id}`}
-                  renderTrigger={({ getTriggerProps }) => (
-                    <IconButton
-                      {...getTriggerProps()}
-                      icon="ellipsis"
-                      aria-label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.column.action' })}
-                    />
-                  )}
-                  renderMenu={({ onToggle }) => (
-                    <DropdownMenu role="menu" aria-label="XXX actions">
-                      <Button
-                        role="menuitem"
-                        buttonStyle="dropdownItem"
-                        data-test-dropdown-edit
-                        onClick={e => {
-                          console.log('edit', e);
-                          onToggle(e);
-                        }}
-                      >
-                        Edit match
-                      </Button>
-                      <Button
-                        role="menuitem"
-                        buttonStyle="dropdownItem"
-                        data-test-dropdown-ignore
-                        onClick={e => {
-                          console.log('ignore', e);
-                          onToggle(e);
-                        }}
-                      >
-                        Ignore
-                      </Button>
-                    </DropdownMenu>
-                  )}
-                />
-              ),
+              action: r => actionMenu(intl, mutator, r),
             }}
           />
         </Pane>
@@ -126,6 +145,11 @@ MatchEditor.propTypes = {
   matchType: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired, // XXX tighten this up
+  mutator: PropTypes.shape({
+    updateReportTitles: PropTypes.shape({
+      POST: PropTypes.func.isRequired,
+    }).isRequired,
+  }).isRequired,
   paneTitleRef: PropTypes.object.isRequired,
 };
 

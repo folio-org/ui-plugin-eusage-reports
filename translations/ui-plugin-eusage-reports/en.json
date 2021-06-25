@@ -20,5 +20,8 @@
   "column.kbTitleId": "ID in KB",
   "column.kbManualMatch": "Manual Match?",
   "column.action": "Action",
+  "action.edit": "Edit",
+  "action.ignore": "Ignore",
+  "action.unignore": "Stop ignoring",
   "SENTINEL": ""
 }

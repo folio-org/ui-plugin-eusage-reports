@@ -3,13 +3,14 @@ import { stripesConnect } from '@folio/stripes/core';
 import MatchingSummaryView from '../components/MatchingSummaryView';
 
 
-function MatchingSummaryLoader({ data, resources }) {
+function MatchingSummaryLoader({ data, resources, mutator }) {
   return <MatchingSummaryView
     data={{
       ...data,
       reportTitles: resources.reportTitles.records,
       titleData: resources.titleData.records,
     }}
+    mutator={mutator}
   />;
 }
 
@@ -22,38 +23,32 @@ MatchingSummaryLoader.manifest = {
       const udpId = props.data.usageDataProvider.id;
       return udpId ? { providerId: udpId } : null;
     },
-
     records: 'titles',
+  },
+  updateReportTitles: {
+    type: 'okapi',
+    path: 'eusage-reports/report-titles',
+    fetch: false,
   },
   titleData: {
     type: 'okapi',
     path: 'eusage-reports/title-data',
     records: 'data',
   },
-  /*
-  // NOT YET USED
-  reportData: {
-    type: 'okapi',
-    path: 'eusage-reports/report-data',
-    records: 'data',
-  },
-  */
 };
 
 
 MatchingSummaryLoader.propTypes = {
   data: PropTypes.shape({
-    counterReports: PropTypes.arrayOf(
-      PropTypes.object.isRequired, // XXX tighten up
-    ),
     usageDataProvider: PropTypes.shape({
-      harvestingDate: PropTypes.string,
+      id: PropTypes.string,
     }).isRequired,
   }).isRequired,
   resources: PropTypes.shape({
-    reportTitles: PropTypes.object, // XXX tighten up
-    titleData: PropTypes.object, // XXX tighten up
+    reportTitles: PropTypes.object,
+    titleData: PropTypes.object,
   }).isRequired,
+  mutator: PropTypes.object.isRequired,
 };
 
 
