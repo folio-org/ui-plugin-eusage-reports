@@ -92,16 +92,19 @@ function MatchingSummaryView({ data, mutator }) {
 MatchingSummaryView.propTypes = {
   data: PropTypes.shape({
     counterReports: PropTypes.arrayOf(
-      PropTypes.object.isRequired, // XXX tighten up
+      PropTypes.object.isRequired,
     ),
     usageDataProvider: PropTypes.shape({
       harvestingDate: PropTypes.string,
     }).isRequired,
     reportTitles: PropTypes.arrayOf(
-      PropTypes.object.isRequired, // XXX tighten up
-    ),
+      PropTypes.shape({
+        kbTitleId: PropTypes.string,
+        kbManualMatch: PropTypes.bool.isRequired,
+      }).isRequired,
+    ).isRequired,
     titleData: PropTypes.arrayOf(
-      PropTypes.object.isRequired, // XXX tighten up
+      PropTypes.object.isRequired,
     ),
   }).isRequired,
   mutator: PropTypes.object.isRequired,
