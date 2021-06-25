@@ -18,6 +18,7 @@ import generateTitleCategories from '../util/generateTitleCategories';
 
 function actionMenu(intl, mutator, rec) {
   const ignored = rec.kbManualMatch && !rec.kbTitleId;
+  const actionLabel = intl.formatMessage({ id: 'ui-plugin-eusage-reports.column.action' });
 
   return (
     <Dropdown
@@ -26,11 +27,11 @@ function actionMenu(intl, mutator, rec) {
         <IconButton
           {...getTriggerProps()}
           icon="ellipsis"
-          aria-label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.column.action' })}
+          aria-label={actionLabel}
         />
       )}
       renderMenu={({ onToggle }) => (
-        <DropdownMenu role="menu" aria-label="XXX actions">
+        <DropdownMenu role="menu" aria-label={actionLabel}>
           <Button
             role="menuitem"
             buttonStyle="dropdownItem"
