@@ -52,7 +52,6 @@ function actionMenu(intl, mutator, rec) {
               } else {
                 rec.kbManualMatch = true;
               }
-              console.log('mutator =', mutator);
               mutator.updateReportTitles.POST(rec)
                 .then(res => {
                   console.log('mutation completed:', res);
