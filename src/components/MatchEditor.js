@@ -28,6 +28,30 @@ function maybeLinkTitle(rec) {
 }
 
 
+function handleIgnore(e, onToggle, mutator, rec) {
+  const ignored = rec.kbManualMatch && !rec.kbTitleId;
+  onToggle(e);
+
+  if (ignored) {
+    // Stop ignoring
+    rec.kbManualMatch = false;
+  } else {
+    // Ignore
+    rec.kbManualMatch = true;
+    rec.kbTitleId = undefined;
+    rec.kbTitleName = undefined;
+  }
+
+  mutator.updateReportTitles.POST(rec)
+    .then(res => {
+      console.log('mutation completed:', res);
+    })
+    .catch(err => {
+      console.log('mutation failed:', err);
+    });
+}
+
+
 function actionMenu(intl, mutator, rec) {
   const ignored = rec.kbManualMatch && !rec.kbTitleId;
   const actionLabel = intl.formatMessage({ id: 'ui-plugin-eusage-reports.column.action' });
@@ -59,21 +83,7 @@ function actionMenu(intl, mutator, rec) {
             role="menuitem"
             buttonStyle="dropdownItem"
             data-test-dropdown-ignore
-            onClick={e => {
-              if (ignored) {
-                rec.kbManualMatch = false;
-              } else {
-                rec.kbManualMatch = true;
-              }
-              mutator.updateReportTitles.POST(rec)
-                .then(res => {
-                  console.log('mutation completed:', res);
-                })
-                .catch(err => {
-                  console.log('mutation failed:', err);
-                });
-              onToggle(e);
-            }}
+            onClick={e => handleIgnore(e, onToggle, mutator, rec)}
           >
             <FormattedMessage id={`ui-plugin-eusage-reports.action.${ignored ? 'unignore' : 'ignore'}`} />
           </Button>
