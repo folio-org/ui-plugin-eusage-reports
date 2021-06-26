@@ -28,9 +28,13 @@ function maybeLinkTitle(rec) {
 }
 
 
-function handleIgnore(e, onToggle, mutator, rec) {
+function handleEdit(mutator, rec) {
+  console.log('edit (no-op)');
+}
+
+
+function handleIgnore(mutator, rec) {
   const ignored = rec.kbManualMatch && !rec.kbTitleId;
-  onToggle(e);
 
   if (ignored) {
     // Stop ignoring
@@ -72,10 +76,7 @@ function actionMenu(intl, mutator, rec) {
             role="menuitem"
             buttonStyle="dropdownItem"
             data-test-dropdown-edit
-            onClick={e => {
-              console.log('edit', e);
-              onToggle(e);
-            }}
+            onClick={e => { onToggle(e); handleEdit(mutator, rec); }}
           >
             <FormattedMessage id="ui-plugin-eusage-reports.action.edit" />
           </Button>
@@ -83,7 +84,7 @@ function actionMenu(intl, mutator, rec) {
             role="menuitem"
             buttonStyle="dropdownItem"
             data-test-dropdown-ignore
-            onClick={e => handleIgnore(e, onToggle, mutator, rec)}
+            onClick={e => { onToggle(e); handleIgnore(mutator, rec); }}
           >
             <FormattedMessage id={`ui-plugin-eusage-reports.action.${ignored ? 'unignore' : 'ignore'}`} />
           </Button>
