@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import {
   HasCommand,
   Paneset,
@@ -14,6 +15,18 @@ import {
   DropdownMenu
 } from '@folio/stripes/components';
 import generateTitleCategories from '../util/generateTitleCategories';
+
+
+function maybeLinkTitle(rec) {
+  const kbId = rec.kbTitleId;
+
+  if (!kbId) return rec.counterReportTitle;
+  return (
+    <Link to={`/erm/eresources/${kbId}`}>
+      {rec.counterReportTitle}
+    </Link>
+  );
+}
 
 
 function actionMenu(intl, mutator, rec) {
@@ -129,6 +142,7 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
               action: '100px',
             }}
             formatter={{
+              counterReportTitle: r => maybeLinkTitle(r),
               id: r => r.id.substring(0, 8),
               kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
               action: r => actionMenu(intl, mutator, r),
