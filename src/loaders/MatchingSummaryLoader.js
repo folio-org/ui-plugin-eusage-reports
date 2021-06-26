@@ -7,6 +7,7 @@ function MatchingSummaryLoader({ data, resources, mutator }) {
   return <MatchingSummaryView
     data={{
       ...data,
+      query: resources.query,
       reportTitles: resources.reportTitles.records,
       titleData: resources.titleData.records,
     }}
@@ -16,6 +17,7 @@ function MatchingSummaryLoader({ data, resources, mutator }) {
 
 
 MatchingSummaryLoader.manifest = {
+  query: {},
   reportTitles: {
     type: 'okapi',
     path: 'eusage-reports/report-titles',
@@ -47,6 +49,7 @@ MatchingSummaryLoader.propTypes = {
   resources: PropTypes.shape({
     reportTitles: PropTypes.object,
     titleData: PropTypes.object,
+    query: PropTypes.object.isRequired,
   }).isRequired,
   mutator: PropTypes.object.isRequired,
 };

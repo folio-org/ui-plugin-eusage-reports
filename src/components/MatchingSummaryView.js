@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import { AccordionSet, Accordion, Row, Col, KeyValue, Layer } from '@folio/stripes/components';
@@ -7,9 +7,8 @@ import generateTitleCategories from '../util/generateTitleCategories';
 
 
 function MatchingSummaryView({ data, mutator }) {
-  const [showMatches, setShowMatches] = useState(false);
-  const [matchType, setMatchType] = useState();
-  const matchTitlesOfType = (key) => { setShowMatches(true); setMatchType(key); };
+  const matchType = data.query.matchType;
+  const matchTitlesOfType = (key) => mutator.query.update({ matchType: key });
 
   const categories = generateTitleCategories(data.reportTitles);
   const nUnmatched = categories.filter(c => c.key === 'unmatched')[0].data.length;
@@ -73,10 +72,10 @@ function MatchingSummaryView({ data, mutator }) {
       </AccordionSet>
 
       {
-        showMatches &&
+        data.query.matchType &&
         <Layer isOpen contentLabel="Match editor" afterOpen={focusHandler}>
           <MatchEditorLoader
-            onClose={() => setShowMatches(false)}
+            onClose={() => matchTitlesOfType(null)}
             matchType={matchType}
             data={data}
             mutator={mutator}
@@ -91,6 +90,7 @@ function MatchingSummaryView({ data, mutator }) {
 
 MatchingSummaryView.propTypes = {
   data: PropTypes.shape({
+    query: PropTypes.object.isRequired,
     counterReports: PropTypes.arrayOf(
       PropTypes.object.isRequired,
     ),
@@ -107,7 +107,11 @@ MatchingSummaryView.propTypes = {
       PropTypes.object.isRequired,
     ),
   }).isRequired,
-  mutator: PropTypes.object.isRequired,
+  mutator: PropTypes.shape({
+    query: PropTypes.shape({
+      update: PropTypes.func.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 

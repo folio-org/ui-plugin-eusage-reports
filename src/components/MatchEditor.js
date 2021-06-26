@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
@@ -87,9 +86,8 @@ function actionMenu(intl, mutator, rec) {
 
 function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
   const intl = useIntl();
-  const [currentMatchType, setCurrentMatchType] = useState(matchType);
   const categories = generateTitleCategories(data.reportTitles);
-  const dataSet = categories.filter(c => c.key === currentMatchType)[0].data;
+  const dataSet = categories.filter(c => c.key === matchType)[0].data;
 
   return (
     <HasCommand commands={[{ name: 'close', handler: onClose }]}>
@@ -110,9 +108,9 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
                 categories.map(cat => (
                   <Button
                     key={cat.key}
-                    buttonStyle={`${cat.key === currentMatchType ? 'primary' : 'default'}`}
+                    buttonStyle={`${cat.key === matchType ? 'primary' : 'default'}`}
                     id={`segment-category-${cat.key}`}
-                    onClick={() => setCurrentMatchType(cat.key)}
+                    onClick={() => mutator.query.update({ matchType: cat.key })}
                   >
                     <FormattedMessage id={`ui-plugin-eusage-reports.matching-summary.${cat.key}`} />
                   </Button>
@@ -170,6 +168,9 @@ MatchEditor.propTypes = {
     ).isRequired,
   }).isRequired,
   mutator: PropTypes.shape({
+    query: PropTypes.shape({
+      update: PropTypes.func.isRequired,
+    }).isRequired,
     updateReportTitles: PropTypes.shape({
       POST: PropTypes.func.isRequired,
     }).isRequired,
