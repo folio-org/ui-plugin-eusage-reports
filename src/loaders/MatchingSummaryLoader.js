@@ -31,6 +31,7 @@ MatchingSummaryLoader.manifest = {
     type: 'okapi',
     path: 'eusage-reports/report-titles',
     fetch: false,
+    throwErrors: false,
   },
   titleData: {
     type: 'okapi',

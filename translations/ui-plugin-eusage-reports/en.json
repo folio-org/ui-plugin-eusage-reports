@@ -21,7 +21,14 @@
   "column.kbManualMatch": "Manual Match?",
   "column.action": "Action",
   "action.edit": "Edit",
+  "action.edited": "Title {title} now manually matched",
+  "action.not-edited": "It was not possible to manually match this title: {error}",
   "action.ignore": "Ignore",
   "action.unignore": "Stop ignoring",
+  "action.ignored": "Title {title} will now be ignored",
+  "action.unignored": "Title will no longer be ignored",
+  "action.not-ignored": "It was not possible to ignore this title: {error}",
+  "action.not-unignored": "It was not possible to stop ignoring this title: {error}",
+  "action.no-agreement-plugin": "No agreement plugin",
   "SENTINEL": ""
 }

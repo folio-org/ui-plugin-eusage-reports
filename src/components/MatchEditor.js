@@ -1,7 +1,8 @@
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Pluggable } from '@folio/stripes/core';
+import { CalloutContext, Pluggable } from '@folio/stripes/core';
 import {
   HasCommand,
   Paneset,
@@ -29,7 +30,30 @@ function maybeLinkTitle(rec) {
 }
 
 
-function handleIgnore(mutator, rec) {
+function mutateAndReport(callout, mutator, rec, tag) {
+  mutator.updateReportTitles.POST(rec)
+    .then(() => {
+      callout.sendCallout({
+        message: <FormattedMessage
+          id={`ui-plugin-eusage-reports.action.${tag}`}
+          values={{ title: rec.name }}
+        />
+      });
+    }).catch(err => {
+      err.text().then(text => {
+        callout.sendCallout({
+          type: 'error',
+          message: <FormattedMessage
+            id={`ui-plugin-eusage-reports.action.not-${tag}`}
+            values={{ error: text }}
+          />
+        });
+      });
+    });
+}
+
+
+function handleIgnore(callout, mutator, rec) {
   const ignored = rec.kbManualMatch && !rec.kbTitleId;
 
   if (ignored) {
@@ -42,37 +66,21 @@ function handleIgnore(mutator, rec) {
     rec.kbTitleName = undefined;
   }
 
-  mutator.updateReportTitles.POST(rec)
-    .then(res => {
-      console.log('ignore mutation completed:', res);
-    })
-    .catch(err => {
-      console.log('ignore mutation failed:', err);
-    });
+  mutateAndReport(callout, mutator, rec, ignored ? 'unignored' : 'ignored');
 }
 
 
-function onAgreementSelected(mutator, rec, agreement) {
-  // console.log('mutator =', mutator);
-  // console.log('rec =', rec);
-  // console.log('agreement =', agreement);
-
+function onAgreementSelected(callout, mutator, rec, agreement) {
   delete rec.rowIndex; // I think MCL probably inserts this
   rec.kbManualMatch = true;
   rec.kbTitleId = agreement.id;
   rec.kbTitleName = agreement.name;
 
-  mutator.updateReportTitles.POST(rec)
-    .then(res => {
-      console.log('edit mutation completed:', res);
-    })
-    .catch(err => {
-      console.log('edit mutation failed:', err);
-    });
+  mutateAndReport(callout, mutator, rec, 'edited');
 }
 
 
-function actionMenu(intl, mutator, rec) {
+function actionMenu(intl, callout, mutator, rec) {
   const ignored = rec.kbManualMatch && !rec.kbTitleId;
   const actionLabel = intl.formatMessage({ id: 'ui-plugin-eusage-reports.column.action' });
 
@@ -89,7 +97,7 @@ function actionMenu(intl, mutator, rec) {
       renderMenu={({ onToggle }) => (
         <DropdownMenu role="menu" aria-label={actionLabel}>
           <Pluggable
-            onAgreementSelected={(agreement) => onAgreementSelected(mutator, rec, agreement)}
+            onAgreementSelected={(agreement) => onAgreementSelected(callout, mutator, rec, agreement)}
             renderTrigger={({ onClick }) => {
               return (
                 <Button
@@ -111,7 +119,7 @@ function actionMenu(intl, mutator, rec) {
             role="menuitem"
             buttonStyle="dropdownItem"
             data-test-dropdown-ignore
-            onClick={() => { onToggle(); handleIgnore(mutator, rec); }}
+            onClick={() => { onToggle(); handleIgnore(callout, mutator, rec); }}
           >
             <FormattedMessage id={`ui-plugin-eusage-reports.action.${ignored ? 'unignore' : 'ignore'}`} />
           </Button>
@@ -126,6 +134,7 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
   const intl = useIntl();
   const categories = generateTitleCategories(data.reportTitles);
   const dataSet = categories.filter(c => c.key === matchType)[0].data;
+  const callout = useContext(CalloutContext);
 
   return (
     <HasCommand commands={[{ name: 'close', handler: onClose }]}>
@@ -181,7 +190,7 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
               counterReportTitle: r => maybeLinkTitle(r),
               id: r => r.id.substring(0, 8),
               kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
-              action: r => actionMenu(intl, mutator, r),
+              action: r => actionMenu(intl, callout, mutator, r),
             }}
           />
         </Pane>
