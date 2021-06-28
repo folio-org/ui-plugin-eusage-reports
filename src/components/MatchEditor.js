@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { CalloutContext, Pluggable } from '@folio/stripes/core';
+import { useOkapiKy, CalloutContext, Pluggable } from '@folio/stripes/core';
 import {
   HasCommand,
   Paneset,
@@ -30,8 +30,11 @@ function maybeLinkTitle(rec) {
 }
 
 
-function mutateAndReport(callout, mutator, rec, tag) {
-  mutator.updateReportTitles.POST(rec)
+function mutateAndReport(callout, okapiKy, rec, tag) {
+  okapiKy('eusage-reports/report-titles', {
+    method: 'POST',
+    json: { titles: [rec] }
+  })
     .then(() => {
       callout.sendCallout({
         message: <FormattedMessage
@@ -40,21 +43,20 @@ function mutateAndReport(callout, mutator, rec, tag) {
         />
       });
     }).catch(err => {
-      err.text().then(text => {
-        callout.sendCallout({
-          type: 'error',
-          message: <FormattedMessage
-            id={`ui-plugin-eusage-reports.action.not-${tag}`}
-            values={{ error: text }}
-          />
-        });
+      callout.sendCallout({
+        type: 'error',
+        message: <FormattedMessage
+          id={`ui-plugin-eusage-reports.action.not-${tag}`}
+          values={{ error: err.toString() }}
+        />
       });
     });
 }
 
 
-function handleIgnore(callout, mutator, rec) {
+function handleIgnore(callout, okapiKy, rec) {
   const ignored = rec.kbManualMatch && !rec.kbTitleId;
+  delete rec.rowIndex; // I think MCL probably inserts this
 
   if (ignored) {
     // Stop ignoring
@@ -66,21 +68,21 @@ function handleIgnore(callout, mutator, rec) {
     rec.kbTitleName = undefined;
   }
 
-  mutateAndReport(callout, mutator, rec, ignored ? 'unignored' : 'ignored');
+  mutateAndReport(callout, okapiKy, rec, ignored ? 'unignored' : 'ignored');
 }
 
 
-function onAgreementSelected(callout, mutator, rec, agreement) {
+function onAgreementSelected(callout, okapiKy, rec, agreement) {
   delete rec.rowIndex; // I think MCL probably inserts this
   rec.kbManualMatch = true;
   rec.kbTitleId = agreement.id;
   rec.kbTitleName = agreement.name;
 
-  mutateAndReport(callout, mutator, rec, 'edited');
+  mutateAndReport(callout, okapiKy, rec, 'edited');
 }
 
 
-function actionMenu(intl, callout, mutator, rec) {
+function actionMenu(intl, callout, okapiKy, rec) {
   const ignored = rec.kbManualMatch && !rec.kbTitleId;
   const actionLabel = intl.formatMessage({ id: 'ui-plugin-eusage-reports.column.action' });
 
@@ -98,7 +100,7 @@ function actionMenu(intl, callout, mutator, rec) {
         <DropdownMenu role="menu" aria-label={actionLabel}>
           <Pluggable
             type="find-agreement"
-            onAgreementSelected={(agreement) => onAgreementSelected(callout, mutator, rec, agreement)}
+            onAgreementSelected={(agreement) => onAgreementSelected(callout, okapiKy, rec, agreement)}
             renderTrigger={({ onClick }) => {
               return (
                 <Button
@@ -119,7 +121,7 @@ function actionMenu(intl, callout, mutator, rec) {
             role="menuitem"
             buttonStyle="dropdownItem"
             data-test-dropdown-ignore
-            onClick={() => { onToggle(); handleIgnore(callout, mutator, rec); }}
+            onClick={() => { onToggle(); handleIgnore(callout, okapiKy, rec); }}
           >
             <FormattedMessage id={`ui-plugin-eusage-reports.action.${ignored ? 'unignore' : 'ignore'}`} />
           </Button>
@@ -135,6 +137,7 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
   const categories = generateTitleCategories(data.reportTitles);
   const dataSet = categories.filter(c => c.key === matchType)[0].data;
   const callout = useContext(CalloutContext);
+  const okapiKy = useOkapiKy();
 
   return (
     <HasCommand commands={[{ name: 'close', handler: onClose }]}>
@@ -190,7 +193,7 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
               counterReportTitle: r => maybeLinkTitle(r),
               id: r => r.id.substring(0, 8),
               kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
-              action: r => actionMenu(intl, callout, mutator, r),
+              action: r => actionMenu(intl, callout, okapiKy, r),
             }}
           />
         </Pane>
