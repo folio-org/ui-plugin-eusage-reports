@@ -97,6 +97,7 @@ function actionMenu(intl, callout, mutator, rec) {
       renderMenu={({ onToggle }) => (
         <DropdownMenu role="menu" aria-label={actionLabel}>
           <Pluggable
+            type="find-agreement"
             onAgreementSelected={(agreement) => onAgreementSelected(callout, mutator, rec, agreement)}
             renderTrigger={({ onClick }) => {
               return (
@@ -110,7 +111,6 @@ function actionMenu(intl, callout, mutator, rec) {
                 </Button>
               );
             }}
-            type="find-agreement"
           >
             <FormattedMessage id="ui-plugin-eusage-reports.action.no-agreement-plugin" />
           </Pluggable>
