@@ -60,6 +60,9 @@
     "lodash": "^4.17.21",
     "react-chartjs-2": "^2.11.1"
   },
+  "optionalDependencies": {
+    "@folio/plugin-find-agreement": "^7.0.0"
+  },
   "peerDependencies": {
     "@folio/stripes": "^6.0.0",
     "prop-types": "*",
