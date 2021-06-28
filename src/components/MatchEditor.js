@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
+import { Pluggable } from '@folio/stripes/core';
 import {
   HasCommand,
   Paneset,
@@ -28,11 +29,6 @@ function maybeLinkTitle(rec) {
 }
 
 
-function handleEdit(mutator, rec) {
-  console.log('edit (no-op)');
-}
-
-
 function handleIgnore(mutator, rec) {
   const ignored = rec.kbManualMatch && !rec.kbTitleId;
 
@@ -48,10 +44,30 @@ function handleIgnore(mutator, rec) {
 
   mutator.updateReportTitles.POST(rec)
     .then(res => {
-      console.log('mutation completed:', res);
+      console.log('ignore mutation completed:', res);
     })
     .catch(err => {
-      console.log('mutation failed:', err);
+      console.log('ignore mutation failed:', err);
+    });
+}
+
+
+function onAgreementSelected(mutator, rec, agreement) {
+  // console.log('mutator =', mutator);
+  // console.log('rec =', rec);
+  // console.log('agreement =', agreement);
+
+  delete rec.rowIndex; // I think MCL probably inserts this
+  rec.kbManualMatch = true;
+  rec.kbTitleId = agreement.id;
+  rec.kbTitleName = agreement.name;
+
+  mutator.updateReportTitles.POST(rec)
+    .then(res => {
+      console.log('edit mutation completed:', res);
+    })
+    .catch(err => {
+      console.log('edit mutation failed:', err);
     });
 }
 
@@ -72,19 +88,30 @@ function actionMenu(intl, mutator, rec) {
       )}
       renderMenu={({ onToggle }) => (
         <DropdownMenu role="menu" aria-label={actionLabel}>
-          <Button
-            role="menuitem"
-            buttonStyle="dropdownItem"
-            data-test-dropdown-edit
-            onClick={e => { onToggle(e); handleEdit(mutator, rec); }}
+          <Pluggable
+            onAgreementSelected={(agreement) => onAgreementSelected(mutator, rec, agreement)}
+            renderTrigger={({ onClick }) => {
+              return (
+                <Button
+                  role="menuitem"
+                  buttonStyle="dropdownItem"
+                  data-test-dropdown-edit
+                  onClick={e => { onClick(e); }}
+                >
+                  <FormattedMessage id="ui-plugin-eusage-reports.action.edit" />
+                </Button>
+              );
+            }}
+            type="find-agreement"
           >
-            <FormattedMessage id="ui-plugin-eusage-reports.action.edit" />
-          </Button>
+            <FormattedMessage id="ui-plugin-eusage-reports.action.no-agreement-plugin" />
+          </Pluggable>
+
           <Button
             role="menuitem"
             buttonStyle="dropdownItem"
             data-test-dropdown-ignore
-            onClick={e => { onToggle(e); handleIgnore(mutator, rec); }}
+            onClick={() => { onToggle(); handleIgnore(mutator, rec); }}
           >
             <FormattedMessage id={`ui-plugin-eusage-reports.action.${ignored ? 'unignore' : 'ignore'}`} />
           </Button>
