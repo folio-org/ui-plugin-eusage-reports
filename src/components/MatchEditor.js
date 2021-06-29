@@ -107,7 +107,7 @@ function actionMenu(intl, callout, okapiKy, rec) {
                   role="menuitem"
                   buttonStyle="dropdownItem"
                   data-test-dropdown-edit
-                  onClick={e => { onClick(e); }}
+                  onClick={onClick}
                 >
                   <FormattedMessage id="ui-plugin-eusage-reports.action.edit" />
                 </Button>
