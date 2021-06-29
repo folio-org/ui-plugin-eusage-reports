@@ -101,12 +101,13 @@ function actionMenu(intl, callout, okapiKy, rec) {
           <Pluggable
             type="find-agreement"
             onAgreementSelected={(agreement) => onAgreementSelected(callout, okapiKy, rec, agreement)}
-            renderTrigger={({ onClick }) => {
+            renderTrigger={({ onClick, buttonRef }) => {
               return (
                 <Button
                   role="menuitem"
                   buttonStyle="dropdownItem"
                   data-test-dropdown-edit
+                  buttonRef={buttonRef}
                   onClick={onClick}
                 >
                   <FormattedMessage id="ui-plugin-eusage-reports.action.edit" />
