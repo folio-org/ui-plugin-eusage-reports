@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
@@ -72,17 +72,18 @@ function handleIgnore(callout, okapiKy, rec) {
 }
 
 
-function onAgreementSelected(callout, okapiKy, rec, agreement) {
+function onAgreementSelected(callout, okapiKy, rec, agreement, setRecordToEdit) {
   delete rec.rowIndex; // I think MCL probably inserts this
   rec.kbManualMatch = true;
   rec.kbTitleId = agreement.id;
   rec.kbTitleName = agreement.name;
 
   mutateAndReport(callout, okapiKy, rec, 'edited');
+  setRecordToEdit(undefined);
 }
 
 
-function actionMenu(intl, callout, okapiKy, rec) {
+function actionMenu(intl, callout, okapiKy, rec, setRecordToEdit) {
   const ignored = rec.kbManualMatch && !rec.kbTitleId;
   const actionLabel = intl.formatMessage({ id: 'ui-plugin-eusage-reports.column.action' });
 
@@ -98,26 +99,14 @@ function actionMenu(intl, callout, okapiKy, rec) {
       )}
       renderMenu={({ onToggle }) => (
         <DropdownMenu role="menu" aria-label={actionLabel}>
-          <Pluggable
-            type="find-agreement"
-            onAgreementSelected={(agreement) => onAgreementSelected(callout, okapiKy, rec, agreement)}
-            renderTrigger={({ onClick, buttonRef }) => {
-              return (
-                <Button
-                  role="menuitem"
-                  buttonStyle="dropdownItem"
-                  data-test-dropdown-edit
-                  buttonRef={buttonRef}
-                  onClick={onClick}
-                >
-                  <FormattedMessage id="ui-plugin-eusage-reports.action.edit" />
-                </Button>
-              );
-            }}
+          <Button
+            role="menuitem"
+            buttonStyle="dropdownItem"
+            data-test-dropdown-edit
+            onClick={() => { onToggle(); setRecordToEdit(rec); }}
           >
-            <FormattedMessage id="ui-plugin-eusage-reports.action.no-agreement-plugin" />
-          </Pluggable>
-
+            <FormattedMessage id="ui-plugin-eusage-reports.action.edit" />
+          </Button>
           <Button
             role="menuitem"
             buttonStyle="dropdownItem"
@@ -139,6 +128,7 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
   const dataSet = categories.filter(c => c.key === matchType)[0].data;
   const callout = useContext(CalloutContext);
   const okapiKy = useOkapiKy();
+  const [recordToEdit, setRecordToEdit] = useState();
 
   return (
     <HasCommand commands={[{ name: 'close', handler: onClose }]}>
@@ -153,6 +143,16 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
           />}
           paneTitleRef={paneTitleRef}
         >
+          {recordToEdit &&
+            <Pluggable
+              type="find-agreement"
+              openByDefault
+              onAgreementSelected={(agreement) => onAgreementSelected(callout, okapiKy, recordToEdit, agreement, setRecordToEdit)}
+            >
+              <FormattedMessage id="ui-plugin-eusage-reports.action.no-agreement-plugin" />
+            </Pluggable>
+          }
+
           <Layout className="textCentered">
             <ButtonGroup>
               {
@@ -194,7 +194,7 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
               counterReportTitle: r => maybeLinkTitle(r),
               id: r => r.id.substring(0, 8),
               kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
-              action: r => actionMenu(intl, callout, okapiKy, r),
+              action: r => actionMenu(intl, callout, okapiKy, r, setRecordToEdit),
             }}
           />
         </Pane>
