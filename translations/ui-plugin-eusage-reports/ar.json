@@ -13,5 +13,22 @@
     "matching-summary.ignored": "تجاهل",
     "matching-summary.status.reviewed": "تم مراجعته",
     "matching-summary.status.pending": "في انتظار المراجعة",
-    "matching-summary.loaded": "تم تحميل التسجيلات"
+    "matching-summary.loaded": "تم تحميل التسجيلات",
+    "matching-summary.matcher-heading": "عناوين الاستخدام الإلكتروني — {label}",
+    "column.id": "المعرّف",
+    "column.counterReportTitle": "العنوان",
+    "column.kbTitleName": "العنوان الموجود في قاعدة المعرفة",
+    "column.kbTitleId": "المعرف الموجود في قاعدة المعرفة",
+    "column.kbManualMatch": "مطابقة يدوية؟",
+    "column.action": "الإجراء",
+    "action.edit": "تحرير",
+    "action.ignore": "تجاهل",
+    "action.unignore": "توقف عن تجاهل",
+    "action.edited": "Title {title} now manually matched",
+    "action.not-edited": "It was not possible to manually match this title: {error}",
+    "action.ignored": "Title {title} will now be ignored",
+    "action.unignored": "Title will no longer be ignored",
+    "action.not-ignored": "It was not possible to ignore this title: {error}",
+    "action.not-unignored": "It was not possible to stop ignoring this title: {error}",
+    "action.no-agreement-plugin": "No agreement plugin"
 }
