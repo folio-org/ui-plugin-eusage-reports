@@ -13,5 +13,22 @@
     "matching-summary.ignored": "Ignoré",
     "matching-summary.status.reviewed": "Reviewed",
     "matching-summary.status.pending": "Pending review",
-    "matching-summary.loaded": "Enregistrements chargés"
+    "matching-summary.loaded": "Enregistrements chargés",
+    "matching-summary.matcher-heading": "Titres eUsage — {label}",
+    "column.id": "ID",
+    "column.counterReportTitle": "Titre",
+    "column.kbTitleName": "Titre dans la base de connaissances",
+    "column.kbTitleId": "ID dans la base de connaissances",
+    "column.kbManualMatch": "Correspondance manuelle ?",
+    "column.action": "Action",
+    "action.edit": "Modifier",
+    "action.ignore": "Ignorer",
+    "action.unignore": "Ne pas ignorer",
+    "action.edited": "Title {title} now manually matched",
+    "action.not-edited": "It was not possible to manually match this title: {error}",
+    "action.ignored": "Le titre {title} sera désormais ignoré",
+    "action.unignored": "Title will no longer be ignored",
+    "action.not-ignored": "It was not possible to ignore this title: {error}",
+    "action.not-unignored": "It was not possible to stop ignoring this title: {error}",
+    "action.no-agreement-plugin": "No agreement plugin"
 }
