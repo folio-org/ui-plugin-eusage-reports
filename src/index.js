@@ -5,6 +5,17 @@ import CostPerUse from './reports/CostPerUse';
 import MatchingSummary from './loaders/MatchingSummaryLoader';
 
 const PluginEusageReports = ({ data }) => {
+  if (true) { // eslint-disable-line no-constant-condition
+    // Thank Michal Kuklis for this abomination :-)
+    // eslint-disable-next-line no-console
+    const error = console.error;
+    // eslint-disable-next-line no-console
+    console.error = function errorIgnoringPropTypes(...args) {
+      if (/Failed (prop|%s) type/.test(args[0])) return;
+      error.apply(console, args);
+    };
+  }
+
   if (data?.op === 'match-names') {
     return (
       <Accordion
