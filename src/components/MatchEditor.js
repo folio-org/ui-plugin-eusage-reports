@@ -30,12 +30,20 @@ function maybeLinkTitle(rec) {
 }
 
 
-function mutateAndReport(callout, okapiKy, rec, tag) {
+function mutateAndReport(callout, okapiKy, rec, tag, triggerReRender, reportTitles) {
+  delete rec.rowIndex;
+
   okapiKy('eusage-reports/report-titles', {
     method: 'POST',
     json: { titles: [rec] }
   })
     .then(() => {
+      // Update the copy of the record that was loaded from the WSAPI
+      reportTitles.forEach((rt, index) => {
+        if (rt.id === rec.id) reportTitles[index] = rec;
+      });
+
+      triggerReRender();
       callout.sendCallout({
         message: <FormattedMessage
           id={`ui-plugin-eusage-reports.action.${tag}`}
@@ -54,9 +62,8 @@ function mutateAndReport(callout, okapiKy, rec, tag) {
 }
 
 
-function handleIgnore(callout, okapiKy, rec) {
+function handleIgnore(callout, okapiKy, rec, triggerReRender, reportTitles) {
   const ignored = rec.kbManualMatch && !rec.kbTitleId;
-  delete rec.rowIndex; // I think MCL probably inserts this
 
   if (ignored) {
     // Stop ignoring
@@ -68,22 +75,21 @@ function handleIgnore(callout, okapiKy, rec) {
     rec.kbTitleName = undefined;
   }
 
-  mutateAndReport(callout, okapiKy, rec, ignored ? 'unignored' : 'ignored');
+  mutateAndReport(callout, okapiKy, rec, ignored ? 'unignored' : 'ignored', triggerReRender, reportTitles);
 }
 
 
-function onAgreementSelected(callout, okapiKy, rec, agreement, setRecordToEdit) {
-  delete rec.rowIndex; // I think MCL probably inserts this
+function onAgreementSelected(callout, okapiKy, rec, agreement, setRecordToEdit, triggerReRender, reportTitles) {
   rec.kbManualMatch = true;
   rec.kbTitleId = agreement.id;
   rec.kbTitleName = agreement.name;
 
-  mutateAndReport(callout, okapiKy, rec, 'edited');
+  mutateAndReport(callout, okapiKy, rec, 'edited', triggerReRender, reportTitles);
   setRecordToEdit(undefined);
 }
 
 
-function actionMenu(intl, callout, okapiKy, rec, setRecordToEdit) {
+function actionMenu(intl, callout, okapiKy, rec, setRecordToEdit, triggerReRender, reportTitles) {
   const ignored = rec.kbManualMatch && !rec.kbTitleId;
   const actionLabel = intl.formatMessage({ id: 'ui-plugin-eusage-reports.column.action' });
 
@@ -111,7 +117,7 @@ function actionMenu(intl, callout, okapiKy, rec, setRecordToEdit) {
             role="menuitem"
             buttonStyle="dropdownItem"
             data-test-dropdown-ignore
-            onClick={() => { onToggle(); handleIgnore(callout, okapiKy, rec); }}
+            onClick={() => { onToggle(); handleIgnore(callout, okapiKy, rec, triggerReRender, reportTitles); }}
           >
             <FormattedMessage id={`ui-plugin-eusage-reports.action.${ignored ? 'unignore' : 'ignore'}`} />
           </Button>
@@ -129,6 +135,8 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
   const callout = useContext(CalloutContext);
   const okapiKy = useOkapiKy();
   const [recordToEdit, setRecordToEdit] = useState();
+  const [ignoredAdditionalPropToTriggerReRender, setIgnoredAdditionalPropToTriggerReRender] = useState(false);
+  const triggerReRender = () => setIgnoredAdditionalPropToTriggerReRender(!ignoredAdditionalPropToTriggerReRender);
 
   return (
     <HasCommand commands={[{ name: 'close', handler: onClose }]}>
@@ -147,7 +155,7 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
             <Pluggable
               type="find-agreement"
               openByDefault
-              onAgreementSelected={(agreement) => onAgreementSelected(callout, okapiKy, recordToEdit, agreement, setRecordToEdit)}
+              onAgreementSelected={(agreement) => onAgreementSelected(callout, okapiKy, recordToEdit, agreement, setRecordToEdit, triggerReRender, data.reportTitles)}
             >
               <FormattedMessage id="ui-plugin-eusage-reports.action.no-agreement-plugin" />
             </Pluggable>
@@ -194,8 +202,9 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
               counterReportTitle: r => maybeLinkTitle(r),
               id: r => r.id.substring(0, 8),
               kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
-              action: r => actionMenu(intl, callout, okapiKy, r, setRecordToEdit),
+              action: r => actionMenu(intl, callout, okapiKy, r, setRecordToEdit, triggerReRender, data.reportTitles),
             }}
+            ignoredAdditionalPropToTriggerReRender={ignoredAdditionalPropToTriggerReRender}
           />
         </Pane>
       </Paneset>
