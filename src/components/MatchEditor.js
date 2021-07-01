@@ -79,7 +79,7 @@ function handleIgnore(callout, okapiKy, rec, triggerReRender, reportTitles) {
 }
 
 
-function onAgreementSelected(callout, okapiKy, rec, agreement, setRecordToEdit, triggerReRender, reportTitles) {
+function onEresourceSelected(callout, okapiKy, rec, agreement, setRecordToEdit, triggerReRender, reportTitles) {
   rec.kbManualMatch = true;
   rec.kbTitleId = agreement.id;
   rec.kbTitleName = agreement.name;
@@ -153,9 +153,9 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
         >
           {recordToEdit &&
             <Pluggable
-              type="find-agreement"
+              type="find-eresource"
               openByDefault
-              onAgreementSelected={(agreement) => onAgreementSelected(callout, okapiKy, recordToEdit, agreement, setRecordToEdit, triggerReRender, data.reportTitles)}
+              onEresourceSelected={(agreement) => onEresourceSelected(callout, okapiKy, recordToEdit, agreement, setRecordToEdit, triggerReRender, data.reportTitles)}
             >
               <FormattedMessage id="ui-plugin-eusage-reports.action.no-agreement-plugin" />
             </Pluggable>
