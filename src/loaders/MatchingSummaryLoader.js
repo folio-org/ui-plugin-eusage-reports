@@ -10,7 +10,6 @@ function MatchingSummaryLoader({ data, resources, mutator }) {
       ...data,
       query: resources.query,
       reportTitles: resources.reportTitles.records,
-      titleData: resources.titleData.records,
     }}
     mutator={mutator}
   />;
@@ -34,11 +33,6 @@ MatchingSummaryLoader.manifest = {
     fetch: false,
     throwErrors: false,
   },
-  titleData: {
-    type: 'okapi',
-    path: 'eusage-reports/title-data',
-    records: 'data',
-  },
 };
 
 
@@ -50,7 +44,6 @@ MatchingSummaryLoader.propTypes = {
   }).isRequired,
   resources: PropTypes.shape({
     reportTitles: PropTypes.object,
-    titleData: PropTypes.object,
     query: PropTypes.object.isRequired,
   }).isRequired,
   mutator: PropTypes.object.isRequired,

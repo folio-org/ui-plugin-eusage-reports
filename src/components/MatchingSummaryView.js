@@ -67,12 +67,6 @@ function MatchingSummaryView({ hasLoaded, data, mutator }) {
             {JSON.stringify(data.reportTitles, null, 2)}
           </pre>
         </Accordion>
-
-        <Accordion closedByDefault label={`${data.titleData.length} title-data entries`}>
-          <pre>
-            {JSON.stringify(data.titleData, null, 2)}
-          </pre>
-        </Accordion>
       </AccordionSet>
 
       {
@@ -108,9 +102,6 @@ MatchingSummaryView.propTypes = {
         kbManualMatch: PropTypes.bool.isRequired,
       }).isRequired,
     ).isRequired,
-    titleData: PropTypes.arrayOf(
-      PropTypes.object.isRequired,
-    ),
   }).isRequired,
   mutator: PropTypes.shape({
     query: PropTypes.shape({
