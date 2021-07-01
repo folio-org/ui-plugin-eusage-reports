@@ -4,8 +4,14 @@ import MatchingSummaryView from '../components/MatchingSummaryView';
 
 
 function MatchingSummaryLoader({ data, resources, mutator }) {
+  // We would like to determine whether the 'reportTitles' resource
+  // has loaded just by looking at resources.reportTitles.hasLoaded,
+  // but when that has once become true, it remains forever true, even
+  // after the UDB changes and a new data-set needs to be loaded.
+  const hasLoaded = (resources.reportTitles.url || '').includes(data.usageDataProvider.id);
+
   return <MatchingSummaryView
-    hasLoaded={resources.reportTitles.hasLoaded}
+    hasLoaded={hasLoaded}
     data={{
       ...data,
       query: resources.query,
