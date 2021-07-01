@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import { AccordionSet, Accordion, Row, Col, KeyValue, Layer } from '@folio/stripes/components';
+import { AccordionSet, Accordion, Row, Col, KeyValue, Loading, Layer } from '@folio/stripes/components';
 import MatchEditorLoader from '../loaders/MatchEditorLoader';
 import generateTitleCategories from '../util/generateTitleCategories';
 
 
-function MatchingSummaryView({ data, mutator }) {
+function MatchingSummaryView({ hasLoaded, data, mutator }) {
   const matchType = data.query.matchType;
   const matchTitlesOfType = (key) => mutator.query.update({ matchType: key });
 
@@ -43,7 +43,11 @@ function MatchingSummaryView({ data, mutator }) {
             <Col key={cat.key} xs={3} onClick={() => matchTitlesOfType(cat.key)} style={{ cursor: 'pointer' }}>
               <KeyValue
                 label={<FormattedMessage id={`ui-plugin-eusage-reports.matching-summary.${cat.key}`} />}
-                value={<span style={{ color: '#008', textDecoration: 'underline' }}>{cat.data.length}</span>}
+                value={
+                  hasLoaded ?
+                    <span style={{ color: '#008', textDecoration: 'underline' }}>{cat.data.length}</span> :
+                    <Loading />
+                }
               />
             </Col>
           ))
@@ -89,6 +93,7 @@ function MatchingSummaryView({ data, mutator }) {
 
 
 MatchingSummaryView.propTypes = {
+  hasLoaded: PropTypes.bool.isRequired,
   data: PropTypes.shape({
     query: PropTypes.object.isRequired,
     counterReports: PropTypes.arrayOf(

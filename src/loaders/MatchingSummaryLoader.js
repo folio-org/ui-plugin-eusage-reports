@@ -5,6 +5,7 @@ import MatchingSummaryView from '../components/MatchingSummaryView';
 
 function MatchingSummaryLoader({ data, resources, mutator }) {
   return <MatchingSummaryView
+    hasLoaded={resources.reportTitles.hasLoaded}
     data={{
       ...data,
       query: resources.query,
