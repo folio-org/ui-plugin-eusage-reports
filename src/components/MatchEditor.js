@@ -128,10 +128,16 @@ function actionMenu(intl, callout, okapiKy, rec, setRecordToEdit, triggerReRende
 }
 
 
+function byTitle(a, b) {
+  const key = 'counterReportTitle';
+  return a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0;
+}
+
+
 function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
   const intl = useIntl();
   const categories = generateTitleCategories(data.reportTitles);
-  const dataSet = categories.filter(c => c.key === matchType)[0].data;
+  const dataSet = categories.filter(c => c.key === matchType)[0].data.sort(byTitle);
   const callout = useContext(CalloutContext);
   const okapiKy = useOkapiKy();
   const [recordToEdit, setRecordToEdit] = useState();
