@@ -160,7 +160,8 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
           {recordToEdit &&
             <Pluggable
               type="find-eresource"
-              displayLayer
+              justDisplayModal
+              onClose={() => setRecordToEdit(undefined)}
               onEresourceSelected={(agreement) => onEresourceSelected(callout, okapiKy, recordToEdit, agreement, setRecordToEdit, triggerReRender, data.reportTitles)}
             >
               <FormattedMessage id="ui-plugin-eusage-reports.action.no-agreement-plugin" />
