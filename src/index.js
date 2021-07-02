@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Accordion } from '@folio/stripes/components';
-import CostPerUse from './reports/CostPerUse';
 import MatchingSummary from './loaders/MatchingSummaryLoader';
+import EusageVisualizationLoader from './loaders/EusageVisualizationLoader';
+
 
 const PluginEusageReports = ({ data }) => {
   if (true) { // eslint-disable-line no-constant-condition
@@ -33,7 +34,7 @@ const PluginEusageReports = ({ data }) => {
         label={<FormattedMessage id="ui-plugin-eusage-reports.accordion.label" />}
         closedByDefault={false}
       >
-        <CostPerUse />
+        <EusageVisualizationLoader />
       </Accordion>
     );
   }
