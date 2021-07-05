@@ -43,6 +43,7 @@ const CostPerUse = () => {
     <>
       <p>
         <FormattedMessage id="ui-plugin-eusage-reports.costPerUse.select-agreement-line" />
+        {' '}
         <select
           value={agreementLineName}
           onChange={(e) => setAgreementLineName(e.target.value)}
