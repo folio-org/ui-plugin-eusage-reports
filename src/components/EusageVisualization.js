@@ -91,6 +91,11 @@ function EusageVisualization({ hasLoaded, data }) {
           {JSON.stringify(data.titleData, null, 2)}
         </pre>
       </Accordion>
+      <Accordion closedByDefault label={`${data.reportData.length} report-data entries`}>
+        <pre>
+          {JSON.stringify(data.reportData, null, 2)}
+        </pre>
+      </Accordion>
     </>
   );
 }
@@ -100,6 +105,9 @@ EusageVisualization.propTypes = {
   hasLoaded: PropTypes.bool.isRequired,
   data: PropTypes.shape({
     titleData: PropTypes.arrayOf(
+      PropTypes.object.isRequired,
+    ),
+    reportData: PropTypes.arrayOf(
       PropTypes.object.isRequired,
     ),
   }).isRequired,
