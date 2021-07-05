@@ -160,7 +160,8 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
           {recordToEdit &&
             <Pluggable
               type="find-eresource"
-              justDisplayModal
+              defaultOpen
+              renderTrigger={() => null}
               onClose={() => setRecordToEdit(undefined)}
               onEresourceSelected={(agreement) => onEresourceSelected(callout, okapiKy, recordToEdit, agreement, setRecordToEdit, triggerReRender, data.reportTitles)}
             >
