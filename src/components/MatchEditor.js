@@ -164,6 +164,12 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
               renderTrigger={() => null}
               onClose={() => setRecordToEdit(undefined)}
               onEresourceSelected={(agreement) => onEresourceSelected(callout, okapiKy, recordToEdit, agreement, setRecordToEdit, triggerReRender, data.reportTitles)}
+              modalLabel={
+                <FormattedMessage
+                  id="ui-plugin-eusage-reports.select-eresource"
+                  values={{ title: recordToEdit.counterReportTitle }}
+                />
+              }
             >
               <FormattedMessage id="ui-plugin-eusage-reports.action.no-agreement-plugin" />
             </Pluggable>

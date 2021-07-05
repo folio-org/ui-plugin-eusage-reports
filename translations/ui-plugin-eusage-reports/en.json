@@ -30,5 +30,6 @@
   "action.not-ignored": "It was not possible to ignore this title: {error}",
   "action.not-unignored": "It was not possible to stop ignoring this title: {error}",
   "action.no-agreement-plugin": "No agreement plugin",
+  "select-eresource": "Select e-resource for title: {title}",
   "SENTINEL": ""
 }
