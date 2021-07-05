@@ -1,7 +1,7 @@
 # Notes on `mod-eusage-reports` WSAPI
 
 RAML is at https://github.com/folio-org/mod-eusage-reports/blob/master/src/main/resources/openapi/eusage-reports-1.0.yaml
-       and locally checked out at ../../../../other/mod-eusage-reports/src/main/resources/openapi/eusage-reports-1.0.yaml
+          and locally checked out at ../../../other/mod-eusage-reports/src/main/resources/openapi/eusage-reports-1.0.yaml
 
 It contains five WSAPI endpoints, all within `/eusage-reports/`
 
