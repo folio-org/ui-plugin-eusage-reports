@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Loading, Accordion } from '@folio/stripes/components';
+import { Loading, Row, Col, Accordion } from '@folio/stripes/components';
 import CostPerUse from '../reports/CostPerUse';
 
 
@@ -8,6 +8,26 @@ function EusageVisualization({ hasLoaded, data }) {
 
   return (
     <>
+      <Row>
+        <Col xs={4}>
+          Report
+        </Col>
+        <Col xs={4}>
+          Format
+        </Col>
+        <Col xs={4}>
+          Include Open Access use?
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={4}>
+          Start month
+        </Col>
+        <Col xs={4}>
+          End month
+        </Col>
+        {/* No third column in this row */}
+      </Row>
       <CostPerUse data={data} />
       <Accordion closedByDefault label={`${data.titleData.length} title-data entries`}>
         <pre>
