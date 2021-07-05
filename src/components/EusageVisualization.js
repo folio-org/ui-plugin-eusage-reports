@@ -1,28 +1,32 @@
 import { useState } from 'react';
+import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Loading, Row, Col, Select, RadioButtonGroup, RadioButton, Datepicker, Accordion } from '@folio/stripes/components';
 import CostPerUse from '../reports/CostPerUse';
 
 
-const reportOptions = [ // XXX i18n
-  { value: 'cpu', label: 'Cost per use' },
-  { value: 'ubm', label: 'Use by month' },
-  { value: 'ubpy', label: 'Use by publication year' }
-];
-
-const formatOptions = [ // XXX i18n
-  { value: 'j', label: 'Journals' },
-  { value: 'b', label: 'Books' },
-  { value: 'd', label: 'Databases' }
-];
-
-
 function EusageVisualization({ hasLoaded, data }) {
+  const intl = useIntl();
+
+  const reportOptions = [
+    { value: 'cpu', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.cost-per-use' }) },
+    { value: 'ubm', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.use-by-month' }) },
+    { value: 'ubpy', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.use-by-publication-year' }) },
+  ];
+
+  const formatOptions = [
+    { value: 'j', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.journals' }) },
+    { value: 'b', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.books' }) },
+    { value: 'd', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.databases' }) },
+  ];
+
   const [report, setReport] = useState('cpu');
   const [format, setFormat] = useState('j');
   const [includeOA, setIncludeOA] = useState('yes');
   const [startDate, setStartDate] = useState('2021-07-05'); // XXX change
   const [endDate, setEndDate] = useState('2021-07-05'); // XXX change
+
+  // eslint-disable-next-line no-console
   console.log('report =', report, '-- format =', format, '-- includeOA =', includeOA, '-- startDate =', startDate, '-- endDate =', endDate);
 
   if (!hasLoaded) return <Loading />;
@@ -32,7 +36,7 @@ function EusageVisualization({ hasLoaded, data }) {
       <Row>
         <Col xs={4}>
           <Select
-            label="XXX Report"
+            label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report' })}
             dataOptions={reportOptions}
             value={report}
             onChange={e => setReport(e.target.value)}
@@ -40,7 +44,7 @@ function EusageVisualization({ hasLoaded, data }) {
         </Col>
         <Col xs={4}>
           <Select
-            label="XXX Format"
+            label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format' })}
             dataOptions={formatOptions}
             value={format}
             onChange={e => setFormat(e.target.value)}
@@ -48,26 +52,33 @@ function EusageVisualization({ hasLoaded, data }) {
         </Col>
         <Col xs={4}>
           <RadioButtonGroup
-            label="XXX Include Open Access use?"
+            label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.include-oa' })}
             value={includeOA}
             onChange={e => setIncludeOA(e.target.value)}
           >
-            <RadioButton label="XXX Yes" value="yes" />
-            <RadioButton label="XXX No" value="no" />
+            {
+              ['yes', 'no'].map(token => (
+                <RadioButton
+                  key={token}
+                  value={token}
+                  label={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.include-oa.${token}` })}
+                />
+              ))
+            }
           </RadioButtonGroup>
         </Col>
       </Row>
       <Row>
         <Col xs={4}>
           <Datepicker
-            label="XXX Start month"
+            label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.start-month' })}
             value={startDate}
             onChange={e => setStartDate(e.target.value)}
           />
         </Col>
         <Col xs={4}>
           <Datepicker
-            label="XXX End month"
+            label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.end-month' })}
             value={endDate}
             onChange={e => setEndDate(e.target.value)}
           />
