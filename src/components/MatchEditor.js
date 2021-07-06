@@ -59,7 +59,7 @@ function mutateAndReport(callout, okapiKy, rec, tag, triggerReRender, reportTitl
       callout.sendCallout({
         message: <FormattedMessage
           id={`ui-plugin-eusage-reports.action.${tag}`}
-          values={{ title: rec.counterReportTitle }}
+          values={{ title: rec.counterReportTitle, i: x => <i>{x}</i> }}
         />
       });
     }).catch(err => {
@@ -179,7 +179,7 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
               modalLabel={
                 <FormattedMessage
                   id="ui-plugin-eusage-reports.select-eresource"
-                  values={{ title: recordToEdit.counterReportTitle }}
+                  values={{ title: recordToEdit.counterReportTitle, i: x => <i>{x}</i> }}
                 />
               }
             >
