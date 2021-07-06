@@ -218,11 +218,11 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
             }}
             columnWidths={{
               id: '90px',
-              counterReportTitle: '300px',
-              kbTitleName: '300px',
+              counterReportTitle: '400px',
+              kbTitleName: '400px',
               kbTitleId: '90px',
-              status: '100px',
-              action: '100px',
+              status: '80px',
+              action: '80px',
             }}
             formatter={{
               counterReportTitle: r => maybeLinkTitle(r),
