@@ -31,6 +31,17 @@ function maybeLinkTitle(rec) {
 }
 
 
+function calculateStatus(intl, rec) {
+  if (rec.kbTitleId) {
+    return intl.formatMessage({ id: 'ui-plugin-eusage-reports.matching-summary.matched' });
+  } else if (rec.kbManualMatch) {
+    return intl.formatMessage({ id: 'ui-plugin-eusage-reports.matching-summary.ignored' });
+  } else {
+    return intl.formatMessage({ id: 'ui-plugin-eusage-reports.matching-summary.unmatched' });
+  }
+}
+
+
 function mutateAndReport(callout, okapiKy, rec, tag, triggerReRender, reportTitles) {
   delete rec.rowIndex;
 
@@ -196,13 +207,13 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
           <MultiColumnList
             autosize
             contentData={dataSet}
-            visibleColumns={['id', 'counterReportTitle', 'kbTitleName', 'kbTitleId', 'kbManualMatch', 'action']}
+            visibleColumns={['counterReportTitle', 'kbTitleName', 'status', 'action']}
             columnMapping={{
               id: <FormattedMessage id="ui-plugin-eusage-reports.column.id" />,
               counterReportTitle: <FormattedMessage id="ui-plugin-eusage-reports.column.counterReportTitle" />,
               kbTitleName: <FormattedMessage id="ui-plugin-eusage-reports.column.kbTitleName" />,
               kbTitleId: <FormattedMessage id="ui-plugin-eusage-reports.column.kbTitleId" />,
-              kbManualMatch: <FormattedMessage id="ui-plugin-eusage-reports.column.kbManualMatch" />,
+              status: <FormattedMessage id="ui-plugin-eusage-reports.column.status" />,
               action: <FormattedMessage id="ui-plugin-eusage-reports.column.action" />,
             }}
             columnWidths={{
@@ -210,13 +221,14 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
               counterReportTitle: '300px',
               kbTitleName: '300px',
               kbTitleId: '90px',
-              kbManualMatch: '120px',
+              status: '100px',
               action: '100px',
             }}
             formatter={{
               counterReportTitle: r => maybeLinkTitle(r),
               id: r => r.id.substring(0, 8),
               kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
+              status: r => calculateStatus(intl, r),
               action: r => actionMenu(intl, callout, okapiKy, r, setRecordToEdit, triggerReRender, data.reportTitles),
             }}
             ignoredAdditionalPropToTriggerReRender={ignoredAdditionalPropToTriggerReRender}
