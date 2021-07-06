@@ -59,7 +59,7 @@ function mutateAndReport(callout, okapiKy, rec, tag, triggerReRender, reportTitl
       callout.sendCallout({
         message: <FormattedMessage
           id={`ui-plugin-eusage-reports.action.${tag}`}
-          values={{ title: rec.name }}
+          values={{ title: rec.counterReportTitle }}
         />
       });
     }).catch(err => {
