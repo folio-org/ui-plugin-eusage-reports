@@ -13,7 +13,8 @@ import {
   MultiColumnList,
   Dropdown,
   IconButton,
-  DropdownMenu
+  DropdownMenu,
+  LoadingPane,
 } from '@folio/stripes/components';
 import generateTitleCategories from '../util/generateTitleCategories';
 
@@ -161,7 +162,7 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
             <Pluggable
               type="find-eresource"
               defaultOpen
-              renderTrigger={() => null}
+              renderTrigger={() => <LoadingPane />}
               onClose={() => setRecordToEdit(undefined)}
               onEresourceSelected={(agreement) => onEresourceSelected(callout, okapiKy, recordToEdit, agreement, setRecordToEdit, triggerReRender, data.reportTitles)}
               modalLabel={
