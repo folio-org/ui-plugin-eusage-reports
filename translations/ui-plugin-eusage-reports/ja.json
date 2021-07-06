@@ -30,5 +30,19 @@
     "action.unignored": "Title will no longer be ignored",
     "action.not-ignored": "It was not possible to ignore this title: {error}",
     "action.not-unignored": "It was not possible to stop ignoring this title: {error}",
-    "action.no-agreement-plugin": "No agreement plugin"
+    "action.no-agreement-plugin": "No agreement plugin",
+    "select-eresource": "Select e-resource for title: {title}",
+    "report-form.report": "Report",
+    "report-form.report.cost-per-use": "Cost per use",
+    "report-form.report.use-by-month": "Use by month",
+    "report-form.report.use-by-publication-year": "Use by publication year",
+    "report-form.format": "Format",
+    "report-form.format.journals": "Journals",
+    "report-form.format.books": "Books",
+    "report-form.format.databases": "Databases",
+    "report-form.include-oa": "Include Open Access use?",
+    "report-form.include-oa.yes": "Yes",
+    "report-form.include-oa.no": "No",
+    "report-form.start-month": "Start month",
+    "report-form.end-month": "End month"
 }
