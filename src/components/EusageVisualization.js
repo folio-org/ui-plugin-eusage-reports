@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
-import { Loading, Row, Col, Select, RadioButtonGroup, RadioButton, Datepicker, Accordion } from '@folio/stripes/components';
+import { Loading, Row, Col, Select, KeyValue, RadioButtonGroup, RadioButton, Datepicker, Accordion } from '@folio/stripes/components';
 import CostPerUse from '../reports/CostPerUse';
 
 
@@ -51,21 +51,25 @@ function EusageVisualization({ hasLoaded, data }) {
           />
         </Col>
         <Col xs={4}>
-          <RadioButtonGroup
+          <KeyValue
             label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.include-oa' })}
-            value={includeOA}
-            onChange={e => setIncludeOA(e.target.value)}
-          >
-            {
-              ['yes', 'no'].map(token => (
-                <RadioButton
-                  key={token}
-                  value={token}
-                  label={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.include-oa.${token}` })}
-                />
-              ))
+            value={
+              <RadioButtonGroup
+                value={includeOA}
+                onChange={e => setIncludeOA(e.target.value)}
+              >
+                {
+                  ['yes', 'no'].map(token => (
+                    <RadioButton
+                      key={token}
+                      value={token}
+                      label={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.include-oa.${token}` })}
+                    />
+                  ))
+                }
+              </RadioButtonGroup>
             }
-          </RadioButtonGroup>
+          />
         </Col>
       </Row>
       <Row>
