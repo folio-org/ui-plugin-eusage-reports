@@ -17,3 +17,5 @@ Two of these are refinements of the three basic requests.
 * `counterReportId` -- limit titles associated with counter report (UUID)
 * `providerId` -- limit titles associated with usage provider (UUID)
 
+There are very rough sketches of additional report-specific endpoints at the end of [the design document](https://docs.google.com/document/d/13Ws0CSigJdmPs8tdqcG3R4FQc_WdaYSyslUjhqWTEHU/edit#heading=h.xh7pdolhotgy)
+
