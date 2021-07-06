@@ -221,8 +221,8 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
               counterReportTitle: '400px',
               kbTitleName: '400px',
               kbTitleId: '90px',
-              status: '90px',
-              action: '90px',
+              status: '100px',
+              action: '80px',
             }}
             formatter={{
               counterReportTitle: r => maybeLinkTitle(r),
