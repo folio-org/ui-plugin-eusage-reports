@@ -1,12 +1,85 @@
-import React from 'react';
+/* eslint-disable no-alert */
+
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import { AccordionSet, Accordion, Row, Col, KeyValue, Loading, Layer } from '@folio/stripes/components';
+import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
+import { AccordionSet, Accordion, Row, Col, KeyValue, Loading, Layer, Button } from '@folio/stripes/components';
 import MatchEditorLoader from '../loaders/MatchEditorLoader';
 import generateTitleCategories from '../util/generateTitleCategories';
 
 
+function updateMatches(okapiKy, callout, data) {
+  let mostRecentReport;
+  data.counterReports.forEach(counterReport => {
+    if (!mostRecentReport || counterReport.year > mostRecentReport.year) {
+      mostRecentReport = counterReport;
+    }
+  });
+
+  if (!mostRecentReport) {
+    alert('no most recent report');
+    return;
+  }
+
+  let trReport;
+  mostRecentReport.reportsPerType.forEach(report => {
+    if (report.reportType === 'TR') {
+      trReport = report;
+    }
+  });
+
+  if (!trReport) {
+    alert('no TR report in most recent year');
+    return;
+  }
+
+  let mostRecentSegment;
+  trReport.counterReports.forEach(segment => {
+    if (!mostRecentSegment || segment.yearMonth > mostRecentSegment.yearMonth) {
+      mostRecentSegment = segment;
+    }
+  });
+
+  if (!mostRecentSegment) {
+    alert('no segment in TR report for most recent year');
+    return;
+  }
+
+  const p = okapiKy('eusage-reports/report-titles/from-counter', {
+    method: 'POST',
+    json: { counterReportId: mostRecentSegment.id }
+  });
+  callout.sendCallout({
+    message: <FormattedMessage
+      id="ui-plugin-eusage-reports.button.update-matches.dispatched"
+      values={{ yearMonth: mostRecentSegment.yearMonth }}
+    />
+  });
+
+  p.then(() => {
+    callout.sendCallout({
+      message: <FormattedMessage
+        id="ui-plugin-eusage-reports.button.update-matches.completed"
+        values={{ yearMonth: mostRecentSegment.yearMonth }}
+      />
+    });
+  }).catch(err => {
+    callout.sendCallout({
+      type: 'error',
+      message: <FormattedMessage
+        id="ui-plugin-eusage-reports.button.update-matches.error"
+        values={{ error: err.toString() }}
+      />
+    });
+  });
+}
+
+
 function MatchingSummaryView({ hasLoaded, data, mutator }) {
+  const okapiKy = useOkapiKy();
+  const callout = useContext(CalloutContext);
+
   const matchType = data.query.matchType;
   const matchTitlesOfType = (key) => mutator.query.update({ matchType: key });
 
@@ -53,6 +126,10 @@ function MatchingSummaryView({ hasLoaded, data, mutator }) {
           ))
         }
       </Row>
+
+      <Button onClick={() => updateMatches(okapiKy, callout, data)}>
+        <FormattedMessage id="ui-plugin-eusage-reports.button.update-matches" />
+      </Button>
 
       <hr />
       <AccordionSet>
