@@ -8,6 +8,7 @@ _By John Malconian, edited by Mike Taylor_
 
 * Write the code in `ui-plugin-eusage-reports` and related modules.
 * Merge the changes to their respective master branches.
+* Watch the progress of [the tip-of-master build job ](https://jenkins-aws.indexdata.com/job/folio-org/job/ui-plugin-eusage-reports/job/master/) and wait until it has finished.
 
 ## Build the UI bundle
 
