@@ -37,7 +37,7 @@ function calculateStatus(intl, rec) {
   } else if (rec.kbManualMatch) {
     return intl.formatMessage({ id: 'ui-plugin-eusage-reports.matching-summary.ignored' });
   } else {
-    return intl.formatMessage({ id: 'ui-plugin-eusage-reports.matching-summary.unmatched' });
+    return <b>{intl.formatMessage({ id: 'ui-plugin-eusage-reports.matching-summary.unmatched' })}</b>;
   }
 }
 
