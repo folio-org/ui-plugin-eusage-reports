@@ -14,8 +14,8 @@ _By John Malconian, edited by Mike Taylor_
 * [Log into Jenkins](https://jenkins-aws.indexdata.com/)
 * Navigate to [the BUILD-UI job](https://jenkins-aws.indexdata.com/job/scratch_environment/job/BUILD-UI/)
 * Click on "Build with Parameters".
-* Select `thor` from the first dropdown and `thor-snapshot` from the second dropdown, then click the **Build** button.
-* Jenkins will build a `platform-complete` snapshot Stripes bundle and push it to the local Docker repository, `docker.dev.folio.org`
+* Select `thor` from the "teamName" dropdown and `thor-snapshot` from the "branch" dropdown, then click the **Build** button.
+* Jenkins will build a `platform-complete` snapshot Stripes bundle, taking about ten minutes, and push it to the local Docker repository, `docker.dev.folio.org`.
 * Examine the Jenkins job's logs to determine the build's tag, which will be of the form `thor-`_number_, e.g. `thor-97`.
 
 **Note.**
