@@ -1,11 +1,28 @@
-import { useState } from 'react';
-import { useIntl } from 'react-intl';
+import { useState, useContext } from 'react';
+import { useIntl, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import { Loading, Row, Col, Select, KeyValue, RadioButtonGroup, RadioButton, Datepicker, Accordion } from '@folio/stripes/components';
+import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
+import { Loading, Row, Col, Select, KeyValue, RadioButtonGroup, RadioButton, Datepicker, Button, Accordion } from '@folio/stripes/components';
 import CostPerUse from '../reports/CostPerUse';
+import performLongOperation from '../util/performLongOperation';
+
+
+function analyzeAgreement(okapiKy, callout, _data) {
+  // This is an ugly hack, but should work until we have ui-agreements passing in the information
+  const id = window.location.pathname.replace(/.*\//, '');
+  const name = '(unnamed agreement)';
+
+  performLongOperation(okapiKy, callout,
+    'analyze-agreement',
+    'eusage-reports/report-data/from-agreement',
+    { agreementId: id },
+    { agreement: name });
+}
 
 
 function EusageVisualization({ hasLoaded, data }) {
+  const okapiKy = useOkapiKy();
+  const callout = useContext(CalloutContext);
   const intl = useIntl();
 
   const reportOptions = [
@@ -89,7 +106,13 @@ function EusageVisualization({ hasLoaded, data }) {
         </Col>
         {/* No third column in this row */}
       </Row>
+
       <CostPerUse data={data} />
+
+      <Button onClick={() => analyzeAgreement(okapiKy, callout, data)}>
+        <FormattedMessage id="ui-plugin-eusage-reports.button.analyze-agreement" />
+      </Button>
+
       <Accordion closedByDefault label={`${data.titleData.length} title-data entries`}>
         <pre>
           {JSON.stringify(data.titleData, null, 2)}
