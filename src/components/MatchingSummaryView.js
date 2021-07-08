@@ -46,8 +46,7 @@ function updateMatches(okapiKy, callout, data) {
     return;
   }
 
-  const p = okapiKy('eusage-reports/report-titles/from-counter', {
-    method: 'POST',
+  const p = okapiKy.post('eusage-reports/report-titles/from-counter', {
     json: { counterReportId: mostRecentSegment.id }
   });
   callout.sendCallout({
