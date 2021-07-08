@@ -9,6 +9,17 @@ import MatchEditorLoader from '../loaders/MatchEditorLoader';
 import generateTitleCategories from '../util/generateTitleCategories';
 
 
+function displayError(callout, tag, message) {
+  callout.sendCallout({
+    type: 'error',
+    message: <FormattedMessage
+      id={`ui-plugin-eusage-reports.${tag}`}
+      values={{ error: message }}
+    />
+  });
+}
+
+
 function extractMostRecentSegment(counterReports) {
   let mostRecentReport;
   counterReports.forEach(counterReport => {
@@ -74,13 +85,7 @@ function updateMatches(okapiKy, callout, data) {
       />
     });
   }).catch(err => {
-    callout.sendCallout({
-      type: 'error',
-      message: <FormattedMessage
-        id="ui-plugin-eusage-reports.button.update-matches.error"
-        values={{ error: err.toString() }}
-      />
-    });
+    displayError(callout, 'button.update-matches.error', err.toString());
   });
 }
 
