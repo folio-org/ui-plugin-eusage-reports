@@ -5,9 +5,10 @@ import MatchingSummary from './loaders/MatchingSummaryLoader';
 import EusageVisualizationLoader from './loaders/EusageVisualizationLoader';
 
 
-const PluginEusageReports = ({ data }) => {
-  if (true) { // eslint-disable-line no-constant-condition
-    // Thank Michal Kuklis for this abomination :-)
+// Thank Michal Kuklis for this abomination :-)
+//
+function disablePropTypesChecks(disable) {
+  if (disable) {
     // eslint-disable-next-line no-console
     const error = console.error;
     // eslint-disable-next-line no-console
@@ -16,6 +17,11 @@ const PluginEusageReports = ({ data }) => {
       error.apply(console, args);
     };
   }
+}
+
+
+const PluginEusageReports = ({ data }) => {
+  disablePropTypesChecks(true);
 
   if (data?.op === 'match-names') {
     return (
