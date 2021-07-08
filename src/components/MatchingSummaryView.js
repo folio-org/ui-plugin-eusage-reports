@@ -7,11 +7,15 @@ import MatchEditorLoader from '../loaders/MatchEditorLoader';
 import generateTitleCategories from '../util/generateTitleCategories';
 
 
-function displayError(callout, tag, error) {
+function displayError(callout, wrapperTag, errorTag, errorMessage) {
+  const error = errorTag ?
+    <FormattedMessage id={`ui-plugin-eusage-reports.${wrapperTag}.${errorTag}`} /> :
+    errorMessage;
+
   callout.sendCallout({
     type: 'error',
     message: <FormattedMessage
-      id={`ui-plugin-eusage-reports.${tag}`}
+      id={`ui-plugin-eusage-reports.${wrapperTag}`}
       values={{ error }}
     />
   });
@@ -20,7 +24,7 @@ function displayError(callout, tag, error) {
 }
 
 
-const displayUpdateMatchError = (c, e) => displayError(c, 'button.update-matches.error', e);
+const displayUpdateMatchError = (c, t, m) => displayError(c, 'button.update-matches.error', t, m);
 
 
 function extractMostRecentSegment(callout, counterReports) {
@@ -32,7 +36,7 @@ function extractMostRecentSegment(callout, counterReports) {
   });
 
   if (!mostRecentReport) {
-    return displayUpdateMatchError(callout, 'no most recent report');
+    return displayUpdateMatchError(callout, 'no-recent-report');
   }
 
   let trReport;
@@ -43,7 +47,7 @@ function extractMostRecentSegment(callout, counterReports) {
   });
 
   if (!trReport) {
-    return displayUpdateMatchError(callout, 'no TR report in most recent year');
+    return displayUpdateMatchError(callout, 'no-tr-report');
   }
 
   let mostRecentSegment;
@@ -54,7 +58,7 @@ function extractMostRecentSegment(callout, counterReports) {
   });
 
   if (!mostRecentSegment) {
-    return displayUpdateMatchError(callout, 'no segment in TR report for most recent year');
+    return displayUpdateMatchError(callout, 'no-segment');
   }
 
   return mostRecentSegment;
@@ -85,7 +89,7 @@ function updateMatches(okapiKy, callout, data) {
       />
     });
   }).catch(err => {
-    displayUpdateMatchError(callout, err.toString());
+    displayUpdateMatchError(callout, undefined, err.toString());
   });
 }
 
