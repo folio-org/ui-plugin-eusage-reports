@@ -30,6 +30,7 @@ EusageVisualizationLoader.manifest = {
 
 
 EusageVisualizationLoader.propTypes = {
+  data: PropTypes.object, // XXX add isRequired once ui-agreements is update to pass it
   resources: PropTypes.shape({
     titleData: PropTypes.shape({
       hasLoaded: PropTypes.bool.isRequired,
