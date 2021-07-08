@@ -7,17 +7,20 @@ import MatchEditorLoader from '../loaders/MatchEditorLoader';
 import generateTitleCategories from '../util/generateTitleCategories';
 
 
-function displayError(callout, tag, message) {
+function displayError(callout, tag, error) {
   callout.sendCallout({
     type: 'error',
     message: <FormattedMessage
       id={`ui-plugin-eusage-reports.${tag}`}
-      values={{ error: message }}
+      values={{ error }}
     />
   });
 
   return undefined;
 }
+
+
+const displayUpdateMatchError = (c, e) => displayError(c, 'button.update-matches.error', e);
 
 
 function extractMostRecentSegment(callout, counterReports) {
@@ -29,7 +32,7 @@ function extractMostRecentSegment(callout, counterReports) {
   });
 
   if (!mostRecentReport) {
-    return displayError(callout, 'button.update-matches.error', 'no most recent report');
+    return displayUpdateMatchError(callout, 'no most recent report');
   }
 
   let trReport;
@@ -40,7 +43,7 @@ function extractMostRecentSegment(callout, counterReports) {
   });
 
   if (!trReport) {
-    return displayError(callout, 'button.update-matches.error', 'no TR report in most recent year');
+    return displayUpdateMatchError(callout, 'no TR report in most recent year');
   }
 
   let mostRecentSegment;
@@ -51,7 +54,7 @@ function extractMostRecentSegment(callout, counterReports) {
   });
 
   if (!mostRecentSegment) {
-    return displayError(callout, 'button.update-matches.error', 'no segment in TR report for most recent year');
+    return displayUpdateMatchError(callout, 'no segment in TR report for most recent year');
   }
 
   return mostRecentSegment;
@@ -82,7 +85,7 @@ function updateMatches(okapiKy, callout, data) {
       />
     });
   }).catch(err => {
-    displayError(callout, 'button.update-matches.error', err.toString());
+    displayUpdateMatchError(callout, err.toString());
   });
 }
 
