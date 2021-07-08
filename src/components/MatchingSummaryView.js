@@ -1,5 +1,3 @@
-/* eslint-disable no-alert */
-
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
@@ -17,10 +15,12 @@ function displayError(callout, tag, message) {
       values={{ error: message }}
     />
   });
+
+  return undefined;
 }
 
 
-function extractMostRecentSegment(counterReports) {
+function extractMostRecentSegment(callout, counterReports) {
   let mostRecentReport;
   counterReports.forEach(counterReport => {
     if (!mostRecentReport || counterReport.year > mostRecentReport.year) {
@@ -29,8 +29,7 @@ function extractMostRecentSegment(counterReports) {
   });
 
   if (!mostRecentReport) {
-    alert('no most recent report');
-    return undefined;
+    return displayError(callout, 'button.update-matches.error', 'no most recent report');
   }
 
   let trReport;
@@ -41,8 +40,7 @@ function extractMostRecentSegment(counterReports) {
   });
 
   if (!trReport) {
-    alert('no TR report in most recent year');
-    return undefined;
+    return displayError(callout, 'button.update-matches.error', 'no TR report in most recent year');
   }
 
   let mostRecentSegment;
@@ -53,8 +51,7 @@ function extractMostRecentSegment(counterReports) {
   });
 
   if (!mostRecentSegment) {
-    alert('no segment in TR report for most recent year');
-    return undefined;
+    return displayError(callout, 'button.update-matches.error', 'no segment in TR report for most recent year');
   }
 
   return mostRecentSegment;
@@ -62,7 +59,7 @@ function extractMostRecentSegment(counterReports) {
 
 
 function updateMatches(okapiKy, callout, data) {
-  const mostRecentSegment = extractMostRecentSegment(data.counterReports);
+  const mostRecentSegment = extractMostRecentSegment(callout, data.counterReports);
   if (!mostRecentSegment) {
     return;
   }
