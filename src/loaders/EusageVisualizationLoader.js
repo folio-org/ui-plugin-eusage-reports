@@ -3,10 +3,11 @@ import { stripesConnect } from '@folio/stripes/core';
 import EusageVisualization from '../components/EusageVisualization';
 
 
-function EusageVisualizationLoader({ resources }) {
+function EusageVisualizationLoader({ data, resources }) {
   return <EusageVisualization
     hasLoaded={resources.titleData.hasLoaded && resources.reportData.hasLoaded}
     data={{
+      ...data,
       titleData: resources.titleData.records,
       reportData: resources.reportData.records,
     }}

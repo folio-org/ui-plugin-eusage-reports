@@ -40,7 +40,7 @@ const PluginEusageReports = ({ data }) => {
         label={<FormattedMessage id="ui-plugin-eusage-reports.accordion.label" />}
         closedByDefault={false}
       >
-        <EusageVisualizationLoader />
+        <EusageVisualizationLoader data={data.data} />
       </Accordion>
     );
   }
