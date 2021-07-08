@@ -9,9 +9,9 @@ import MatchEditorLoader from '../loaders/MatchEditorLoader';
 import generateTitleCategories from '../util/generateTitleCategories';
 
 
-function updateMatches(okapiKy, callout, data) {
+function extractMostRecentSegment(counterReports) {
   let mostRecentReport;
-  data.counterReports.forEach(counterReport => {
+  counterReports.forEach(counterReport => {
     if (!mostRecentReport || counterReport.year > mostRecentReport.year) {
       mostRecentReport = counterReport;
     }
@@ -19,7 +19,7 @@ function updateMatches(okapiKy, callout, data) {
 
   if (!mostRecentReport) {
     alert('no most recent report');
-    return;
+    return undefined;
   }
 
   let trReport;
@@ -31,7 +31,7 @@ function updateMatches(okapiKy, callout, data) {
 
   if (!trReport) {
     alert('no TR report in most recent year');
-    return;
+    return undefined;
   }
 
   let mostRecentSegment;
@@ -43,6 +43,16 @@ function updateMatches(okapiKy, callout, data) {
 
   if (!mostRecentSegment) {
     alert('no segment in TR report for most recent year');
+    return undefined;
+  }
+
+  return mostRecentSegment;
+}
+
+
+function updateMatches(okapiKy, callout, data) {
+  const mostRecentSegment = extractMostRecentSegment(data.counterReports);
+  if (!mostRecentSegment) {
     return;
   }
 
