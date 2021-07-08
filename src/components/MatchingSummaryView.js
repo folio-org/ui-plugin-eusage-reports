@@ -5,23 +5,8 @@ import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
 import { AccordionSet, Accordion, Row, Col, KeyValue, Loading, Layer, Button } from '@folio/stripes/components';
 import MatchEditorLoader from '../loaders/MatchEditorLoader';
 import generateTitleCategories from '../util/generateTitleCategories';
-
-
-function displayError(callout, wrapperTag, errorTag, errorMessage) {
-  const error = errorTag ?
-    <FormattedMessage id={`ui-plugin-eusage-reports.${wrapperTag}.${errorTag}`} /> :
-    errorMessage;
-
-  callout.sendCallout({
-    type: 'error',
-    message: <FormattedMessage
-      id={`ui-plugin-eusage-reports.${wrapperTag}`}
-      values={{ error }}
-    />
-  });
-
-  return undefined;
-}
+import displayError from '../util/displayError';
+import performLongOperation from '../util/performLongOperation';
 
 
 const displayUpdateMatchError = (c, t, m) => displayError(c, 'button.update-matches.error', t, m);
@@ -67,30 +52,13 @@ function extractMostRecentSegment(callout, counterReports) {
 
 function updateMatches(okapiKy, callout, data) {
   const mostRecentSegment = extractMostRecentSegment(callout, data.counterReports);
-  if (!mostRecentSegment) {
-    return;
+  if (mostRecentSegment) {
+    performLongOperation(okapiKy, callout,
+      'update-matches',
+      'eusage-reports/report-titles/from-counter',
+      { counterReportId: mostRecentSegment.id },
+      { yearMonth: mostRecentSegment.yearMonth });
   }
-
-  const p = okapiKy.post('eusage-reports/report-titles/from-counter', {
-    json: { counterReportId: mostRecentSegment.id }
-  });
-  callout.sendCallout({
-    message: <FormattedMessage
-      id="ui-plugin-eusage-reports.button.update-matches.dispatched"
-      values={{ yearMonth: mostRecentSegment.yearMonth }}
-    />
-  });
-
-  p.then(() => {
-    callout.sendCallout({
-      message: <FormattedMessage
-        id="ui-plugin-eusage-reports.button.update-matches.completed"
-        values={{ yearMonth: mostRecentSegment.yearMonth }}
-      />
-    });
-  }).catch(err => {
-    displayUpdateMatchError(callout, undefined, err.toString());
-  });
 }
 
 
