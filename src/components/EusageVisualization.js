@@ -7,16 +7,23 @@ import CostPerUse from '../reports/CostPerUse';
 import performLongOperation from '../util/performLongOperation';
 
 
-function analyzeAgreement(okapiKy, callout, _data) {
-  // This is an ugly hack, but should work until we have ui-agreements passing in the information
-  const id = window.location.pathname.replace(/.*\//, '');
-  const name = '(unnamed agreement)';
+function analyzeAgreement(okapiKy, callout, data) {
+  let id;
+  let name;
+  if (data.agreement) {
+    id = data.agreement.id;
+    name = data.agreement.name;
+  } else {
+    // This is an ugly hack, but should work until we have ui-agreements passing in the information
+    id = window.location.pathname.replace(/.*\//, '');
+    name = '(unnamed agreement)';
+  }
 
   performLongOperation(okapiKy, callout,
     'analyze-agreement',
     'eusage-reports/report-data/from-agreement',
     { agreementId: id },
-    { agreement: name });
+    { agreement: name, i: x => <i>{x}</i> });
 }
 
 
@@ -43,8 +50,7 @@ function EusageVisualization({ hasLoaded, data }) {
   const [startDate, setStartDate] = useState('2021-07-05'); // XXX change
   const [endDate, setEndDate] = useState('2021-07-05'); // XXX change
 
-  // eslint-disable-next-line no-console
-  console.log('report =', report, '-- format =', format, '-- includeOA =', includeOA, '-- startDate =', startDate, '-- endDate =', endDate);
+  // console.log('report =', report, '-- format =', format, '-- includeOA =', includeOA, '-- startDate =', startDate, '-- endDate =', endDate);
 
   if (!hasLoaded) return <Loading />;
 
