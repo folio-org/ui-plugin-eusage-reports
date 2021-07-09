@@ -16,6 +16,7 @@ function MatchingSummaryLoader({ data, resources, mutator }) {
       ...data,
       query: resources.query,
       reportTitles: resources.reportTitles.records,
+      reportTitlesCount: resources.reportTitles.other?.totalRecords,
     }}
     mutator={mutator}
   />;
@@ -28,8 +29,10 @@ MatchingSummaryLoader.manifest = {
     type: 'okapi',
     path: 'eusage-reports/report-titles',
     params: (_q, _p, _r, _l, props) => {
+      const params = { limit: 40 };
       const udpId = props.data.usageDataProvider.id;
-      return udpId ? { providerId: udpId } : null;
+      if (udpId) params.providerId = udpId;
+      return params;
     },
     records: 'titles',
   },
@@ -49,7 +52,15 @@ MatchingSummaryLoader.propTypes = {
     }).isRequired,
   }).isRequired,
   resources: PropTypes.shape({
-    reportTitles: PropTypes.object,
+    reportTitles: PropTypes.shape({
+      url: PropTypes.string,
+      records: PropTypes.arrayOf(
+        PropTypes.object.isRequired,
+      ),
+      other: PropTypes.shape({
+        totalRecords: PropTypes.number.isRequired,
+      }),
+    }).isRequired,
     query: PropTypes.object.isRequired,
   }).isRequired,
   mutator: PropTypes.object.isRequired,

@@ -108,7 +108,13 @@ function MatchingSummaryView({ hasLoaded, data, mutator }) {
                 label={<FormattedMessage id={`ui-plugin-eusage-reports.matching-summary.${cat.key}`} />}
                 value={
                   hasLoaded ?
-                    <span style={{ color: '#008', textDecoration: 'underline' }}>{cat.data.length}</span> :
+                    <span style={{ color: '#008', textDecoration: 'underline' }}>
+                      {
+                        (cat.key !== 'loaded' || cat.data.length === data.reportTitlesCount) ?
+                          cat.data.length :
+                          `${cat.data.length} of ${data.reportTitlesCount}`
+                      }
+                    </span> :
                     <Loading />
                 }
               />
@@ -169,6 +175,7 @@ MatchingSummaryView.propTypes = {
         kbManualMatch: PropTypes.bool.isRequired,
       }).isRequired,
     ).isRequired,
+    reportTitlesCount: PropTypes.number,
   }).isRequired,
   mutator: PropTypes.shape({
     query: PropTypes.shape({
