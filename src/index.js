@@ -30,7 +30,7 @@ const PluginEusageReports = ({ data }) => {
         label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.label" />}
         closedByDefault={false}
       >
-        <MatchingSummary data={data.data} />
+        <MatchingSummary data={data?.data} />
       </Accordion>
     );
   } else {
@@ -40,7 +40,7 @@ const PluginEusageReports = ({ data }) => {
         label={<FormattedMessage id="ui-plugin-eusage-reports.accordion.label" />}
         closedByDefault={false}
       >
-        <EusageVisualizationLoader data={data.data} />
+        <EusageVisualizationLoader data={data?.data} />
       </Accordion>
     );
   }
