@@ -4,7 +4,7 @@ import displayError from './displayError';
 
 
 function performLongOperation(okapiKy, callout, operation, path, data, values) {
-  const p = okapiKy.post(path, { json: data });
+  const p = okapiKy.post(path, { json: data, timeout: false });
 
   callout.sendCallout({
     message: <FormattedMessage
