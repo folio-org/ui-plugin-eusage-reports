@@ -44,5 +44,21 @@
     "report-form.include-oa.yes": "Yes",
     "report-form.include-oa.no": "No",
     "report-form.start-month": "Start month",
-    "report-form.end-month": "End month"
+    "report-form.end-month": "End month",
+    "matching-summary.status.no-records": "No records",
+    "column.status": "Status",
+    "column.printId": "Print ISSN/ISBN",
+    "column.electronicId": "Electronic ISSN",
+    "column.doi": "DOI",
+    "button.update-matches": "Update matches",
+    "button.update-matches.dispatched": "Requested update on matches for {yearMonth} ...",
+    "button.update-matches.completed": "... Completed update on matches for {yearMonth}.",
+    "button.update-matches.error": "Error updating matches: {error}",
+    "button.analyze-agreement": "Analyze agreement",
+    "button.update-matches.error.no-recent-report": "no most recent report",
+    "button.update-matches.error.no-tr-report": "no TR report in most recent year",
+    "button.update-matches.error.no-segment": "no segment in TR report for most recent year",
+    "button.analyze-agreement.dispatched": "Requested analysis of agreement {agreement} ...",
+    "button.analyze-agreement.completed": "... Completed analysis of agreement {agreement}.",
+    "button.analyze-agreement.error": "Error analyzing agreement: {error}"
 }
