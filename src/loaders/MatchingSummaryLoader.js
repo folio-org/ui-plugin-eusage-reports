@@ -29,7 +29,7 @@ MatchingSummaryLoader.manifest = {
     type: 'okapi',
     path: 'eusage-reports/report-titles',
     params: (_q, _p, _r, _l, props) => {
-      const params = { limit: 40 };
+      const params = { limit: 200 };
       const udpId = props.data.usageDataProvider.id;
       if (udpId) params.providerId = udpId;
       return params;
