@@ -22,10 +22,10 @@ import generateTitleCategories from '../util/generateTitleCategories';
 function maybeLinkTitle(rec) {
   const kbId = rec.kbTitleId;
 
-  if (!kbId) return rec.counterReportTitle;
+  if (!kbId) return rec.kbTitleName;
   return (
     <Link to={`/erm/eresources/${kbId}`}>
-      {rec.counterReportTitle}
+      {rec.kbTitleName}
     </Link>
   );
 }
@@ -231,7 +231,7 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
               action: '80px',
             }}
             formatter={{
-              counterReportTitle: r => maybeLinkTitle(r),
+              kbTitleName: r => maybeLinkTitle(r),
               id: r => r.id.substring(0, 8),
               kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
               printId: r => (r.printISSN || r.ISBN),
