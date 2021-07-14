@@ -50,19 +50,20 @@ function extractMostRecentSegment(callout, counterReports) {
 }
 
 
-function updateMatches(okapiKy, callout, data) {
+function updateMatches(okapiKy, callout, data, reloadReportTitles) {
   const mostRecentSegment = extractMostRecentSegment(callout, data.counterReports);
   if (mostRecentSegment) {
     performLongOperation(okapiKy, callout,
       'update-matches',
       'eusage-reports/report-titles/from-counter',
       { counterReportId: mostRecentSegment.id },
-      { yearMonth: mostRecentSegment.yearMonth });
+      { yearMonth: mostRecentSegment.yearMonth },
+      reloadReportTitles);
   }
 }
 
 
-function MatchingSummaryView({ hasLoaded, data, mutator }) {
+function MatchingSummaryView({ hasLoaded, data, mutator, reloadReportTitles }) {
   const stripes = useStripes();
   const okapiKy = useOkapiKy();
   const callout = useContext(CalloutContext);
@@ -124,7 +125,7 @@ function MatchingSummaryView({ hasLoaded, data, mutator }) {
         }
       </Row>
 
-      <Button onClick={() => updateMatches(okapiKy, callout, data)}>
+      <Button onClick={() => updateMatches(okapiKy, callout, data, reloadReportTitles)}>
         <FormattedMessage id="ui-plugin-eusage-reports.button.update-matches" />
       </Button>
 
@@ -187,6 +188,7 @@ MatchingSummaryView.propTypes = {
       update: PropTypes.func.isRequired,
     }).isRequired,
   }).isRequired,
+  reloadReportTitles: PropTypes.func.isRequired,
 };
 
 

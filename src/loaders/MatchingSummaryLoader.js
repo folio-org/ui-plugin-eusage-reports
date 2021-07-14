@@ -19,17 +19,26 @@ function MatchingSummaryLoader({ data, resources, mutator }) {
       reportTitlesCount: resources.reportTitles.other?.totalRecords,
     }}
     mutator={mutator}
+    reloadReportTitles={() => mutator.toggleVal.replace(resources.toggleVal ? 0 : 1)}
   />;
 }
 
 
 MatchingSummaryLoader.manifest = {
   query: {},
+  toggleVal: {
+    // We mutate this when we update matches, to force a stripes-connect reload
+    initialValue: 0,
+  },
+
   reportTitles: {
     type: 'okapi',
     path: 'eusage-reports/report-titles',
     params: (_q, _p, _r, _l, props) => {
-      const params = { limit: 200 };
+      const params = {
+        limit: 200,
+        _unused: props.resources.toggleVal,
+      };
       const udpId = props.data.usageDataProvider.id;
       if (udpId) params.providerId = udpId;
       return params;
@@ -61,9 +70,14 @@ MatchingSummaryLoader.propTypes = {
         totalRecords: PropTypes.number.isRequired,
       }),
     }).isRequired,
+    toggleVal: PropTypes.number.isRequired,
     query: PropTypes.object.isRequired,
   }).isRequired,
-  mutator: PropTypes.object.isRequired,
+  mutator: PropTypes.shape({
+    toggleVal: PropTypes.shape({
+      replace: PropTypes.func.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 

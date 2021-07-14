@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import displayError from './displayError';
 
 
-function performLongOperation(okapiKy, callout, operation, path, data, values) {
+function performLongOperation(okapiKy, callout, operation, path, data, values, whenComplete) {
   const p = okapiKy.post(path, { json: data, timeout: false });
 
   callout.sendCallout({
@@ -20,6 +20,7 @@ function performLongOperation(okapiKy, callout, operation, path, data, values) {
         values={values}
       />
     });
+    if (whenComplete) whenComplete();
   }).catch(err => {
     displayError(callout, `button.${operation}.error`, undefined, err.toString());
   });
