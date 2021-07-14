@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
+import { useStripes, useOkapiKy, CalloutContext } from '@folio/stripes/core';
 import { AccordionSet, Accordion, Row, Col, KeyValue, Loading, Layer, Button } from '@folio/stripes/components';
 import MatchEditorLoader from '../loaders/MatchEditorLoader';
 import generateTitleCategories from '../util/generateTitleCategories';
@@ -63,6 +63,7 @@ function updateMatches(okapiKy, callout, data) {
 
 
 function MatchingSummaryView({ hasLoaded, data, mutator }) {
+  const stripes = useStripes();
   const okapiKy = useOkapiKy();
   const callout = useContext(CalloutContext);
 
@@ -127,20 +128,24 @@ function MatchingSummaryView({ hasLoaded, data, mutator }) {
         <FormattedMessage id="ui-plugin-eusage-reports.button.update-matches" />
       </Button>
 
-      <hr />
-      <AccordionSet>
-        <Accordion closedByDefault label={`${data.counterReports.length} COUNTER Reports`}>
-          <pre>
-            {JSON.stringify(data.counterReports, null, 2)}
-          </pre>
-        </Accordion>
+      {stripes.config.showDevInfo &&
+        <>
+          <hr />
+          <AccordionSet>
+            <Accordion closedByDefault label={`${data.counterReports.length} COUNTER Reports`}>
+              <pre>
+                {JSON.stringify(data.counterReports, null, 2)}
+              </pre>
+            </Accordion>
 
-        <Accordion closedByDefault label={`${data.reportTitles.length} report titles`}>
-          <pre>
-            {JSON.stringify(data.reportTitles, null, 2)}
-          </pre>
-        </Accordion>
-      </AccordionSet>
+            <Accordion closedByDefault label={`${data.reportTitles.length} report titles`}>
+              <pre>
+                {JSON.stringify(data.reportTitles, null, 2)}
+              </pre>
+            </Accordion>
+          </AccordionSet>
+        </>
+      }
 
       {
         data.query.matchType &&
