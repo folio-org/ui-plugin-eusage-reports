@@ -197,6 +197,8 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
                     id={`segment-category-${cat.key}`}
                     onClick={() => mutator.query.update({ matchType: cat.key })}
                   >
+                    {cat.data.length}
+                    {' '}
                     <FormattedMessage id={`ui-plugin-eusage-reports.matching-summary.${cat.key}`} />
                   </Button>
                 ))
