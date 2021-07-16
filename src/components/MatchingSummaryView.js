@@ -5,61 +5,16 @@ import { useStripes, useOkapiKy, CalloutContext } from '@folio/stripes/core';
 import { AccordionSet, Accordion, Row, Col, KeyValue, Loading, Layer, Button } from '@folio/stripes/components';
 import MatchEditorLoader from '../loaders/MatchEditorLoader';
 import generateTitleCategories from '../util/generateTitleCategories';
-import displayError from '../util/displayError';
 import performLongOperation from '../util/performLongOperation';
 
 
-const displayUpdateMatchError = (c, t, m) => displayError(c, 'button.update-matches.error', t, m);
-
-
-function extractMostRecentSegment(callout, counterReports) {
-  let mostRecentReport;
-  counterReports.forEach(counterReport => {
-    if (!mostRecentReport || counterReport.year > mostRecentReport.year) {
-      mostRecentReport = counterReport;
-    }
-  });
-
-  if (!mostRecentReport) {
-    return displayUpdateMatchError(callout, 'no-recent-report');
-  }
-
-  let trReport;
-  mostRecentReport.reportsPerType.forEach(report => {
-    if (report.reportType === 'TR') {
-      trReport = report;
-    }
-  });
-
-  if (!trReport) {
-    return displayUpdateMatchError(callout, 'no-tr-report');
-  }
-
-  let mostRecentSegment;
-  trReport.counterReports.forEach(segment => {
-    if (!mostRecentSegment || segment.yearMonth > mostRecentSegment.yearMonth) {
-      mostRecentSegment = segment;
-    }
-  });
-
-  if (!mostRecentSegment) {
-    return displayUpdateMatchError(callout, 'no-segment');
-  }
-
-  return mostRecentSegment;
-}
-
-
 function updateMatches(okapiKy, callout, data, reloadReportTitles) {
-  const mostRecentSegment = extractMostRecentSegment(callout, data.counterReports);
-  if (mostRecentSegment) {
-    performLongOperation(okapiKy, callout,
-      'update-matches',
-      'eusage-reports/report-titles/from-counter',
-      { counterReportId: mostRecentSegment.id },
-      { yearMonth: mostRecentSegment.yearMonth },
-      reloadReportTitles);
-  }
+  performLongOperation(okapiKy, callout,
+    'update-matches',
+    'eusage-reports/report-titles/from-counter',
+    { providerId: data.usageDataProvider.id },
+    { yearMonth: data.usageDataProvider.label },
+    reloadReportTitles);
 }
 
 
