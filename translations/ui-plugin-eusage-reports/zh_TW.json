@@ -60,5 +60,9 @@
     "button.update-matches.error.no-segment": "no segment in TR report for most recent year",
     "button.analyze-agreement.dispatched": "Requested analysis of agreement <i>{agreement}</i> ...",
     "button.analyze-agreement.completed": "... Completed analysis of agreement <i>{agreement}</i>.",
-    "button.analyze-agreement.error": "Error analyzing agreement: {error}"
+    "button.analyze-agreement.error": "Error analyzing agreement: {error}",
+    "matching-summary.loaded-count": "Records loaded ({count})",
+    "matching-summary.matched-count": "Matched ({count})",
+    "matching-summary.unmatched-count": "Unmatched ({count})",
+    "matching-summary.ignored-count": "Ignored ({count})"
 }
