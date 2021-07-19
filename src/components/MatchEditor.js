@@ -210,14 +210,15 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
           <MultiColumnList
             autosize
             contentData={dataSet}
-            visibleColumns={['counterReportTitle', 'kbTitleName', 'printId', 'electronicId', 'doi', 'status', 'action']}
+            visibleColumns={['counterReportTitle', 'kbTitleName', 'isbn', 'issn', 'eissn', 'doi', 'status', 'action']}
             columnMapping={{
               id: <FormattedMessage id="ui-plugin-eusage-reports.column.id" />,
               counterReportTitle: <FormattedMessage id="ui-plugin-eusage-reports.column.counterReportTitle" />,
               kbTitleName: <FormattedMessage id="ui-plugin-eusage-reports.column.kbTitleName" />,
               kbTitleId: <FormattedMessage id="ui-plugin-eusage-reports.column.kbTitleId" />,
-              printId: <FormattedMessage id="ui-plugin-eusage-reports.column.printId" />,
-              electronicId: <FormattedMessage id="ui-plugin-eusage-reports.column.electronicId" />,
+              isbn: <FormattedMessage id="ui-plugin-eusage-reports.column.isbn" />,
+              issn: <FormattedMessage id="ui-plugin-eusage-reports.column.issn" />,
+              eissn: <FormattedMessage id="ui-plugin-eusage-reports.column.eissn" />,
               doi: <FormattedMessage id="ui-plugin-eusage-reports.column.doi" />,
               status: <FormattedMessage id="ui-plugin-eusage-reports.column.status" />,
               action: <FormattedMessage id="ui-plugin-eusage-reports.column.action" />,
@@ -227,8 +228,9 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
               counterReportTitle: '300px',
               kbTitleName: '300px',
               kbTitleId: '90px',
-              printId: '140px',
-              electronicId: '140px',
+              isbn: '150px',
+              issn: '100px',
+              eissn: '100px',
               doi: '100px',
               status: '100px',
               action: '80px',
@@ -237,8 +239,9 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
               kbTitleName: r => maybeLinkTitle(r),
               id: r => r.id.substring(0, 8),
               kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
-              printId: r => (r.printISSN || r.ISBN),
-              electronicId: r => r.onlineISSN,
+              isbn: r => r.ISBN,
+              issn: r => r.printISSN,
+              eissn: r => r.onlineISSN,
               doi: r => r.DOI,
               status: r => calculateStatus(intl, r),
               action: r => actionMenu(intl, callout, okapiKy, r, setRecordToEdit, triggerReRender, data.reportTitles),
