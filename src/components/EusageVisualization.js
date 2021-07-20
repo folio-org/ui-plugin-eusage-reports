@@ -119,14 +119,9 @@ function EusageVisualization({ hasLoaded, data }) {
         <FormattedMessage id="ui-plugin-eusage-reports.button.analyze-agreement" />
       </Button>
 
-      <Accordion closedByDefault label={`${data.titleData.length} title-data entries`}>
+      <Accordion closedByDefault label={`${data.useOverTime.length} use-over-time entries`}>
         <pre>
-          {JSON.stringify(data.titleData, null, 2)}
-        </pre>
-      </Accordion>
-      <Accordion closedByDefault label={`${data.reportData.length} report-data entries`}>
-        <pre>
-          {JSON.stringify(data.reportData, null, 2)}
+          {JSON.stringify(data.useOverTime, null, 2)}
         </pre>
       </Accordion>
     </>
@@ -137,10 +132,7 @@ function EusageVisualization({ hasLoaded, data }) {
 EusageVisualization.propTypes = {
   hasLoaded: PropTypes.bool.isRequired,
   data: PropTypes.shape({
-    titleData: PropTypes.arrayOf(
-      PropTypes.object.isRequired,
-    ),
-    reportData: PropTypes.arrayOf(
+    useOverTime: PropTypes.arrayOf(
       PropTypes.object.isRequired,
     ),
   }).isRequired,
