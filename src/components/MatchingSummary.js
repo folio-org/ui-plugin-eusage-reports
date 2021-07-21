@@ -18,7 +18,7 @@ function updateMatches(okapiKy, callout, data, reloadReportTitles) {
 }
 
 
-function MatchingSummaryView({ hasLoaded, data, mutator, reloadReportTitles }) {
+function MatchingSummary({ hasLoaded, data, mutator, reloadReportTitles }) {
   const stripes = useStripes();
   const okapiKy = useOkapiKy();
   const callout = useContext(CalloutContext);
@@ -120,7 +120,7 @@ function MatchingSummaryView({ hasLoaded, data, mutator, reloadReportTitles }) {
 }
 
 
-MatchingSummaryView.propTypes = {
+MatchingSummary.propTypes = {
   hasLoaded: PropTypes.bool.isRequired,
   data: PropTypes.shape({
     query: PropTypes.object.isRequired,
@@ -147,4 +147,4 @@ MatchingSummaryView.propTypes = {
 };
 
 
-export default MatchingSummaryView;
+export default MatchingSummary;

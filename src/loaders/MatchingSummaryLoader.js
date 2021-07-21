@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { stripesConnect } from '@folio/stripes/core';
-import MatchingSummaryView from '../components/MatchingSummaryView';
+import MatchingSummary from '../components/MatchingSummary';
 
 
 function MatchingSummaryLoader({ data, resources, mutator }) {
@@ -10,7 +10,7 @@ function MatchingSummaryLoader({ data, resources, mutator }) {
   // after the UDB changes and a new data-set needs to be loaded.
   const hasLoaded = (resources.reportTitles.url || '').includes(data.usageDataProvider.id);
 
-  return <MatchingSummaryView
+  return <MatchingSummary
     hasLoaded={hasLoaded}
     data={{
       ...data,
