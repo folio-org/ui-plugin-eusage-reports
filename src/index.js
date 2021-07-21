@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Accordion } from '@folio/stripes/components';
 import MatchingSummary from './loaders/MatchingSummaryLoader';
-import EusageVisualization from './components/EusageVisualization';
+import EusageVisualization from './views/EusageVisualization';
 
 
 // Thank Michal Kuklis for this abomination :-)

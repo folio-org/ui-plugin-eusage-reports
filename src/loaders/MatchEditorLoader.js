@@ -1,4 +1,4 @@
-import MatchEditor from '../components/MatchEditor';
+import MatchEditor from '../views/MatchEditor';
 
 function MatchEditorLoader(props) {
   // At the moment, there is no data loading to be done for this

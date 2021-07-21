@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { stripesConnect } from '@folio/stripes/core';
-import EusageVisualization from '../components/EusageVisualization';
+import EusageVisualization from '../views/EusageVisualization';
 
 
 function EusageVisualizationLoader({ data, resources }) {
