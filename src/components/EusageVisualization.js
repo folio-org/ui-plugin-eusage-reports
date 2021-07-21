@@ -33,9 +33,10 @@ function EusageVisualization({ data }) {
   const intl = useIntl();
 
   const reportOptions = [
+    { value: 'uot', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.use-over-time' }) },
+    { value: 'rbu', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.requests-by-date-of-use' }) },
+    { value: 'rbp', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.requests-by-publication-year' }) },
     { value: 'cpu', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.cost-per-use' }) },
-    { value: 'ubm', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.use-by-month' }) },
-    { value: 'ubpy', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.use-by-publication-year' }) },
   ];
 
   const formatOptions = [
@@ -44,7 +45,7 @@ function EusageVisualization({ data }) {
     { value: 'd', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.databases' }) },
   ];
 
-  const [report, setReport] = useState('cpu');
+  const [report, setReport] = useState('uot');
   const [format, setFormat] = useState('j');
   const [includeOA, setIncludeOA] = useState('yes');
   const [startDate, setStartDate] = useState('2021-07-05'); // XXX change
