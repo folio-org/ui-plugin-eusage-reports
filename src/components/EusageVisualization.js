@@ -19,22 +19,11 @@ import performLongOperation from '../util/performLongOperation';
 
 
 function analyzeAgreement(okapiKy, callout, data) {
-  let id;
-  let name;
-  if (data.agreement) {
-    id = data.agreement.id;
-    name = data.agreement.name;
-  } else {
-    // This is an ugly hack, but should work until we have ui-agreements passing in the information
-    id = window.location.pathname.replace(/.*\//, '');
-    name = '(unnamed agreement)';
-  }
-
   performLongOperation(okapiKy, callout,
     'analyze-agreement',
     'eusage-reports/report-data/from-agreement',
-    { agreementId: id },
-    { agreement: name, i: x => <i>{x}</i> });
+    { agreementId: data.agreement.id },
+    { agreement: data.agreement.name, i: x => <i>{x}</i> });
 }
 
 
@@ -151,6 +140,10 @@ EusageVisualization.propTypes = {
     useOverTime: PropTypes.arrayOf(
       PropTypes.object.isRequired,
     ),
+    agreement: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
 };
 
