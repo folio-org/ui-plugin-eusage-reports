@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { Loading, MultiColumnList, Accordion } from '@folio/stripes/components';
 
 
@@ -26,13 +27,13 @@ function UseOverTime({ data }) {
 
   const dataSet = [
     {
-      title: <b>{"Totals - Total item requests"}</b>,
+      title: <b><FormattedMessage id="ui-plugin-eusage-reports.useOverTime.totalItemRequests" /></b>,
       accessType: undefined,
       metricType: undefined,
       ...tirByDate,
     },
     {
-      title: <b>{"Totals - Unique item requests"}</b>,
+      title: <b><FormattedMessage id="ui-plugin-eusage-reports.useOverTime.uniqueItemRequests" /></b>,
       accessType: undefined,
       metricType: undefined,
       ...uirByDate,
@@ -45,9 +46,9 @@ function UseOverTime({ data }) {
         contentData={dataSet}
         visibleColumns={['title', 'accessType', 'metricType', ...dates]}
         columnMapping={{
-          title: "Title",
-          accessType: "Access type",
-          metricType: "Metric type",
+          title: <FormattedMessage id="ui-plugin-eusage-reports.useOverTime.column.title" />,
+          accessType: <FormattedMessage id="ui-plugin-eusage-reports.useOverTime.column.accessType" />,
+          metricType: <FormattedMessage id="ui-plugin-eusage-reports.useOverTime.column.metricType" />,
         }}
         columnWidths={{
           title: '150px',
