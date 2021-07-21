@@ -42,6 +42,17 @@ function UseOverTime({ data }) {
 
   return (
     <>
+      <p>
+        <b><FormattedMessage id="ui-plugin-eusage-reports.useOverTime.totalTotalItemRequests" /></b>
+        {': '}
+        {uot.totalItemRequestsTotal}
+      </p>
+      <p>
+        <b><FormattedMessage id="ui-plugin-eusage-reports.useOverTime.totalUniqueItemRequests" /></b>
+        {': '}
+        {uot.uniqueItemRequestsTotal}
+      </p>
+
       <MultiColumnList
         contentData={dataSet}
         visibleColumns={['title', 'accessType', 'metricType', ...dates]}
@@ -73,6 +84,8 @@ function UseOverTime({ data }) {
 UseOverTime.propTypes = {
   data: PropTypes.shape({
     useOverTime: PropTypes.shape({
+      totalItemRequestsTotal: PropTypes.number.isRequired,
+      uniqueItemRequestsTotal: PropTypes.number.isRequired,
       accessCountPeriods: PropTypes.arrayOf(
         PropTypes.string.isRequired,
       ).isRequired,

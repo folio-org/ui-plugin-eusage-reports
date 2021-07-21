@@ -4,6 +4,8 @@
   "costPerUse.cpr-total": "Cost per request - total",
   "costPerUse.cpr-unique": "Cost per request — unique",
   "costPerUse.select-agreement-line": "Select agreement line",
+  "useOverTime.totalTotalItemRequests": "Total item requests across period",
+  "useOverTime.totalUniqueItemRequests": "Unique item requests across period",
   "useOverTime.totalItemRequests": "Totals - Total item requests",
   "useOverTime.uniqueItemRequests": "Totals - Unique item requests",
   "useOverTime.column.title": "Title",
