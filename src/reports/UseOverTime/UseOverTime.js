@@ -25,6 +25,20 @@ function UseOverTime({ data }) {
     pointlessFormattersForDateColumns[date] = (x) => x[date] || '';
   });
 
+  const dataLines = uot.items.map(item => {
+    const rec = {
+      title: item.title,
+      accessType: <FormattedMessage id={`ui-plugin-eusage-reports.useOverTime.access.${item.accessType}`} />,
+      metricType: <FormattedMessage id={`ui-plugin-eusage-reports.useOverTime.metric.${item.metricType}`} />,
+    };
+
+    dates.forEach((date, i) => {
+      rec[date] = item.accessCountsByPeriod[i];
+    });
+
+    return rec;
+  });
+
   const dataSet = [
     {
       title: <b><FormattedMessage id="ui-plugin-eusage-reports.useOverTime.totalItemRequests" /></b>,
@@ -38,6 +52,7 @@ function UseOverTime({ data }) {
       metricType: undefined,
       ...uirByDate,
     },
+    ...dataLines,
   ];
 
   return (
@@ -63,8 +78,8 @@ function UseOverTime({ data }) {
         }}
         columnWidths={{
           title: '150px',
-          accessType: '100px',
-          metricType: '100px',
+          accessType: '150px',
+          metricType: '150px',
         }}
         formatter={{
           ...pointlessFormattersForDateColumns,
