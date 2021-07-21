@@ -2,7 +2,17 @@ import { useState, useContext } from 'react';
 import { useIntl, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
-import { Row, Col, Select, KeyValue, RadioButtonGroup, RadioButton, Datepicker, Button, Accordion } from '@folio/stripes/components';
+import {
+  Row,
+  Col,
+  Select,
+  KeyValue,
+  RadioButtonGroup,
+  RadioButton,
+  Datepicker,
+  Button,
+  Accordion,
+} from '@folio/stripes/components';
 import CostPerUse from '../reports/CostPerUse';
 import performLongOperation from '../util/performLongOperation';
 
