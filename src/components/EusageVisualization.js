@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { useIntl, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
-import { Loading, Row, Col, Select, KeyValue, RadioButtonGroup, RadioButton, Datepicker, Button, Accordion } from '@folio/stripes/components';
+import { Row, Col, Select, KeyValue, RadioButtonGroup, RadioButton, Datepicker, Button, Accordion } from '@folio/stripes/components';
 import CostPerUse from '../reports/CostPerUse';
 import performLongOperation from '../util/performLongOperation';
 
@@ -27,7 +27,7 @@ function analyzeAgreement(okapiKy, callout, data) {
 }
 
 
-function EusageVisualization({ hasLoaded, data }) {
+function EusageVisualization({ data }) {
   const okapiKy = useOkapiKy();
   const callout = useContext(CalloutContext);
   const intl = useIntl();
@@ -51,8 +51,6 @@ function EusageVisualization({ hasLoaded, data }) {
   const [endDate, setEndDate] = useState('2021-07-05'); // XXX change
 
   // console.log('report =', report, '-- format =', format, '-- includeOA =', includeOA, '-- startDate =', startDate, '-- endDate =', endDate);
-
-  if (!hasLoaded) return <Loading />;
 
   return (
     <>
@@ -119,7 +117,7 @@ function EusageVisualization({ hasLoaded, data }) {
         <FormattedMessage id="ui-plugin-eusage-reports.button.analyze-agreement" />
       </Button>
 
-      <Accordion closedByDefault label={`${data.useOverTime.length} use-over-time entries`}>
+      <Accordion closedByDefault label={`${data.useOverTime?.length} use-over-time entries`}>
         <pre>
           {JSON.stringify(data.useOverTime, null, 2)}
         </pre>
@@ -130,7 +128,6 @@ function EusageVisualization({ hasLoaded, data }) {
 
 
 EusageVisualization.propTypes = {
-  hasLoaded: PropTypes.bool.isRequired,
   data: PropTypes.shape({
     useOverTime: PropTypes.arrayOf(
       PropTypes.object.isRequired,
