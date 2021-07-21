@@ -52,7 +52,7 @@ PluginEusageReports.eventHandler = (event, _stripes, _data) => (
 
 PluginEusageReports.propTypes = {
   data: PropTypes.shape({
-    op: PropTypes.string, // XXX add isRequired once ui-agreements is update to pass it
+    op: PropTypes.string,
     data: PropTypes.object.isRequired,
   }),
 };
