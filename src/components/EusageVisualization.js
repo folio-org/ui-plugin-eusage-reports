@@ -13,6 +13,7 @@ import {
   Button,
   Accordion,
 } from '@folio/stripes/components';
+import UseOverTimeLoader from '../loaders/UseOverTimeLoader';
 import CostPerUse from '../reports/CostPerUse';
 import performLongOperation from '../util/performLongOperation';
 
@@ -50,6 +51,7 @@ function EusageVisualization({ data }) {
   ];
 
   const reportName2component = {
+    uot: UseOverTimeLoader,
     cpu: CostPerUse,
   };
 
