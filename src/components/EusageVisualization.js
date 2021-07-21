@@ -27,22 +27,28 @@ function analyzeAgreement(okapiKy, callout, data) {
 }
 
 
+const reports = [
+  { value: 'uot', tag: 'use-over-time', component: UseOverTimeLoader },
+  { value: 'rbu', tag: 'requests-by-date-of-use' },
+  { value: 'rbp', tag: 'requests-by-publication-year' },
+  { value: 'cpu', tag: 'cost-per-use', component: CostPerUse },
+];
+
+
 function EusageVisualization({ data }) {
   const okapiKy = useOkapiKy();
   const callout = useContext(CalloutContext);
   const intl = useIntl();
 
-  const reportOptions = [
-    { value: 'uot', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.use-over-time' }) },
-    { value: 'rbu', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.requests-by-date-of-use' }) },
-    { value: 'rbp', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.requests-by-publication-year' }) },
-    { value: 'cpu', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.cost-per-use' }) },
-  ];
+  const reportOptions = reports.map(r => ({
+    value: r.value,
+    label: intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.report.${r.tag}` }),
+  }));
 
-  const reportName2component = {
-    uot: UseOverTimeLoader,
-    cpu: CostPerUse,
-  };
+  const reportName2component = {};
+  reports.forEach(r => {
+    if (r.component) reportName2component[r.value] = r.component;
+  });
 
   const formatOptions = [
     { value: 'j', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.journals' }) },
@@ -58,7 +64,7 @@ function EusageVisualization({ data }) {
 
   // console.log('report =', report, '-- format =', format, '-- includeOA =', includeOA, '-- startDate =', startDate, '-- endDate =', endDate);
 
-  const Chart = reportName2component[report] || (() => `${report} report not implemented`);
+  const Chart = reportName2component[report] || (() => <p><b>{report}</b> report not implemented</p>);
 
   return (
     <>
