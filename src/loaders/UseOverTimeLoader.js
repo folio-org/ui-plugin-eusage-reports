@@ -8,7 +8,7 @@ function UseOverTimeLoader({ data, resources }) {
     hasLoaded={resources.useOverTime.hasLoaded}
     data={{
       ...data,
-      useOverTime: resources.useOverTime.records,
+      useOverTime: resources.useOverTime.records[0],
     }}
   />;
 }

@@ -11,7 +11,6 @@ import {
   RadioButton,
   Datepicker,
   Button,
-  Accordion,
 } from '@folio/stripes/components';
 import UseOverTimeLoader from '../loaders/UseOverTimeLoader';
 import CostPerUse from '../reports/CostPerUse';
@@ -125,17 +124,11 @@ function EusageVisualization({ data }) {
         {/* No third column in this row */}
       </Row>
 
-      <Chart data={data} />
+      <Chart data={data} params={{ report, format, includeOA, startDate, endDate }} />
 
       <Button onClick={() => analyzeAgreement(okapiKy, callout, data)}>
         <FormattedMessage id="ui-plugin-eusage-reports.button.analyze-agreement" />
       </Button>
-
-      <Accordion closedByDefault label={`${data.useOverTime?.length} use-over-time entries`}>
-        <pre>
-          {JSON.stringify(data.useOverTime, null, 2)}
-        </pre>
-      </Accordion>
     </>
   );
 }
