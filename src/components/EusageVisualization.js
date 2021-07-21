@@ -39,6 +39,10 @@ function EusageVisualization({ data }) {
     { value: 'cpu', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.cost-per-use' }) },
   ];
 
+  const reportName2component = {
+    cpu: CostPerUse,
+  };
+
   const formatOptions = [
     { value: 'j', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.journals' }) },
     { value: 'b', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.books' }) },
@@ -52,6 +56,8 @@ function EusageVisualization({ data }) {
   const [endDate, setEndDate] = useState('2021-07-05'); // XXX change
 
   // console.log('report =', report, '-- format =', format, '-- includeOA =', includeOA, '-- startDate =', startDate, '-- endDate =', endDate);
+
+  const Chart = reportName2component[report] || (() => `${report} report not implemented`);
 
   return (
     <>
@@ -112,7 +118,7 @@ function EusageVisualization({ data }) {
         {/* No third column in this row */}
       </Row>
 
-      <CostPerUse data={data} />
+      <Chart data={data} />
 
       <Button onClick={() => analyzeAgreement(okapiKy, callout, data)}>
         <FormattedMessage id="ui-plugin-eusage-reports.button.analyze-agreement" />
