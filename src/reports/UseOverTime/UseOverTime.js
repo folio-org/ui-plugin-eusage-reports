@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Bar } from 'react-chartjs-2';
+import { useStripes } from '@folio/stripes/core';
 import { Loading, MultiColumnList, Accordion } from '@folio/stripes/components';
 
 
@@ -129,6 +130,7 @@ function renderUseOverTimeChart(intl, uot) {
 
 function UseOverTime({ data }) {
   const intl = useIntl();
+  const stripes = useStripes();
   const uot = data.useOverTime;
   if (!uot) return <><br /><Loading /><br /></>;
 
@@ -138,9 +140,11 @@ function UseOverTime({ data }) {
       <Accordion closedByDefault label={<FormattedMessage id="ui-plugin-eusage-reports.useOverTime.table" />}>
         {renderUseOverTimeTable(uot)}
       </Accordion>
-      <Accordion closedByDefault label={<FormattedMessage id="ui-plugin-eusage-reports.useOverTime.raw-data" />}>
-        <pre>{JSON.stringify(uot, null, 2)}</pre>
-      </Accordion>
+      {stripes.config.showDevInfo &&
+        <Accordion closedByDefault label={<FormattedMessage id="ui-plugin-eusage-reports.useOverTime.raw-data" />}>
+          <pre>{JSON.stringify(uot, null, 2)}</pre>
+        </Accordion>
+      }
     </>
   );
 }
