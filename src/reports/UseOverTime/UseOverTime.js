@@ -3,10 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Loading, MultiColumnList, Accordion } from '@folio/stripes/components';
 
 
-function UseOverTime({ data }) {
-  const uot = data.useOverTime;
-  if (!uot) return <><br /><Loading /><br /></>;
-
+function renderUseOverTimeTable(uot) {
   const dates = uot.accessCountPeriods;
 
   const tirByDate = {};
@@ -93,6 +90,15 @@ function UseOverTime({ data }) {
       </Accordion>
     </>
   );
+}
+
+
+function UseOverTime({ data }) {
+  const intl = useIntl();
+  const uot = data.useOverTime;
+  if (!uot) return <><br /><Loading /><br /></>;
+
+  return renderUseOverTimeTable(uot);
 }
 
 
