@@ -82,7 +82,18 @@ function renderUseOverTimeTable(uot) {
           ...pointlessFormattersForDateColumns,
         }}
       />
+    </>
+  );
+}
 
+
+function UseOverTime({ data }) {
+  const uot = data.useOverTime;
+  if (!uot) return <><br /><Loading /><br /></>;
+
+  return (
+    <>
+      {renderUseOverTimeTable(uot)}
       <Accordion closedByDefault label="use-over-time data">
         <pre>
           {JSON.stringify(uot, null, 2)}
@@ -90,15 +101,6 @@ function renderUseOverTimeTable(uot) {
       </Accordion>
     </>
   );
-}
-
-
-function UseOverTime({ data }) {
-  const intl = useIntl();
-  const uot = data.useOverTime;
-  if (!uot) return <><br /><Loading /><br /></>;
-
-  return renderUseOverTimeTable(uot);
 }
 
 
