@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useIntl, FormattedMessage } from 'react-intl';
+import { Bar } from 'react-chartjs-2';
 import { Loading, MultiColumnList, Accordion } from '@folio/stripes/components';
 
 
@@ -87,13 +88,54 @@ function renderUseOverTimeTable(uot) {
 }
 
 
+function renderUseOverTimeChart(intl, uot) {
+  const data = {
+    labels: uot.accessCountPeriods,
+    datasets: [
+      {
+        label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.useOverTime.metric.Total_Item_Requests' }),
+        data: uot.totalItemRequestsByPeriod,
+        backgroundColor: 'blue',
+      },
+      {
+        label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.useOverTime.metric.Unique_Item_Requests' }),
+        data: uot.uniqueItemRequestsByPeriod,
+        backgroundColor: 'red',
+      },
+    ],
+  };
+
+  const options = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  };
+
+  return (
+    <Bar
+      redraw
+      data={data}
+      options={options}
+    />
+  );
+}
+
+
 function UseOverTime({ data }) {
+  const intl = useIntl();
   const uot = data.useOverTime;
   if (!uot) return <><br /><Loading /><br /></>;
 
   return (
     <>
       {renderUseOverTimeTable(uot)}
+      {renderUseOverTimeChart(intl, uot)}
       <Accordion closedByDefault label="use-over-time data">
         <pre>
           {JSON.stringify(uot, null, 2)}
