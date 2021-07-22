@@ -134,12 +134,12 @@ function UseOverTime({ data }) {
 
   return (
     <>
-      {renderUseOverTimeTable(uot)}
       {renderUseOverTimeChart(intl, uot)}
-      <Accordion closedByDefault label="use-over-time data">
-        <pre>
-          {JSON.stringify(uot, null, 2)}
-        </pre>
+      <Accordion closedByDefault label={<FormattedMessage id="ui-plugin-eusage-reports.useOverTime.table" />}>
+        {renderUseOverTimeTable(uot)}
+      </Accordion>
+      <Accordion closedByDefault label={<FormattedMessage id="ui-plugin-eusage-reports.useOverTime.raw-data" />}>
+        <pre>{JSON.stringify(uot, null, 2)}</pre>
       </Accordion>
     </>
   );
