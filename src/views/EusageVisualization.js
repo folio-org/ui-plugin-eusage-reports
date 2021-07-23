@@ -55,7 +55,7 @@ function EusageVisualization({ data }) {
     { value: 'd', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.databases' }) },
   ];
 
-  const [report, setReport] = useState('uot');
+  const [report, setReport] = useState('rbu');
   const [format, setFormat] = useState('j');
   const [includeOA, setIncludeOA] = useState('yes');
   const [startDate, setStartDate] = useState('2021-07-05'); // XXX change
@@ -140,8 +140,8 @@ EusageVisualization.propTypes = {
       PropTypes.object.isRequired,
     ),
     agreement: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
+      id: PropTypes.string,
+      name: PropTypes.string,
     }).isRequired,
   }).isRequired,
 };
