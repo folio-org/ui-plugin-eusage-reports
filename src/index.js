@@ -5,7 +5,7 @@ import MatchingSummary from './loaders/MatchingSummaryLoader';
 import EusageVisualization from './views/EusageVisualization';
 
 
-// Thank Michal Kuklis for this abomination :-)
+// Thank Michal Kuklis for the seeds of this abomination :-)
 //
 function disablePropTypesChecks(disable) {
   if (disable) {
@@ -13,7 +13,11 @@ function disablePropTypesChecks(disable) {
     const error = console.error;
     // eslint-disable-next-line no-console
     console.error = function errorIgnoringPropTypes(...args) {
-      if (/Failed (prop|%s) type/.test(args[0])) return;
+      const [message, _kind, detail] = args;
+      if (/Failed (prop|%s) type/.test(message) &&
+          /entity(Id|Name).*NotesSmartAccordion/.test(detail)) {
+        return;
+      }
       error.apply(console, args);
     };
   }
