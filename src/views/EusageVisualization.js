@@ -34,6 +34,15 @@ const reports = [
 ];
 
 
+function yearsBeforeInISO(base, n) {
+  const year = base.getFullYear();
+  const month = base.getMonth();
+  const day = base.getDate();
+  const before = new Date(year - n, month, day+1); // Why do we need this +1?
+  return before.toISOString().substring(0, 10);
+}
+
+
 function EusageVisualization({ data }) {
   const okapiKy = useOkapiKy();
   const callout = useContext(CalloutContext);
@@ -58,8 +67,10 @@ function EusageVisualization({ data }) {
   const [report, setReport] = useState('uot');
   const [format, setFormat] = useState('JOURNAL');
   const [includeOA, setIncludeOA] = useState('yes');
-  const [startDate, setStartDate] = useState('2021-07-05'); // XXX change
-  const [endDate, setEndDate] = useState('2021-07-05'); // XXX change
+
+  const now = new Date();
+  const [startDate, setStartDate] = useState(yearsBeforeInISO(now, 2));
+  const [endDate, setEndDate] = useState(now.toISOString().substring(0, 10));
 
   // console.log('report =', report, '-- format =', format, '-- includeOA =', includeOA, '-- startDate =', startDate, '-- endDate =', endDate);
 
