@@ -23,10 +23,10 @@ UseOverTimeLoader.manifest = {
       if (!aId) return null;
       return ({
         agreementId: aId,
-        startDate: '1970-01-01', // XXX set from UI
-        endDate: '2999-12-31', // XXX set from UI
-        format: 'BOOK', // XXX set from UI
-        includeOA: true, // XXX set from UI
+        startDate: props.params.startDate,
+        endDate: props.params.endDate,
+        format: props.params.format,
+        includeOA: props.params.includeOA,
       });
     },
   },
@@ -35,6 +35,13 @@ UseOverTimeLoader.manifest = {
 
 UseOverTimeLoader.propTypes = {
   data: PropTypes.object.isRequired,
+  params: PropTypes.shape({
+    report: PropTypes.string.isRequired, // uot, rbu, etc.
+    format: PropTypes.string.isRequired, // j=journal, b=book, etc.
+    includeOA: PropTypes.bool.isRequired,
+    startDate: PropTypes.string.isRequired, // ISO-format date
+    endDate: PropTypes.string.isRequired, // ISO-format date
+  }).isRequired,
   resources: PropTypes.shape({
     useOverTime: PropTypes.shape({
       hasLoaded: PropTypes.bool.isRequired,
