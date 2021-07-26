@@ -38,7 +38,7 @@ function yearsBeforeInISO(base, n) {
   const year = base.getFullYear();
   const month = base.getMonth();
   const day = base.getDate();
-  const before = new Date(year - n, month, day+1); // Why do we need this +1?
+  const before = new Date(year - n, month, day + 1); // Why do we need this +1?
   return before.toISOString().substring(0, 10);
 }
 
