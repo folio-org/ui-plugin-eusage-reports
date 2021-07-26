@@ -13,7 +13,7 @@ function disablePropTypesChecks(disable) {
     const error = console.error;
     // eslint-disable-next-line no-console
     console.error = function errorIgnoringPropTypes(...args) {
-      const [message, _kind, detail] = args;
+      const [message,, detail] = args;
       if (/Failed (prop|%s) type/.test(message) &&
           /entity(Id|Name).*NotesSmartAccordion/.test(detail)) {
         return;
