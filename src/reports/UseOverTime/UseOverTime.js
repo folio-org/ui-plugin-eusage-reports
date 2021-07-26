@@ -128,11 +128,11 @@ function renderUseOverTimeChart(intl, uot) {
 }
 
 
-function UseOverTime({ data }) {
+function UseOverTime({ hasLoaded, data }) {
   const intl = useIntl();
   const stripes = useStripes();
+  if (!hasLoaded) return <><br /><Loading /><br /></>;
   const uot = data.useOverTime;
-  if (!uot) return <><br /><Loading /><br /></>;
 
   return (
     <>
@@ -151,6 +151,7 @@ function UseOverTime({ data }) {
 
 
 UseOverTime.propTypes = {
+  hasLoaded: PropTypes.bool.isRequired,
   data: PropTypes.shape({
     useOverTime: PropTypes.shape({
       totalItemRequestsTotal: PropTypes.number.isRequired,
@@ -164,7 +165,7 @@ UseOverTime.propTypes = {
       uniqueItemRequestsByPeriod: PropTypes.arrayOf(
         PropTypes.string.isRequired,
       ).isRequired,
-    }).isRequired,
+    }),
   }),
 };
 
