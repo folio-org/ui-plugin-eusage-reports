@@ -116,6 +116,7 @@ function renderUseOverTimeChart(intl, uot) {
         },
       ],
     },
+    animation: false,
   };
 
   return (
