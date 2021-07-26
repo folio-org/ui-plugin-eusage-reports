@@ -55,7 +55,7 @@ function EusageVisualization({ data }) {
     { value: 'DATABASE', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.databases' }) },
   ];
 
-  const [report, setReport] = useState('rbu');
+  const [report, setReport] = useState('uot');
   const [format, setFormat] = useState('JOURNAL');
   const [includeOA, setIncludeOA] = useState('yes');
   const [startDate, setStartDate] = useState('2021-07-05'); // XXX change
