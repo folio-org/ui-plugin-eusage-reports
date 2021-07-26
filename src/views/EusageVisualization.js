@@ -124,7 +124,7 @@ function EusageVisualization({ data }) {
         {/* No third column in this row */}
       </Row>
 
-      <Chart data={data} params={{ report, format, includeOA, startDate, endDate }} />
+      <Chart data={data} params={{ report, format, includeOA: (includeOA === 'yes'), startDate, endDate }} />
 
       <Button onClick={() => analyzeAgreement(okapiKy, callout, data)}>
         <FormattedMessage id="ui-plugin-eusage-reports.button.analyze-agreement" />
