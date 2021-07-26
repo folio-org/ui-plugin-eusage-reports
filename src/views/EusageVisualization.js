@@ -50,13 +50,13 @@ function EusageVisualization({ data }) {
   });
 
   const formatOptions = [
-    { value: 'j', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.journals' }) },
-    { value: 'b', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.books' }) },
-    { value: 'd', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.databases' }) },
+    { value: 'JOURNAL', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.journals' }) },
+    { value: 'BOOK', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.books' }) },
+    { value: 'DATABASE', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.databases' }) },
   ];
 
   const [report, setReport] = useState('rbu');
-  const [format, setFormat] = useState('j');
+  const [format, setFormat] = useState('JOURNAL');
   const [includeOA, setIncludeOA] = useState('yes');
   const [startDate, setStartDate] = useState('2021-07-05'); // XXX change
   const [endDate, setEndDate] = useState('2021-07-05'); // XXX change
@@ -111,6 +111,7 @@ function EusageVisualization({ data }) {
           <Datepicker
             label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.start-month' })}
             value={startDate}
+            dateFormat="YYYY-MM-DD"
             onChange={e => setStartDate(e.target.value)}
           />
         </Col>
@@ -118,6 +119,7 @@ function EusageVisualization({ data }) {
           <Datepicker
             label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.end-month' })}
             value={endDate}
+            dateFormat="YYYY-MM-DD"
             onChange={e => setEndDate(e.target.value)}
           />
         </Col>
