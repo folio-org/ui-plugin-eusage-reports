@@ -160,10 +160,10 @@ UseOverTime.propTypes = {
         PropTypes.string.isRequired,
       ).isRequired,
       totalItemRequestsByPeriod: PropTypes.arrayOf(
-        PropTypes.string.isRequired,
+        PropTypes.number,
       ).isRequired,
       uniqueItemRequestsByPeriod: PropTypes.arrayOf(
-        PropTypes.string.isRequired,
+        PropTypes.number.isRequired,
       ).isRequired,
     }),
   }),
