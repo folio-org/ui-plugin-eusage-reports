@@ -9,9 +9,9 @@ import {
   KeyValue,
   RadioButtonGroup,
   RadioButton,
-  Datepicker,
   Button,
 } from '@folio/stripes/components';
+import { Monthpicker } from '../components';
 import UseOverTimeLoader from '../loaders/UseOverTimeLoader';
 import CostPerUse from '../reports/CostPerUse';
 import performLongOperation from '../util/performLongOperation';
@@ -119,7 +119,7 @@ function EusageVisualization({ data }) {
       </Row>
       <Row>
         <Col xs={4}>
-          <Datepicker
+          <Monthpicker
             label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.start-month' })}
             value={startDate}
             dateFormat="YYYY-MM-DD"
@@ -127,7 +127,7 @@ function EusageVisualization({ data }) {
           />
         </Col>
         <Col xs={4}>
-          <Datepicker
+          <Monthpicker
             label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.end-month' })}
             value={endDate}
             dateFormat="YYYY-MM-DD"
