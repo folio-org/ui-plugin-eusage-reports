@@ -164,7 +164,7 @@ UseOverTime.propTypes = {
         PropTypes.number,
       ).isRequired,
       uniqueItemRequestsByPeriod: PropTypes.arrayOf(
-        PropTypes.number.isRequired,
+        PropTypes.number, // XXX at present, mod-eusage-reports sometimes gives null
       ).isRequired,
     }),
   }),
