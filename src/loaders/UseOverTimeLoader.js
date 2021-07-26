@@ -25,6 +25,8 @@ UseOverTimeLoader.manifest = {
         agreementId: aId,
         startDate: '1970-01-01', // XXX set from UI
         endDate: '2999-12-31', // XXX set from UI
+        format: 'BOOK', // XXX set from UI
+        includeOA: true, // XXX set from UI
       });
     },
   },
