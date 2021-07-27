@@ -79,5 +79,7 @@
   "report-form.include-oa.no": "No",
   "report-form.start-month": "Start month",
   "report-form.end-month": "End month",
+  "monthpicker.year": "Y:",
+  "monthpicker.month": "M:",
   "SENTINEL": ""
 }
