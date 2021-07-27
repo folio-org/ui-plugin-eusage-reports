@@ -23,8 +23,8 @@ UseOverTimeLoader.manifest = {
       if (!aId) return null;
       return ({
         agreementId: aId,
-        startDate: props.params.startDate,
-        endDate: props.params.endDate,
+        startDate: props.params.startDate + '-01', // XXX until mod-eusage-reports is fixed
+        endDate: props.params.endDate + '-01', // XXX until mod-eusage-reports is fixed
         format: props.params.format,
         includeOA: props.params.includeOA,
       });

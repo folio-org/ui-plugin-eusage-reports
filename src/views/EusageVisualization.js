@@ -34,12 +34,11 @@ const reports = [
 ];
 
 
-function yearsBeforeInISO(base, n) {
+function yearsBefore(base, n) {
   const year = base.getFullYear();
   const month = base.getMonth();
   const day = base.getDate();
-  const before = new Date(year - n, month, day + 1); // Why do we need this +1?
-  return before.toISOString().substring(0, 10);
+  return new Date(year - n, month, day + 1); // Why do we need this +1?
 }
 
 
@@ -69,8 +68,8 @@ function EusageVisualization({ data }) {
   const [includeOA, setIncludeOA] = useState('yes');
 
   const now = new Date();
-  const [startDate, setStartDate] = useState(yearsBeforeInISO(now, 2));
-  const [endDate, setEndDate] = useState(now.toISOString().substring(0, 10));
+  const [startDate, setStartDate] = useState(yearsBefore(now, 2).toISOString().substring(0, 7));
+  const [endDate, setEndDate] = useState(now.toISOString().substring(0, 7));
 
   // console.log('report =', report, '-- format =', format, '-- includeOA =', includeOA, '-- startDate =', startDate, '-- endDate =', endDate);
 
