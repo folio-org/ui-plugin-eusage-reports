@@ -34,14 +34,10 @@ MatchingSummaryLoader.manifest = {
   reportTitles: {
     type: 'okapi',
     path: 'eusage-reports/report-titles',
-    params: (_q, _p, _r, _l, props) => {
-      const params = {
-        limit: 200,
-        _unused: props.resources.toggleVal,
-      };
-      const udpId = props.data.usageDataProvider.id;
-      if (udpId) params.providerId = udpId;
-      return params;
+    params: {
+      providerId: '!{data.usageDataProvider.id}',
+      limit: '200',
+      _unused: '!{resources.toggleVal}',
     },
     records: 'titles',
   },
