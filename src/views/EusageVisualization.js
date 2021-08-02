@@ -121,7 +121,6 @@ function EusageVisualization({ data }) {
           <Monthpicker
             label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.start-month' })}
             value={startDate}
-            dateFormat="YYYY-MM-DD"
             onChange={e => setStartDate(e.target.value)}
           />
         </Col>
@@ -129,7 +128,6 @@ function EusageVisualization({ data }) {
           <Monthpicker
             label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.end-month' })}
             value={endDate}
-            dateFormat="YYYY-MM-DD"
             onChange={e => setEndDate(e.target.value)}
           />
         </Col>

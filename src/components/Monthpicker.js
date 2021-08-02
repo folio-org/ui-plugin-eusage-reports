@@ -12,7 +12,6 @@ function Monthpicker(props) {
   const name = rest.name || `${uniq}-name`;
   delete rest.id;
   delete rest.name;
-  delete rest.dateFormat; // Needed with Datepicker, no use here
 
   const [value, setValue] = useState(initialValue);
 
