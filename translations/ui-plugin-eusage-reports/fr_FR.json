@@ -68,8 +68,8 @@
     "useOverTime.totalUniqueItemRequests": "Unique item requests across period",
     "useOverTime.totalItemRequests": "Totals - Total item requests",
     "useOverTime.uniqueItemRequests": "Totals - Unique item requests",
-    "useOverTime.column.title": "Title",
-    "useOverTime.column.accessType": "Access type",
+    "useOverTime.column.title": "Titre",
+    "useOverTime.column.accessType": "Type d'accès",
     "useOverTime.column.metricType": "Metric type",
     "useOverTime.access.Controlled": "Controlled",
     "useOverTime.access.OA_Gold": "Gold open access",
@@ -79,5 +79,7 @@
     "report-form.report.requests-by-date-of-use": "Requests by date of use",
     "report-form.report.requests-by-publication-year": "Requests by publication year",
     "useOverTime.table": "Tabular form",
-    "useOverTime.raw-data": "Raw data"
+    "useOverTime.raw-data": "Données brutes",
+    "monthpicker.year": "Y:",
+    "monthpicker.month": "M:"
 }
