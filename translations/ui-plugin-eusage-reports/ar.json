@@ -79,5 +79,7 @@
     "report-form.report.requests-by-date-of-use": "الطلبات حسب تاريخ الاستخدام",
     "report-form.report.requests-by-publication-year": "الطلبات حسب سنة النشر",
     "useOverTime.table": "نموذج جدول",
-    "useOverTime.raw-data": "البيانات الأولية"
+    "useOverTime.raw-data": "البيانات الأولية",
+    "monthpicker.year": "السنة:",
+    "monthpicker.month": "الشهر:"
 }
