@@ -13,10 +13,18 @@ function Monthpicker(props) {
   delete rest.id;
   delete rest.name;
 
-  const [value, setValue] = useState(initialValue);
-
-  const year = value.substring(0, 4);
-  const month = value.substring(5, 7);
+  let year;
+  let month;
+  const [tmpYear, setYear] = useState();
+  const [tmpMonth, setMonth] = useState();
+  if (tmpYear) {
+    [year, month] = [tmpYear, tmpMonth];
+  } else {
+    year = initialValue.substring(0, 4);
+    month = initialValue.substring(5, 7);
+    setYear(year);
+    setMonth(month);
+  }
 
   return (
     <>
@@ -35,9 +43,14 @@ function Monthpicker(props) {
           value={year}
           onChange={e => {
             const newYear = e.target.value;
-            const newValue = `${newYear}-${month}`;
-            setValue(newValue);
-            onChange({ target: { value: newValue } });
+            console.log('change year to', newYear);
+            if (newYear.match(/^\d{4}/)) {
+              console.log(` valid year '${newYear}'`);
+              setYear(newYear);
+              onChange({ target: { value: `${newYear}-${month}` } });
+            } else {
+              console.log(` valid year '${newYear}', no-op`);
+            }
           }}
         />
         {' '}
@@ -50,9 +63,8 @@ function Monthpicker(props) {
           value={month}
           onChange={e => {
             const newMonth = e.target.value;
-            const newValue = `${year}-${newMonth}`;
-            setValue(newValue);
-            onChange({ target: { value: newValue } });
+            setMonth(newMonth);
+            onChange({ target: { value: `${year}-${newMonth}` } });
           }}
         >
           {
