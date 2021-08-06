@@ -43,13 +43,13 @@ function Monthpicker(props) {
           value={year}
           onChange={e => {
             const newYear = e.target.value;
-            console.log('change year to', newYear);
+            // console.log('change year to', newYear);
             if (newYear.match(/^\d{4}/)) {
-              console.log(` valid year '${newYear}'`);
+              // console.log(` valid year '${newYear}'`);
               setYear(newYear);
               onChange({ target: { value: `${newYear}-${month}` } });
             } else {
-              console.log(` valid year '${newYear}', no-op`);
+              // console.log(` valid year '${newYear}', no-op`);
             }
           }}
         />
