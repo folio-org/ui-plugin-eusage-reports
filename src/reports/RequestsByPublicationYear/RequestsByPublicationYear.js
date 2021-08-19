@@ -3,27 +3,11 @@ import { useIntl, FormattedMessage } from 'react-intl';
 import { Bar } from 'react-chartjs-2';
 import { useStripes } from '@folio/stripes/core';
 import { Loading, Accordion } from '@folio/stripes/components';
+import transformReqByPubYearData from '../../util/transformRBPY';
 
 
 function renderRequestsByPublicationYearChart(intl, rbpy) {
-  const data = {
-    // XXX These data-sets are obviously completely wrong
-    labels: rbpy.accessCountPeriods,
-    datasets: [
-      {
-        label: 'Published 2019',
-        data: rbpy.totalItemRequestsByPeriod,
-        backgroundColor: 'green',
-        stack: 'Stack 0',
-      },
-      {
-        label: 'Published 2020',
-        data: rbpy.uniqueItemRequestsByPeriod,
-        backgroundColor: 'gold',
-        stack: 'Stack 0',
-      },
-    ],
-  };
+  const data = transformReqByPubYearData(rbpy, 'Controlled', 'Unique_Item_Requests');
 
   const options = {
     scales: {
@@ -42,6 +26,7 @@ function renderRequestsByPublicationYearChart(intl, rbpy) {
       },
     },
     animation: false,
+    stacked: true,
   };
 
   return (
