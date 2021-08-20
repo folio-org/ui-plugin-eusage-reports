@@ -27,14 +27,18 @@ function renderRequestsByPublicationYearChart(intl, rbpy) {
     },
     animation: false,
     stacked: true,
+    maintainAspectRatio: false,
   };
 
   return (
-    <Bar
-      redraw
-      data={data}
-      options={options}
-    />
+    <div style={{ resize: 'block', overflow: 'scroll' }}>
+      <Bar
+        redraw
+        data={data}
+        height={400}
+        options={options}
+      />
+    </div>
   );
 }
 

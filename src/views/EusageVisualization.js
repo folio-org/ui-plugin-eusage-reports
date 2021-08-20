@@ -63,7 +63,7 @@ function EusageVisualization({ data }) {
     { value: 'DATABASE', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.databases' }) },
   ];
 
-  const [report, setReport] = useState('uot');
+  const [report, setReport] = useState('rbp');
   const [format, setFormat] = useState('JOURNAL');
   const [includeOA, setIncludeOA] = useState('yes');
 
@@ -135,6 +135,7 @@ function EusageVisualization({ data }) {
       </Row>
 
       <Chart data={data} params={{ report, format, includeOA: (includeOA === 'yes'), startDate, endDate }} />
+      <br />
 
       <Button onClick={() => analyzeAgreement(okapiKy, callout, data)}>
         <FormattedMessage id="ui-plugin-eusage-reports.button.analyze-agreement" />
