@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Bar } from 'react-chartjs-2';
@@ -6,9 +7,7 @@ import { Loading, Accordion } from '@folio/stripes/components';
 import transformReqByPubYearData from '../../util/transformRBPY';
 
 
-function renderRequestsByPublicationYearChart(intl, rbpy) {
-  const data = transformReqByPubYearData(rbpy, 'Controlled', 'Unique_Item_Requests');
-
+function renderRequestsByPublicationYearChart(intl, data) {
   const options = {
     scales: {
       yAxes: [
@@ -46,12 +45,13 @@ function renderRequestsByPublicationYearChart(intl, rbpy) {
 function RequestsByPublicationYear({ hasLoaded, data }) {
   const intl = useIntl();
   const stripes = useStripes();
-  if (!hasLoaded) return <><br /><Loading /><br /></>;
   const rbpy = data.requestsByPublicationYear;
+  const transformed = useMemo(() => transformReqByPubYearData(rbpy, 'Controlled', 'Unique_Item_Requests'), [rbpy]);
+  if (!hasLoaded) return <><br /><Loading /><br /></>;
 
   return (
     <>
-      {renderRequestsByPublicationYearChart(intl, rbpy)}
+      {renderRequestsByPublicationYearChart(intl, transformed)}
       {stripes.config.showDevInfo &&
         <Accordion closedByDefault label={<FormattedMessage id="ui-plugin-eusage-reports.useOverTime.raw-data" />}>
           <pre>{JSON.stringify(rbpy, null, 2)}</pre>
