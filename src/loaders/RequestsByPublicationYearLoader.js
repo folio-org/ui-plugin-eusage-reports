@@ -4,8 +4,9 @@ import { stripesConnect } from '@folio/stripes/core';
 import RequestsByPublicationYear from '../reports/RequestsByPublicationYear';
 
 
-function RequestsByPublicationYearLoader({ data, resources }) {
+function RequestsByPublicationYearLoader({ params, data, resources }) {
   return <RequestsByPublicationYear
+    params={params}
     hasLoaded={resources.requestsByPublicationYear.hasLoaded}
     data={{
       ...data,

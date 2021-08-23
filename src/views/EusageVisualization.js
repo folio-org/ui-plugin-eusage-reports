@@ -70,8 +70,9 @@ function EusageVisualization({ data }) {
   const now = new Date();
   const [startDate, setStartDate] = useState(yearsBefore(now, 2).toISOString().substring(0, 7));
   const [endDate, setEndDate] = useState(now.toISOString().substring(0, 7));
+  const [countType, setCountType] = useState('total');
 
-  // console.log('report =', report, '-- format =', format, '-- includeOA =', includeOA, '-- startDate =', startDate, '-- endDate =', endDate);
+  // console.log(`report=${report}, format=${format}, includeOA=${includeOA}, startDate=${startDate}, endDate=${endDate}, countType=${countType}`);
 
   const Chart = reportName2component[report] || (() => <p><b>{report}</b> report not implemented</p>);
 
@@ -131,10 +132,30 @@ function EusageVisualization({ data }) {
             onChange={e => setEndDate(e.target.value)}
           />
         </Col>
-        {/* No third column in this row */}
+        <Col xs={4}>
+          <KeyValue
+            label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.count-type' })}
+            value={
+              <RadioButtonGroup
+                value={countType}
+                onChange={e => setCountType(e.target.value)}
+              >
+                {
+                  ['total', 'unique'].map(token => (
+                    <RadioButton
+                      key={token}
+                      value={token}
+                      label={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.count-type.${token}` })}
+                    />
+                  ))
+                }
+              </RadioButtonGroup>
+            }
+          />
+        </Col>
       </Row>
 
-      <Chart data={data} params={{ report, format, includeOA: (includeOA === 'yes'), startDate, endDate }} />
+      <Chart data={data} params={{ report, format, includeOA: (includeOA === 'yes'), startDate, endDate, countType }} />
       <br />
 
       <Button onClick={() => analyzeAgreement(okapiKy, callout, data)}>

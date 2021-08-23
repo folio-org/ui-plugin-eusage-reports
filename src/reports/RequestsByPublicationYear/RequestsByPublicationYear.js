@@ -42,11 +42,12 @@ function renderRequestsByPublicationYearChart(intl, data) {
 }
 
 
-function RequestsByPublicationYear({ hasLoaded, data }) {
+function RequestsByPublicationYear({ params, hasLoaded, data }) {
   const intl = useIntl();
   const stripes = useStripes();
   const rbpy = data.requestsByPublicationYear;
-  const transformed = useMemo(() => transformReqByPubYearData(rbpy, 'Unique_Item_Requests'), [rbpy]);
+  const countType = params.countType === 'total' ? 'Total_Item_Requests' : 'Unique_Item_Requests';
+  const transformed = useMemo(() => transformReqByPubYearData(rbpy, countType), [rbpy, countType]);
   if (!hasLoaded) return <><br /><Loading /><br /></>;
 
   return (
@@ -63,6 +64,9 @@ function RequestsByPublicationYear({ hasLoaded, data }) {
 
 
 RequestsByPublicationYear.propTypes = {
+  params: PropTypes.shape({
+    countType: PropTypes.string.isRequired,
+  }).isRequired,
   hasLoaded: PropTypes.bool.isRequired,
   data: PropTypes.shape({
     requestsByPublicationYear: PropTypes.shape({
