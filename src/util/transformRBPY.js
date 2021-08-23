@@ -37,7 +37,7 @@ function chooseColor(index, method) {
 // Each column needs 10 stacked elements for the ten publication years.
 // So `datasets` must be an array of 10 sets, each of three elements.
 
-function transformReqByPubYearData(rbpy, accessType, metricType) {
+function transformReqByPubYearData(rbpy, metricType) {
   if (!rbpy) return null;
   const periodOfUseRegister = {};
   rbpy.items.forEach(item => {
@@ -48,7 +48,7 @@ function transformReqByPubYearData(rbpy, accessType, metricType) {
 
   const dataForPeriod = {};
   rbpy.items.forEach(item => {
-    if (item.accessType === accessType && item.metricType === metricType) {
+    if (item.metricType === metricType) {
       if (!dataForPeriod[item.periodOfUse]) {
         dataForPeriod[item.periodOfUse] = item.accessCountsByPeriod;
       } else {

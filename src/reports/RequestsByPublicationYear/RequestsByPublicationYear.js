@@ -46,7 +46,7 @@ function RequestsByPublicationYear({ hasLoaded, data }) {
   const intl = useIntl();
   const stripes = useStripes();
   const rbpy = data.requestsByPublicationYear;
-  const transformed = useMemo(() => transformReqByPubYearData(rbpy, 'Controlled', 'Unique_Item_Requests'), [rbpy]);
+  const transformed = useMemo(() => transformReqByPubYearData(rbpy, 'Unique_Item_Requests'), [rbpy]);
   if (!hasLoaded) return <><br /><Loading /><br /></>;
 
   return (
