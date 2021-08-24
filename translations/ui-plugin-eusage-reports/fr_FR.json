@@ -81,5 +81,8 @@
     "useOverTime.table": "Tabular form",
     "useOverTime.raw-data": "Données brutes",
     "monthpicker.year": "A:",
-    "monthpicker.month": "M:"
+    "monthpicker.month": "M:",
+    "report-form.count-type": "Count type",
+    "report-form.count-type.total": "Total des accès",
+    "report-form.count-type.unique": "Accès uniques"
 }
