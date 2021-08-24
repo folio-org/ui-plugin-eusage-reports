@@ -81,5 +81,8 @@
     "useOverTime.table": "表格形式",
     "useOverTime.raw-data": "原始数据",
     "monthpicker.year": "Y:",
-    "monthpicker.month": "M:"
+    "monthpicker.month": "M:",
+    "report-form.count-type": "Count type",
+    "report-form.count-type.total": "Total accesses",
+    "report-form.count-type.unique": "Unique accesses"
 }

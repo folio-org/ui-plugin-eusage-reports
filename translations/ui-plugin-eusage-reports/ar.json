@@ -81,5 +81,8 @@
     "useOverTime.table": "نموذج جدول",
     "useOverTime.raw-data": "البيانات الأولية",
     "monthpicker.year": "السنة:",
-    "monthpicker.month": "الشهر:"
+    "monthpicker.month": "الشهر:",
+    "report-form.count-type": "Count type",
+    "report-form.count-type.total": "Total accesses",
+    "report-form.count-type.unique": "Unique accesses"
 }
