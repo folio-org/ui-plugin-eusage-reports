@@ -79,7 +79,7 @@
   "report-form.include-oa.no": "No",
   "report-form.start-month": "Start month",
   "report-form.end-month": "End month",
-  "report-form.count-type": "Include Open Access use?",
+  "report-form.count-type": "Count type",
   "report-form.count-type.total": "Total accesses",
   "report-form.count-type.unique": "Unique accesses",
   "monthpicker.year": "Y:",
