@@ -155,8 +155,8 @@ UseOverTime.propTypes = {
   hasLoaded: PropTypes.bool.isRequired,
   data: PropTypes.shape({
     useOverTime: PropTypes.shape({
-      totalItemRequestsTotal: PropTypes.number.isRequired,
-      uniqueItemRequestsTotal: PropTypes.number.isRequired,
+      totalItemRequestsTotal: PropTypes.number,
+      uniqueItemRequestsTotal: PropTypes.number,
       accessCountPeriods: PropTypes.arrayOf(
         PropTypes.string.isRequired,
       ).isRequired,
@@ -164,7 +164,7 @@ UseOverTime.propTypes = {
         PropTypes.number,
       ).isRequired,
       uniqueItemRequestsByPeriod: PropTypes.arrayOf(
-        PropTypes.number, // XXX at present, mod-eusage-reports sometimes gives null
+        PropTypes.number,
       ).isRequired,
     }),
   }),
