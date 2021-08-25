@@ -62,7 +62,7 @@ function transformReqByPubYearData(rbpy, metricType) {
 
   const datasets = rbpy.accessCountPeriods.map((publicationYear, index) => {
     return {
-      label: index === 0 ? `Published ${publicationYear}` : publicationYear,
+      label: publicationYear,
       data: dataForPeriodList.map(countByPublicationYear => countByPublicationYear[index]),
       backgroundColor: chooseColor(index),
       stack: 'Stack 0',
