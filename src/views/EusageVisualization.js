@@ -15,6 +15,7 @@ import { Monthpicker } from '../components';
 import UseOverTimeLoader from '../loaders/UseOverTimeLoader';
 import RequestsByPublicationYearLoader from '../loaders/RequestsByPublicationYearLoader';
 import performLongOperation from '../util/performLongOperation';
+import css from './EusageVisualization.css';
 
 
 function analyzeAgreement(okapiKy, callout, data) {
@@ -74,6 +75,7 @@ function EusageVisualization({ data }) {
 
   // console.log(`report=${report}, format=${format}, includeOA=${includeOA}, startDate=${startDate}, endDate=${endDate}, countType=${countType}`);
 
+  const className = report === 'rbp' ? css.enabled : css.disabled;
   const Chart = reportName2component[report] || (() => <p><b>{report}</b> report not implemented</p>);
 
   return (
@@ -132,7 +134,7 @@ function EusageVisualization({ data }) {
             onChange={e => setEndDate(e.target.value)}
           />
         </Col>
-        <Col xs={4}>
+        <Col xs={4} className={className}>
           <KeyValue
             label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.count-type' })}
             value={
