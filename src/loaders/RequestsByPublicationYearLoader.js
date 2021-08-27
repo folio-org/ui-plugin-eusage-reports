@@ -3,7 +3,7 @@ import RequestsByPublicationYear from '../reports/RequestsByPublicationYear';
 import RequestsLoader from './RequestsLoader';
 
 function RequestsByPublicationYearLoader({ params, data }) {
-  return <RequestsLoader params={params} data={data} DisplayComponent={RequestsByPublicationYear}  />;
+  return <RequestsLoader params={params} data={data} DisplayComponent={RequestsByPublicationYear} />;
 }
 
 RequestsByPublicationYearLoader.propTypes = {
