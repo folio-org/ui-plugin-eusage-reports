@@ -4,7 +4,7 @@ import { useIntl, FormattedMessage } from 'react-intl';
 import { Bar } from 'react-chartjs-2';
 import { useStripes } from '@folio/stripes/core';
 import { Loading, Accordion } from '@folio/stripes/components';
-import transformReqByPubYearData from '../../util/transformRBPY';
+import transformReqByUseDateData from '../../util/transformRBUD';
 
 
 function renderRequestsByDateOfUseChart(intl, data) {
@@ -47,7 +47,7 @@ function RequestsByDateOfUse({ params, hasLoaded, data }) {
   const stripes = useStripes();
   const rbpy = data.requestsByPublicationYear;
   const countType = params.countType === 'total' ? 'Total_Item_Requests' : 'Unique_Item_Requests';
-  const transformed = useMemo(() => transformReqByPubYearData(rbpy, countType), [rbpy, countType]);
+  const transformed = useMemo(() => transformReqByUseDateData(rbpy, countType), [rbpy, countType]);
   if (!hasLoaded) return <><br /><Loading /><br /></>;
 
   return (
