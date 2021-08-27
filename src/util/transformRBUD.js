@@ -49,7 +49,6 @@ function transformReqByUseDateData(rbpy, metricType) {
   const dataForPeriod = {};
   rbpy.items.forEach(item => {
     if (item.metricType === metricType) {
-      // if (item.accessType === 'OA_Gold') item.accessCountsByPeriod[0] = 123; // XXX no
       if (!dataForPeriod[item.periodOfUse]) {
         dataForPeriod[item.periodOfUse] = item.accessCountsByPeriod;
       } else {
