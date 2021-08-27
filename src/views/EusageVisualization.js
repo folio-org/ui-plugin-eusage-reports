@@ -76,7 +76,7 @@ function EusageVisualization({ data }) {
 
   // console.log(`report=${report}, format=${format}, includeOA=${includeOA}, startDate=${startDate}, endDate=${endDate}, countType=${countType}`);
 
-  const className = (report === 'rbp' || report == 'rbu') ? css.enabled : css.disabled;
+  const className = (report === 'rbp' || report === 'rbu') ? css.enabled : css.disabled;
   const Chart = reportName2component[report] || (() => <p><b>{report}</b> report not implemented</p>);
 
   return (
