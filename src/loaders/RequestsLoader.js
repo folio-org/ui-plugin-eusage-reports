@@ -5,17 +5,17 @@ import { stripesConnect } from '@folio/stripes/core';
 function RequestsLoader({ params, data, resources, DisplayComponent }) {
   return <DisplayComponent
     params={params}
-    hasLoaded={resources.requestsByPublicationYear.hasLoaded}
+    hasLoaded={resources.requests.hasLoaded}
     data={{
       ...data,
-      requestsByPublicationYear: resources.requestsByPublicationYear.records[0],
+      requestsByPublicationYear: resources.requests.records[0],
     }}
   />;
 }
 
 
 RequestsLoader.manifest = {
-  requestsByPublicationYear: {
+  requests: {
     type: 'okapi',
     path: 'eusage-reports/stored-reports/reqs-by-pub-year',
     params: (_q, _p, _r, _l, props) => {
@@ -43,13 +43,14 @@ RequestsLoader.propTypes = {
     endDate: PropTypes.string.isRequired, // ISO-format date
   }).isRequired,
   resources: PropTypes.shape({
-    requestsByPublicationYear: PropTypes.shape({
+    requests: PropTypes.shape({
       hasLoaded: PropTypes.bool.isRequired,
       records: PropTypes.arrayOf(
         PropTypes.object.isRequired,
       ),
     }),
   }).isRequired,
+  DisplayComponent: PropTypes.func.isRequired, // No better way to specify a component
 };
 
 
