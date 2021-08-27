@@ -28,7 +28,7 @@ function chooseColor(index, method) {
       // By observation, consecutive colors are too close
       // together. Multiplying by a big number spaces the colors out
       // more, so there is more contrast between adjacent bars.
-      return randomColor({ seed: index * 12368 });
+      return randomColor({ seed: 123 + index * 12368 });
   }
 }
 
