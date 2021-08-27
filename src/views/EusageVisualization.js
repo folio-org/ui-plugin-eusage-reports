@@ -13,6 +13,7 @@ import {
 } from '@folio/stripes/components';
 import { Monthpicker } from '../components';
 import UseOverTimeLoader from '../loaders/UseOverTimeLoader';
+import RequestsByDateOfUseLoader from '../loaders/RequestsByDateOfUseLoader';
 import RequestsByPublicationYearLoader from '../loaders/RequestsByPublicationYearLoader';
 import performLongOperation from '../util/performLongOperation';
 import css from './EusageVisualization.css';
@@ -29,7 +30,7 @@ function analyzeAgreement(okapiKy, callout, data) {
 
 const reports = [
   { value: 'uot', tag: 'use-over-time', component: UseOverTimeLoader },
-  { value: 'rbu', tag: 'requests-by-date-of-use' },
+  { value: 'rbu', tag: 'requests-by-date-of-use', component: RequestsByDateOfUseLoader },
   { value: 'rbp', tag: 'requests-by-publication-year', component: RequestsByPublicationYearLoader },
   { value: 'cpu', tag: 'cost-per-use' },
 ];
