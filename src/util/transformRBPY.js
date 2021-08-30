@@ -43,8 +43,12 @@ function transformReqByPubYearData(rbpy, metricType) {
   if (!rbpy) return null;
 
   const dataForPeriod = {};
+  const gotNonEmptyData = {};
   rbpy.items.forEach(item => {
     if (item.metricType === metricType) {
+      if (item.accessCountsByPeriod.reduce((a, b) => a + b, 0)) {
+        gotNonEmptyData[item.periodOfUse] = true;
+      }
       if (!dataForPeriod[item.periodOfUse]) {
         console.log('registering periodOfUse', item.periodOfUse);
         dataForPeriod[item.periodOfUse] = item.accessCountsByPeriod;
@@ -55,7 +59,7 @@ function transformReqByPubYearData(rbpy, metricType) {
   });
   console.log(' got periods of use', Object.keys(dataForPeriod).sort());
 
-  const datasets = Object.keys(dataForPeriod).sort().map((periodOfUse, index) => ({
+  const datasets = Object.keys(gotNonEmptyData).sort().map((periodOfUse, index) => ({
     label: periodOfUse,
     data: dataForPeriod[periodOfUse],
     backgroundColor: chooseColor(index),
