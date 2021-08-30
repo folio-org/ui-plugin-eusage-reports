@@ -49,7 +49,7 @@ function Monthpicker(props) {
               setYear(newYear);
               onChange({ target: { value: `${newYear}-${month}` } });
             } else {
-              // console.log(` valid year '${newYear}', no-op`);
+              // console.log(` invalid year '${newYear}', no-op`);
             }
           }}
         />
