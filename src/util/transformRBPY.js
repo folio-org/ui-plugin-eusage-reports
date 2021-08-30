@@ -46,12 +46,14 @@ function transformReqByPubYearData(rbpy, metricType) {
   rbpy.items.forEach(item => {
     if (item.metricType === metricType) {
       if (!dataForPeriod[item.periodOfUse]) {
+        console.log('registering periodOfUse', item.periodOfUse);
         dataForPeriod[item.periodOfUse] = item.accessCountsByPeriod;
       } else {
         dataForPeriod[item.periodOfUse] = vectorAdd(dataForPeriod[item.periodOfUse], item.accessCountsByPeriod);
       }
     }
   });
+  console.log(' got periods of use', Object.keys(dataForPeriod).sort());
 
   const datasets = Object.keys(dataForPeriod).sort().map((periodOfUse, index) => ({
     label: periodOfUse,
@@ -60,10 +62,12 @@ function transformReqByPubYearData(rbpy, metricType) {
     stack: 'Stack 0',
   }));
 
-  return {
+  const res = {
     labels: Object.keys(dataForPeriod).sort(),
     datasets,
   };
+  console.log(res);
+  return res;
 }
 
 
