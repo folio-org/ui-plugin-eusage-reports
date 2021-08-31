@@ -2,45 +2,50 @@ import vectorAdd from './vectorAdd';
 import chooseColor from './chooseColor';
 
 
-// We want ten columns, for the ten accessCountsByPeriod values
-// (really publication years, delivered in a field with a misleading
-// name), 2010-2019.
-// Each column needs three stacked elements for the three periods of use.
-// So `datasets` must be an array of three sets, each of 10 elements.
+// When we make a request with start- and end-dates 2019-2021, and get
+// back data showing that papers published in 15 different years were
+// used, we need fifteen columns (one per publication year), each with
+// three colours (one per usage year). This means we need three data-sets
+// of 15 points each.
 
 function transformReqByPubYearData(rbpy, metricType) {
   if (!rbpy) return null;
 
-  const dataForPeriod = {};
-  const gotNonEmptyData = {};
+  const periodOfUseRegister = {};
   rbpy.items.forEach(item => {
     if (item.metricType === metricType) {
-      if (item.accessCountsByPeriod.reduce((a, b) => a + b, 0)) {
-        gotNonEmptyData[item.periodOfUse] = true;
-      }
-      if (!dataForPeriod[item.periodOfUse]) {
-        console.log('registering periodOfUse', item.periodOfUse);
-        dataForPeriod[item.periodOfUse] = item.accessCountsByPeriod;
-      } else {
-        dataForPeriod[item.periodOfUse] = vectorAdd(dataForPeriod[item.periodOfUse], item.accessCountsByPeriod);
-      }
+      periodOfUseRegister[item.periodOfUse] = true;
     }
   });
-  console.log(' got periods of use', Object.keys(dataForPeriod).sort());
+  console.log('period-of-use register:', periodOfUseRegister);
 
-  const datasets = Object.keys(gotNonEmptyData).sort().map((periodOfUse, index) => ({
-    label: periodOfUse,
-    data: dataForPeriod[periodOfUse],
-    backgroundColor: chooseColor(index),
-    stack: 'Stack 0',
-  }));
+  const periodsOfUse = Object.keys(periodOfUseRegister).sort();
+  console.log('periods of use:', periodsOfUse);
 
-  const res = {
-    labels: Object.keys(dataForPeriod).sort(),
+  const periodOfUseIndex = {};
+  periodsOfUse.forEach((period, i) => { periodOfUseIndex[period] = i; });
+  console.log('period-of-use index:', periodOfUseIndex);
+
+  const datasets = [];
+  rbpy.items.forEach(item => {
+    const pIndex = periodOfUseIndex[item.periodOfUse];
+    if (!datasets[pIndex]) {
+      datasets[pIndex] = {
+        label: item.periodOfUse,
+        data: item.accessCountsByPeriod,
+        backgroundColor: chooseColor(pIndex),
+        stack: 'Stack 0',
+      };
+    } else {
+      datasets[pIndex].data = vectorAdd(datasets[pIndex].data, item.accessCountsByPeriod);
+    }
+  });
+  console.log('datasets:', datasets);
+
+  return {
+    labels: rbpy.accessCountPeriods,
     datasets,
   };
-  console.log(res);
-  return res;
 }
 
 
