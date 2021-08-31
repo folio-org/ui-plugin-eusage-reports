@@ -17,14 +17,11 @@ function transformReqByPubYearData(rbpy, metricType) {
       periodOfUseRegister[item.periodOfUse] = true;
     }
   });
-  console.log('period-of-use register:', periodOfUseRegister);
 
   const periodsOfUse = Object.keys(periodOfUseRegister).sort();
-  console.log('periods of use:', periodsOfUse);
 
   const periodOfUseIndex = {};
   periodsOfUse.forEach((period, i) => { periodOfUseIndex[period] = i; });
-  console.log('period-of-use index:', periodOfUseIndex);
 
   const datasets = [];
   rbpy.items.forEach(item => {
@@ -40,7 +37,6 @@ function transformReqByPubYearData(rbpy, metricType) {
       datasets[pIndex].data = vectorAdd(datasets[pIndex].data, item.accessCountsByPeriod);
     }
   });
-  console.log('datasets:', datasets);
 
   return {
     labels: rbpy.accessCountPeriods,
