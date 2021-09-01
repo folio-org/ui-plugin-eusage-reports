@@ -37,7 +37,7 @@ RequestsLoader.propTypes = {
   data: PropTypes.object.isRequired,
   params: PropTypes.shape({
     report: PropTypes.string.isRequired, // uot, rbu, etc.
-    format: PropTypes.string.isRequired, // j=journal, b=book, etc.
+    // format: PropTypes.string.isRequired, // j=journal, b=book, etc.
     includeOA: PropTypes.bool.isRequired,
     startDate: PropTypes.string.isRequired, // ISO-format date
     endDate: PropTypes.string.isRequired, // ISO-format date
