@@ -17,6 +17,8 @@
   "useOverTime.metric.Unique_Item_Requests": "Unique item requests",
   "useOverTime.table": "Tabular form",
   "useOverTime.raw-data": "Raw data",
+  "costPerUse.metric.Total_Item_Requests": "Cost per request - total",
+  "costPerUse.metric.Unique_Item_Requests": "Cost per request - unique",
   "matching-summary.label": "Matching summary",
   "matching-summary.date-of-last-harvest": "Date of last harvest",
   "matching-summary.status": "Status",

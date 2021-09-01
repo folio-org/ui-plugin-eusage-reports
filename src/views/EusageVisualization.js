@@ -15,6 +15,7 @@ import { Monthpicker } from '../components';
 import UseOverTimeLoader from '../loaders/UseOverTimeLoader';
 import RequestsByDateOfUseLoader from '../loaders/RequestsByDateOfUseLoader';
 import RequestsByPublicationYearLoader from '../loaders/RequestsByPublicationYearLoader';
+import CostPerUseLoader from '../loaders/CostPerUseLoader';
 import performLongOperation from '../util/performLongOperation';
 import css from './EusageVisualization.css';
 
@@ -32,7 +33,7 @@ const reports = [
   { value: 'uot', tag: 'use-over-time', component: UseOverTimeLoader },
   { value: 'rbu', tag: 'requests-by-date-of-use', component: RequestsByDateOfUseLoader },
   { value: 'rbp', tag: 'requests-by-publication-year', component: RequestsByPublicationYearLoader },
-  { value: 'cpu', tag: 'cost-per-use' },
+  { value: 'cpu', tag: 'cost-per-use', component: CostPerUseLoader },
 ];
 
 
@@ -65,7 +66,7 @@ function EusageVisualization({ data }) {
     { value: 'DATABASE', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.databases' }) },
   ];
 
-  const [report, setReport] = useState('rbp');
+  const [report, setReport] = useState('cpu');
   const [format, setFormat] = useState('JOURNAL');
   const [includeOA, setIncludeOA] = useState('yes');
 
