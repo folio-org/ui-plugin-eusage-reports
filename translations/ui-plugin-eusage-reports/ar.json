@@ -82,7 +82,9 @@
     "useOverTime.raw-data": "البيانات الأولية",
     "monthpicker.year": "السنة:",
     "monthpicker.month": "الشهر:",
-    "report-form.count-type": "Count type",
+    "report-form.count-type": "نوع العد",
     "report-form.count-type.total": "Total accesses",
-    "report-form.count-type.unique": "Unique accesses"
+    "report-form.count-type.unique": "Unique accesses",
+    "costPerUse.metric.Total_Item_Requests": "Cost per request - total",
+    "costPerUse.metric.Unique_Item_Requests": "Cost per request - unique"
 }

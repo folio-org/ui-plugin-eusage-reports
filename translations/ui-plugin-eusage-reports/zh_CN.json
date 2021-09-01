@@ -80,9 +80,11 @@
     "report-form.report.requests-by-publication-year": "按出版年份的请求",
     "useOverTime.table": "表格形式",
     "useOverTime.raw-data": "原始数据",
-    "monthpicker.year": "Y:",
-    "monthpicker.month": "M:",
-    "report-form.count-type": "Count type",
-    "report-form.count-type.total": "Total accesses",
-    "report-form.count-type.unique": "Unique accesses"
+    "monthpicker.year": "年：",
+    "monthpicker.month": "月：",
+    "report-form.count-type": "计数类型",
+    "report-form.count-type.total": "总访问",
+    "report-form.count-type.unique": "独特的访问",
+    "costPerUse.metric.Total_Item_Requests": "Cost per request - total",
+    "costPerUse.metric.Unique_Item_Requests": "Cost per request - unique"
 }
