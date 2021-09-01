@@ -22,6 +22,16 @@ function CostPerUse({ hasLoaded, data }) {
         data: cpu.uniqueItemCostsPerRequestsByPeriod,
         backgroundColor: 'red',
       },
+      {
+        type: 'line',
+        fill: 'false',
+        label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.costPerUse.titleCount' }),
+        data: cpu.titleCountByPeriod,
+        backgroundColor: 'gold', // for the legend
+        borderColor: 'gold',
+        borderWidth: 2,
+        lineTension: 0,
+      },
     ],
   };
 
@@ -59,6 +69,9 @@ CostPerUse.propTypes = {
         PropTypes.number,
       ).isRequired,
       uniqueItemCostsPerRequestsByPeriod: PropTypes.arrayOf(
+        PropTypes.number,
+      ).isRequired,
+      titleCountByPeriod: PropTypes.arrayOf(
         PropTypes.number,
       ).isRequired,
     }),
