@@ -84,5 +84,7 @@
     "monthpicker.month": "M:",
     "report-form.count-type": "Include Open Access use?",
     "report-form.count-type.total": "Total accesses",
-    "report-form.count-type.unique": "Unique accesses"
+    "report-form.count-type.unique": "Unique accesses",
+    "costPerUse.metric.Total_Item_Requests": "Cost per request - total",
+    "costPerUse.metric.Unique_Item_Requests": "Cost per request - unique"
 }

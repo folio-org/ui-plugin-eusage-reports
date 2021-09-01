@@ -84,5 +84,7 @@
     "monthpicker.month": "M:",
     "report-form.count-type": "Count type",
     "report-form.count-type.total": "Total des accès",
-    "report-form.count-type.unique": "Accès uniques"
+    "report-form.count-type.unique": "Accès uniques",
+    "costPerUse.metric.Total_Item_Requests": "Cost per request - total",
+    "costPerUse.metric.Unique_Item_Requests": "Cost per request - unique"
 }
