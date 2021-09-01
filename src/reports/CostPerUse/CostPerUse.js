@@ -13,16 +13,6 @@ function CostPerUse({ hasLoaded, data }) {
     labels: cpu.accessCountPeriods,
     datasets: [
       {
-        label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.costPerUse.metric.Total_Item_Requests' }),
-        data: cpu.totalItemCostsPerRequestsByPeriod,
-        backgroundColor: 'blue',
-      },
-      {
-        label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.costPerUse.metric.Unique_Item_Requests' }),
-        data: cpu.uniqueItemCostsPerRequestsByPeriod,
-        backgroundColor: 'red',
-      },
-      {
         type: 'line',
         fill: 'false',
         label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.costPerUse.titleCount' }),
@@ -31,6 +21,19 @@ function CostPerUse({ hasLoaded, data }) {
         borderColor: 'gold',
         borderWidth: 2,
         lineTension: 0,
+        yAxisID: 'titleCount',
+      },
+      {
+        label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.costPerUse.metric.Total_Item_Requests' }),
+        data: cpu.totalItemCostsPerRequestsByPeriod,
+        backgroundColor: 'blue',
+        yAxisID: 'costPerUse',
+      },
+      {
+        label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.costPerUse.metric.Unique_Item_Requests' }),
+        data: cpu.uniqueItemCostsPerRequestsByPeriod,
+        backgroundColor: 'red',
+        yAxisID: 'costPerUse',
       },
     ],
   };
@@ -39,8 +42,19 @@ function CostPerUse({ hasLoaded, data }) {
     scales: {
       yAxes: [
         {
+          id: 'costPerUse',
           ticks: {
             beginAtZero: true,
+          },
+        },
+        {
+          id: 'titleCount',
+          position: 'right',
+          ticks: {
+            beginAtZero: true,
+          },
+          gridLines: {
+            display: false,
           },
         },
       ],
