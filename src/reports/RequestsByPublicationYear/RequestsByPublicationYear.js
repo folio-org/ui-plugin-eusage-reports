@@ -30,7 +30,7 @@ function renderRequestsByPublicationYearChart(intl, data) {
   };
 
   return (
-    <div style={{ resize: 'block', overflow: 'scroll' }}>
+    <div style={{ resize: 'vertical', overflow: 'scroll' }}>
       <Bar
         redraw
         data={data}
