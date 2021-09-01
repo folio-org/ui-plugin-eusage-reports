@@ -138,12 +138,9 @@ function UseOverTime({ hasLoaded, data }) {
   return (
     <>
       {renderUseOverTimeChart(intl, uot)}
-      <Accordion closedByDefault label={<FormattedMessage id="ui-plugin-eusage-reports.useOverTime.table" />}>
-        {renderUseOverTimeTable(uot)}
-      </Accordion>
       {stripes.config.showDevInfo &&
-        <Accordion closedByDefault label={<FormattedMessage id="ui-plugin-eusage-reports.useOverTime.raw-data" />}>
-          <pre>{JSON.stringify(uot, null, 2)}</pre>
+        <Accordion closedByDefault label={<FormattedMessage id="ui-plugin-eusage-reports.useOverTime.table" />}>
+          {renderUseOverTimeTable(uot)}
         </Accordion>
       }
     </>
