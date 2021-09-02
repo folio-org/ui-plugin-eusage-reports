@@ -36,7 +36,7 @@ MatchingSummaryLoader.manifest = {
     path: 'eusage-reports/report-titles',
     params: (_q, _p, _r, _l, props) => {
       const params = {
-        limit: 200,
+        limit: 1000,
         _unused: props.resources.toggleVal,
       };
       const udpId = props.data.usageDataProvider.id;
