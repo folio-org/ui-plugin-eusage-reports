@@ -3,8 +3,9 @@ import { stripesConnect } from '@folio/stripes/core';
 import UseOverTime from '../reports/UseOverTime';
 
 
-function UseOverTimeLoader({ data, resources }) {
+function UseOverTimeLoader({ params, data, resources }) {
   return <UseOverTime
+    params={params}
     hasLoaded={resources.useOverTime.hasLoaded}
     data={{
       ...data,

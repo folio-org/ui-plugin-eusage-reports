@@ -1,8 +1,39 @@
+import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Bar } from 'react-chartjs-2';
 import { useStripes } from '@folio/stripes/core';
-import { Loading, MultiColumnList, Accordion } from '@folio/stripes/components';
+import { Loading, MultiColumnList, Button, Accordion } from '@folio/stripes/components';
+
+
+function downloadCSV(stripes, data, params, partialPath) {
+  // XXX consider factoring this into a utility function shared with ../../loaders/UseOverTimeLoader.js
+  const urlQuery = {
+    agreementId: data.agreement.id,
+    startDate: params.startDate,
+    endDate: params.endDate,
+    format: params.format,
+    includeOA: params.includeOA,
+    csv: true,
+  };
+
+  const urlSearch = queryString.stringify(urlQuery);
+  fetch(`${stripes.okapi.url}/eusage-reports/stored-reports/${partialPath}?${urlSearch}`, {
+    headers: {
+      'X-Okapi-Tenant': stripes.okapi.tenant,
+      'X-Okapi-Token': stripes.okapi.token,
+    }
+  }).then(response => response.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${partialPath}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    });
+}
 
 
 function renderUseOverTimeTable(uot) {
@@ -129,7 +160,7 @@ function renderUseOverTimeChart(intl, uot) {
 }
 
 
-function UseOverTime({ hasLoaded, data }) {
+function UseOverTime({ params, hasLoaded, data }) {
   const intl = useIntl();
   const stripes = useStripes();
   if (!hasLoaded) return <><br /><Loading /><br /></>;
@@ -138,6 +169,11 @@ function UseOverTime({ hasLoaded, data }) {
   return (
     <>
       {renderUseOverTimeChart(intl, uot)}
+      <div style={{ textAlign: 'right', marginTop: '1em' }}>
+        <Button buttonStyle="primary" onClick={() => downloadCSV(stripes, data, params, 'use-over-time')}>
+          <FormattedMessage id="ui-plugin-eusage-reports.button.download-csv" />
+        </Button>
+      </div>
       {stripes.config.showDevInfo &&
         <Accordion closedByDefault label={<FormattedMessage id="ui-plugin-eusage-reports.useOverTime.table" />}>
           {renderUseOverTimeTable(uot)}
@@ -150,6 +186,12 @@ function UseOverTime({ hasLoaded, data }) {
 
 UseOverTime.propTypes = {
   hasLoaded: PropTypes.bool.isRequired,
+  params: PropTypes.shape({
+    format: PropTypes.string.isRequired, // j=journal, b=book, etc.
+    includeOA: PropTypes.bool.isRequired,
+    startDate: PropTypes.string.isRequired, // ISO-format date
+    endDate: PropTypes.string.isRequired, // ISO-format date
+  }).isRequired,
   data: PropTypes.shape({
     useOverTime: PropTypes.shape({
       totalItemRequestsTotal: PropTypes.number,

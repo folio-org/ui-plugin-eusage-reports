@@ -87,5 +87,6 @@
   "report-form.count-type.unique": "Unique accesses",
   "monthpicker.year": "Y:",
   "monthpicker.month": "M:",
+  "button.download-csv": "Download CSV",
   "SENTINEL": ""
 }

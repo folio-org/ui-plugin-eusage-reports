@@ -57,6 +57,7 @@
   "dependencies": {
     "@folio/stripes-webpack": "^1.2.0",
     "lodash": "^4.17.21",
+    "query-string": "^5.0.0",
     "randomcolor": "^0.6.2",
     "react-chartjs-2": "^2.11.1"
   },
