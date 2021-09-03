@@ -6,19 +6,21 @@ import { useStripes } from '@folio/stripes/core';
 import { Loading, MultiColumnList, Button, Accordion } from '@folio/stripes/components';
 
 
-function downloadCSV(stripes, data, params, partialPath) {
-  // XXX consider factoring this into a utility function shared with ../../loaders/UseOverTimeLoader.js
-  const urlQuery = {
+function makeUOTparams(data, params, csv) {
+  return {
     agreementId: data.agreement.id,
     startDate: params.startDate,
     endDate: params.endDate,
     format: params.format,
     includeOA: params.includeOA,
-    csv: true,
+    csv,
   };
+}
 
-  const urlSearch = queryString.stringify(urlQuery);
-  fetch(`${stripes.okapi.url}/eusage-reports/stored-reports/${partialPath}?${urlSearch}`, {
+
+function downloadCSV(stripes, partialPath, urlParams) {
+  const searchString = queryString.stringify(urlParams);
+  fetch(`${stripes.okapi.url}/eusage-reports/stored-reports/${partialPath}?${searchString}`, {
     headers: {
       'X-Okapi-Tenant': stripes.okapi.tenant,
       'X-Okapi-Token': stripes.okapi.token,
@@ -28,7 +30,7 @@ function downloadCSV(stripes, data, params, partialPath) {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${partialPath}.csv`;
+      a.download = `${partialPath}--${urlParams.startDate}-${urlParams.endDate}--${urlParams.agreementId}.csv`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -165,12 +167,13 @@ function UseOverTime({ params, hasLoaded, data }) {
   const stripes = useStripes();
   if (!hasLoaded) return <><br /><Loading /><br /></>;
   const uot = data.useOverTime;
+  const urlParams = makeUOTparams(data, params, true);
 
   return (
     <>
       {renderUseOverTimeChart(intl, uot)}
       <div style={{ textAlign: 'right', marginTop: '1em' }}>
-        <Button buttonStyle="primary" onClick={() => downloadCSV(stripes, data, params, 'use-over-time')}>
+        <Button buttonStyle="primary" onClick={() => downloadCSV(stripes, 'use-over-time', urlParams)}>
           <FormattedMessage id="ui-plugin-eusage-reports.button.download-csv" />
         </Button>
       </div>
