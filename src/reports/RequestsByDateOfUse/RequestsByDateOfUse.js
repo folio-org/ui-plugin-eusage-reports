@@ -50,12 +50,13 @@ function RequestsByDateOfUse({ url, params, hasLoaded, data }) {
   const countType = params.countType === 'total' ? 'Total_Item_Requests' : 'Unique_Item_Requests';
   const transformed = useMemo(() => transformReqByUseDateData(rbpy, countType), [rbpy, countType]);
   if (!hasLoaded) return <><br /><Loading /><br /></>;
+  const modifiedUrl = url.replace('/reqs-by-pub-year?', '/reqs-by-date-of-use?');
 
   return (
     <>
       {renderRequestsByDateOfUseChart(intl, transformed)}
       <div style={{ textAlign: 'right', marginTop: '1em' }}>
-        <Button buttonStyle="primary" onClick={() => downloadCSV(url, stripes, params)}>
+        <Button buttonStyle="primary" onClick={() => downloadCSV(modifiedUrl, stripes, params)}>
           <FormattedMessage id="ui-plugin-eusage-reports.button.download-csv" />
         </Button>
       </div>
