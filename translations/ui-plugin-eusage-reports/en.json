@@ -88,6 +88,8 @@
   "report-form.access-count-period": "Group access count by",
   "report-form.yop-interval": "Group publication year by",
   "report-form.period-of-use": "Group period of use by",
+  "report-form.period.M": "{count, plural, one {# month} other {# months}}",
+  "report-form.period.Y": "{count, plural, one {# year} other {# years}}",
   "monthpicker.year": "Y:",
   "monthpicker.month": "M:",
   "button.download-csv": "Download CSV",

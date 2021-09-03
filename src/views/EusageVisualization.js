@@ -42,9 +42,6 @@ const yopIntervalOptions = ['1Y', '2Y', '5Y', '10Y'];
 const periodOfUseOptions = accessCountPeriodOptions;
 
 
-const makeOptions = (list) => list.map(x => ({ value: x, label: x }));
-
-
 function yearsBefore(base, n) {
   const year = base.getFullYear();
   const month = base.getMonth();
@@ -61,6 +58,14 @@ function EusageVisualization({ data }) {
   const reportOptions = reports.map(r => ({
     value: r.value,
     label: intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.report.${r.tag}` }),
+  }));
+
+  const makeOptions = (list) => list.map(x => ({
+    value: x,
+    label: intl.formatMessage(
+      { id: `ui-plugin-eusage-reports.report-form.period.${x.slice(-1)}` },
+      { count: x.slice(0, -1) },
+    ),
   }));
 
   const reportName2component = {};
