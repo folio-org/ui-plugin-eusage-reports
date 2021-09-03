@@ -29,6 +29,7 @@ UseOverTimeLoader.manifest = {
         endDate: props.params.endDate,
         format: props.params.format,
         includeOA: props.params.includeOA,
+        accessCountPeriod: props.params.accessCountPeriod,
       });
     },
   },
@@ -43,6 +44,7 @@ UseOverTimeLoader.propTypes = {
     includeOA: PropTypes.bool.isRequired,
     startDate: PropTypes.string.isRequired, // ISO-format date
     endDate: PropTypes.string.isRequired, // ISO-format date
+    accessCountPeriod: PropTypes.string.isRequired,
   }).isRequired,
   resources: PropTypes.shape({
     useOverTime: PropTypes.shape({

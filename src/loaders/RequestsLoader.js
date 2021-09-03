@@ -22,13 +22,22 @@ RequestsLoader.manifest = {
     params: (_q, _p, _r, _l, props) => {
       const aId = props.data.agreement.id;
       if (!aId) return null;
-      return ({
+      const res = {
         agreementId: aId,
         startDate: props.params.startDate,
         endDate: props.params.endDate,
         includeOA: props.params.includeOA,
-        periodOfUse: '1Y', // XXX parameterize
-      });
+        accessCountPeriod: props.params.accessCountPeriod,
+      };
+
+      if (props.params.report === 'rbu') {
+        res.yopInterval = props.params.yopInterval;
+        res.periodOfUse = '1Y'; // XXX currently required by server
+      } else if (props.params.report === 'rbp') {
+        res.periodOfUse = props.params.periodOfUse;
+      }
+
+      return res;
     },
   },
 };
@@ -42,6 +51,9 @@ RequestsLoader.propTypes = {
     includeOA: PropTypes.bool.isRequired,
     startDate: PropTypes.string.isRequired, // ISO-format date
     endDate: PropTypes.string.isRequired, // ISO-format date
+    accessCountPeriod: PropTypes.string.isRequired,
+    yopInterval: PropTypes.string.isRequired,
+    periodOfUse: PropTypes.string.isRequired,
   }).isRequired,
   resources: PropTypes.shape({
     requests: PropTypes.shape({

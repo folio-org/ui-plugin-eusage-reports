@@ -37,6 +37,14 @@ const reports = [
 ];
 
 
+const accessCountPeriodOptions = ['1M', '6M', '1Y', '2Y', '5Y', '10Y'];
+const yopIntervalOptions = ['1Y', '2Y', '5Y', '10Y'];
+const periodOfUseOptions = accessCountPeriodOptions;
+
+
+const makeOptions = (list) => list.map(x => ({ value: x, label: x }));
+
+
 function yearsBefore(base, n) {
   const year = base.getFullYear();
   const month = base.getMonth();
@@ -74,6 +82,10 @@ function EusageVisualization({ data }) {
   const [startDate, setStartDate] = useState(yearsBefore(now, 2).toISOString().substring(0, 7));
   const [endDate, setEndDate] = useState(now.toISOString().substring(0, 7));
   const [countType, setCountType] = useState('total');
+
+  const [accessCountPeriod, setAccessCountPeriod] = useState('1Y');
+  const [yopInterval, setYopInterval] = useState('5Y');
+  const [periodOfUse, setPeriodOfUse] = useState('1Y');
 
   // console.log(`report=${report}, format=${format}, includeOA=${includeOA}, startDate=${startDate}, endDate=${endDate}, countType=${countType}`);
 
@@ -159,13 +171,59 @@ function EusageVisualization({ data }) {
           />
         </Col>
       </Row>
+      <Row>
+        <Col xs={4}>
+          <Select
+            label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.access-count-period' })}
+            dataOptions={makeOptions(accessCountPeriodOptions)}
+            value={accessCountPeriod}
+            onChange={e => setAccessCountPeriod(e.target.value)}
+          />
+        </Col>
+        <Col xs={4}>
+          {
+            report === 'rbu' ?
+              <Select
+                label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.yop-interval' })}
+                dataOptions={makeOptions(yopIntervalOptions)}
+                value={yopInterval}
+                onChange={e => setYopInterval(e.target.value)}
+              />
+              : report === 'rbp' ?
+                <Select
+                  label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.period-of-use' })}
+                  dataOptions={makeOptions(periodOfUseOptions)}
+                  value={periodOfUse}
+                  onChange={e => setPeriodOfUse(e.target.value)}
+                />
+                : null
+          }
+        </Col>
+        {/* There no column 3 in this row */}
+      </Row>
 
-      <Chart data={data} params={{ report, format, includeOA: (includeOA === 'yes'), startDate, endDate, countType }} />
+
+      <Chart
+        data={data}
+        params={{
+          report,
+          format,
+          includeOA: (includeOA === 'yes'),
+          startDate,
+          endDate,
+          countType,
+          accessCountPeriod,
+          yopInterval,
+          periodOfUse,
+        }}
+      />
       <br />
 
       <Button onClick={() => analyzeAgreement(okapiKy, callout, data)}>
         <FormattedMessage id="ui-plugin-eusage-reports.button.analyze-agreement" />
       </Button>
+
+      <div style={{ height: '30em' }} />
     </>
   );
 }
