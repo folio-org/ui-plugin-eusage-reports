@@ -3,9 +3,11 @@ import { stripesConnect } from '@folio/stripes/core';
 import CostPerUse from '../reports/CostPerUse';
 
 
-function CostPerUseLoader({ data, resources }) {
+function CostPerUseLoader({ params, data, resources }) {
   return <CostPerUse
+    url={resources.costPerUse.url}
     hasLoaded={resources.costPerUse.hasLoaded}
+    params={params}
     data={{
       ...data,
       costPerUse: resources.costPerUse.records[0],
@@ -44,6 +46,7 @@ CostPerUseLoader.propTypes = {
   }).isRequired,
   resources: PropTypes.shape({
     costPerUse: PropTypes.shape({
+      url: PropTypes.string, // Not .isRequired, as this is briefly undefined
       hasLoaded: PropTypes.bool.isRequired,
       records: PropTypes.arrayOf(
         PropTypes.object.isRequired,
