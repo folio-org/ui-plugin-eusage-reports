@@ -1,41 +1,9 @@
-import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Bar } from 'react-chartjs-2';
 import { useStripes } from '@folio/stripes/core';
 import { Loading, MultiColumnList, Button, Accordion } from '@folio/stripes/components';
-
-
-function makeUOTparams(data, params, csv) {
-  return {
-    agreementId: data.agreement.id,
-    startDate: params.startDate,
-    endDate: params.endDate,
-    format: params.format,
-    includeOA: params.includeOA,
-    csv,
-  };
-}
-
-
-function downloadCSV(stripes, partialPath, urlParams) {
-  const searchString = queryString.stringify(urlParams);
-  fetch(`${stripes.okapi.url}/eusage-reports/stored-reports/${partialPath}?${searchString}`, {
-    headers: {
-      'X-Okapi-Tenant': stripes.okapi.tenant,
-      'X-Okapi-Token': stripes.okapi.token,
-    }
-  }).then(response => response.blob())
-    .then(blob => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${partialPath}--${urlParams.startDate}-${urlParams.endDate}--${urlParams.agreementId}.csv`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    });
-}
+import downloadCSV from '../../util/downloadCSV';
 
 
 function renderUseOverTimeTable(uot) {
@@ -162,18 +130,17 @@ function renderUseOverTimeChart(intl, uot) {
 }
 
 
-function UseOverTime({ params, hasLoaded, data }) {
+function UseOverTime({ url, params, hasLoaded, data }) {
   const intl = useIntl();
   const stripes = useStripes();
   if (!hasLoaded) return <><br /><Loading /><br /></>;
   const uot = data.useOverTime;
-  const urlParams = makeUOTparams(data, params, true);
 
   return (
     <>
       {renderUseOverTimeChart(intl, uot)}
       <div style={{ textAlign: 'right', marginTop: '1em' }}>
-        <Button buttonStyle="primary" onClick={() => downloadCSV(stripes, 'use-over-time', urlParams)}>
+        <Button buttonStyle="primary" onClick={() => downloadCSV(url, stripes, params)}>
           <FormattedMessage id="ui-plugin-eusage-reports.button.download-csv" />
         </Button>
       </div>
@@ -188,6 +155,7 @@ function UseOverTime({ params, hasLoaded, data }) {
 
 
 UseOverTime.propTypes = {
+  url: PropTypes.string,
   hasLoaded: PropTypes.bool.isRequired,
   params: PropTypes.shape({
     format: PropTypes.string.isRequired, // j=journal, b=book, etc.
