@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Bar } from 'react-chartjs-2';
 import { useStripes } from '@folio/stripes/core';
-import { Loading, Accordion } from '@folio/stripes/components';
+import { Loading, Button, Accordion } from '@folio/stripes/components';
 import transformReqByUseDateData from '../../util/transformRBUD';
+import downloadCSV from '../../util/downloadCSV';
 
 
 function renderRequestsByDateOfUseChart(intl, data) {
@@ -42,7 +43,7 @@ function renderRequestsByDateOfUseChart(intl, data) {
 }
 
 
-function RequestsByDateOfUse({ params, hasLoaded, data }) {
+function RequestsByDateOfUse({ url, params, hasLoaded, data }) {
   const intl = useIntl();
   const stripes = useStripes();
   const rbpy = data.requestsByPublicationYear;
@@ -53,6 +54,11 @@ function RequestsByDateOfUse({ params, hasLoaded, data }) {
   return (
     <>
       {renderRequestsByDateOfUseChart(intl, transformed)}
+      <div style={{ textAlign: 'right', marginTop: '1em' }}>
+        <Button buttonStyle="primary" onClick={() => downloadCSV(url, stripes, params)}>
+          <FormattedMessage id="ui-plugin-eusage-reports.button.download-csv" />
+        </Button>
+      </div>
       {stripes.config.showDevInfo &&
         <Accordion closedByDefault label={<FormattedMessage id="ui-plugin-eusage-reports.useOverTime.raw-data" />}>
           <pre>{JSON.stringify(rbpy, null, 2)}</pre>
@@ -64,6 +70,7 @@ function RequestsByDateOfUse({ params, hasLoaded, data }) {
 
 
 RequestsByDateOfUse.propTypes = {
+  url: PropTypes.string,
   params: PropTypes.shape({
     countType: PropTypes.string.isRequired,
   }).isRequired,

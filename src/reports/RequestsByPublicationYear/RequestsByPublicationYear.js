@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Bar } from 'react-chartjs-2';
 import { useStripes } from '@folio/stripes/core';
-import { Loading, Accordion } from '@folio/stripes/components';
+import { Loading, Button, Accordion } from '@folio/stripes/components';
 import transformReqByPubYearData from '../../util/transformRBPY';
+import downloadCSV from '../../util/downloadCSV';
 
 
 function renderRequestsByPublicationYearChart(intl, data) {
@@ -42,7 +43,7 @@ function renderRequestsByPublicationYearChart(intl, data) {
 }
 
 
-function RequestsByPublicationYear({ params, hasLoaded, data }) {
+function RequestsByPublicationYear({ url, params, hasLoaded, data }) {
   const intl = useIntl();
   const stripes = useStripes();
   const rbpy = data.requestsByPublicationYear;
@@ -53,6 +54,11 @@ function RequestsByPublicationYear({ params, hasLoaded, data }) {
   return (
     <>
       {renderRequestsByPublicationYearChart(intl, transformed)}
+      <div style={{ textAlign: 'right', marginTop: '1em' }}>
+        <Button buttonStyle="primary" onClick={() => downloadCSV(url, stripes, params)}>
+          <FormattedMessage id="ui-plugin-eusage-reports.button.download-csv" />
+        </Button>
+      </div>
       {stripes.config.showDevInfo &&
         <Accordion closedByDefault label={<FormattedMessage id="ui-plugin-eusage-reports.useOverTime.raw-data" />}>
           <pre>{JSON.stringify(rbpy, null, 2)}</pre>
@@ -64,6 +70,7 @@ function RequestsByPublicationYear({ params, hasLoaded, data }) {
 
 
 RequestsByPublicationYear.propTypes = {
+  url: PropTypes.string,
   params: PropTypes.shape({
     countType: PropTypes.string.isRequired,
   }).isRequired,

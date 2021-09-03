@@ -4,8 +4,9 @@ import { stripesConnect } from '@folio/stripes/core';
 
 function RequestsLoader({ params, data, resources, DisplayComponent }) {
   return <DisplayComponent
-    params={params}
+    url={resources.requests.url}
     hasLoaded={resources.requests.hasLoaded}
+    params={params}
     data={{
       ...data,
       requestsByPublicationYear: resources.requests.records[0],
@@ -44,6 +45,7 @@ RequestsLoader.propTypes = {
   }).isRequired,
   resources: PropTypes.shape({
     requests: PropTypes.shape({
+      url: PropTypes.string, // Not .isRequired, as this is briefly undefined
       hasLoaded: PropTypes.bool.isRequired,
       records: PropTypes.arrayOf(
         PropTypes.object.isRequired,
