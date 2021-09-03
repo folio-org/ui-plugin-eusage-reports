@@ -5,8 +5,9 @@ import UseOverTime from '../reports/UseOverTime';
 
 function UseOverTimeLoader({ params, data, resources }) {
   return <UseOverTime
-    params={params}
+    url={resources.useOverTime.url}
     hasLoaded={resources.useOverTime.hasLoaded}
+    params={params}
     data={{
       ...data,
       useOverTime: resources.useOverTime.records[0],
@@ -45,6 +46,7 @@ UseOverTimeLoader.propTypes = {
   }).isRequired,
   resources: PropTypes.shape({
     useOverTime: PropTypes.shape({
+      url: PropTypes.string, // Not .isRequired, as this is briefly undefined
       hasLoaded: PropTypes.bool.isRequired,
       records: PropTypes.arrayOf(
         PropTypes.object.isRequired,

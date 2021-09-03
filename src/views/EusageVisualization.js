@@ -66,7 +66,7 @@ function EusageVisualization({ data }) {
     { value: 'DATABASE', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.databases' }) },
   ];
 
-  const [report, setReport] = useState('cpu');
+  const [report, setReport] = useState('uot');
   const [format, setFormat] = useState('JOURNAL');
   const [includeOA, setIncludeOA] = useState('yes');
 
