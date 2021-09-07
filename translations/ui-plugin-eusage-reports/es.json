@@ -86,5 +86,12 @@
     "report-form.count-type.total": "Total accesses",
     "report-form.count-type.unique": "Unique accesses",
     "costPerUse.metric.Total_Item_Requests": "Cost per request - total",
-    "costPerUse.metric.Unique_Item_Requests": "Cost per request - unique"
+    "costPerUse.metric.Unique_Item_Requests": "Cost per request - unique",
+    "costPerUse.titleCount": "Title count",
+    "button.download-csv": "Download CSV",
+    "report-form.access-count-period": "Group access count by",
+    "report-form.yop-interval": "Group publication year by",
+    "report-form.period-of-use": "Group period of use by",
+    "report-form.period.M": "{count, plural, one {# month} other {# months}}",
+    "report-form.period.Y": "{count, plural, one {# year} other {# years}}"
 }
