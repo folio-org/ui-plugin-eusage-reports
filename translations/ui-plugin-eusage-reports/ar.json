@@ -83,8 +83,15 @@
     "monthpicker.year": "السنة:",
     "monthpicker.month": "الشهر:",
     "report-form.count-type": "نوع العد",
-    "report-form.count-type.total": "Total accesses",
-    "report-form.count-type.unique": "Unique accesses",
-    "costPerUse.metric.Total_Item_Requests": "Cost per request - total",
-    "costPerUse.metric.Unique_Item_Requests": "Cost per request - unique"
+    "report-form.count-type.total": "إجمالي مرات الوصول",
+    "report-form.count-type.unique": "الوصول الفريد",
+    "costPerUse.metric.Total_Item_Requests": "التكلفة لكل طلب - إجمالي",
+    "costPerUse.metric.Unique_Item_Requests": "التكلفة لكل طلب - فريد",
+    "costPerUse.titleCount": "عدد العناوين",
+    "button.download-csv": "تنزيل ملف CSV",
+    "report-form.access-count-period": "تجميع عدد مرات الوصول حسب",
+    "report-form.yop-interval": "تجميع سنة النشر حسب",
+    "report-form.period-of-use": "تجميع فترة الاستخدام حسب",
+    "report-form.period.M": "{count, plural, zero {شهر} one {شهر} two {شهرين} few {شهور} many {شهراً} other {شهراً}}",
+    "report-form.period.Y": "{count, plural, zero {سنة} one {سنة} two {سنتين} few {سنوات} many {سنة} other {سنة}}"
 }
