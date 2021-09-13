@@ -85,13 +85,13 @@
     "report-form.count-type": "Tipo de contagem",
     "report-form.count-type.total": "Acessos totais",
     "report-form.count-type.unique": "Acessos únicos",
-    "costPerUse.metric.Total_Item_Requests": "Cost per request - total",
-    "costPerUse.metric.Unique_Item_Requests": "Cost per request - unique",
-    "costPerUse.titleCount": "Title count",
-    "button.download-csv": "Download CSV",
-    "report-form.access-count-period": "Group access count by",
-    "report-form.yop-interval": "Group publication year by",
-    "report-form.period-of-use": "Group period of use by",
-    "report-form.period.M": "{count, plural, one {# month} other {# months}}",
-    "report-form.period.Y": "{count, plural, one {# year} other {# years}}"
+    "costPerUse.metric.Total_Item_Requests": "Custo por solicitação - total",
+    "costPerUse.metric.Unique_Item_Requests": "Custo por solicitação - único",
+    "costPerUse.titleCount": "Contagem de títulos",
+    "button.download-csv": "Baixar CSV",
+    "report-form.access-count-period": "Contagem de acesso em grupo por",
+    "report-form.yop-interval": "Agrupar ano de publicação por",
+    "report-form.period-of-use": "Período de utilização em grupo por",
+    "report-form.period.M": "{count, plural, one {mês} other {meses}}",
+    "report-form.period.Y": "{count, plural, one {ano} other {anos}}"
 }
