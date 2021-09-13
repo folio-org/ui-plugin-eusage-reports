@@ -5,21 +5,21 @@ import RequestsByDateOfUse from '../reports/RequestsByDateOfUse';
 
 function RequestsByDateOfUseLoader({ params, data, resources }) {
   return <RequestsByDateOfUse
-    url={resources.requests.url}
-    hasLoaded={resources.requests.hasLoaded}
+    url={resources.requestsByDateOfUse.url}
+    hasLoaded={resources.requestsByDateOfUse.hasLoaded}
     params={params}
     data={{
       ...data,
-      requestsByPublicationYear: resources.requests.records[0],
+      requestsByPublicationYear: resources.requestsByDateOfUse.records[0],
     }}
   />;
 }
 
 
 RequestsByDateOfUseLoader.manifest = {
-  requests: {
+  requestsByDateOfUse: {
     type: 'okapi',
-    path: 'eusage-reports/stored-reports/reqs-by-pub-year',
+    path: 'eusage-reports/stored-reports/reqs-by-date-of-use',
     params: (_q, _p, _r, _l, props) => {
       const aId = props.data.agreement.id;
       if (!aId) return null;
@@ -30,7 +30,6 @@ RequestsByDateOfUseLoader.manifest = {
         includeOA: props.params.includeOA,
         accessCountPeriod: props.params.accessCountPeriod,
         yopInterval: props.params.yopInterval,
-        periodOfUse: '1Y', // XXX currently required by server
       };
     },
   },
@@ -50,7 +49,7 @@ RequestsByDateOfUseLoader.propTypes = {
     periodOfUse: PropTypes.string.isRequired,
   }).isRequired,
   resources: PropTypes.shape({
-    requests: PropTypes.shape({
+    requestsByDateOfUse: PropTypes.shape({
       url: PropTypes.string, // Not .isRequired, as this is briefly undefined
       hasLoaded: PropTypes.bool.isRequired,
       records: PropTypes.arrayOf(
