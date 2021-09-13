@@ -23,14 +23,14 @@ CostPerUseLoader.manifest = {
     params: (_q, _p, _r, _l, props) => {
       const aId = props.data.agreement.id;
       if (!aId) return null;
-      return ({
+      return {
         agreementId: aId,
         startDate: props.params.startDate,
         endDate: props.params.endDate,
         // format: props.params.format, // Not supported on back-end
         includeOA: props.params.includeOA,
         accessCountPeriod: props.params.accessCountPeriod,
-      });
+      };
     },
   },
 };
