@@ -23,22 +23,15 @@ RequestsByDateOfUseLoader.manifest = {
     params: (_q, _p, _r, _l, props) => {
       const aId = props.data.agreement.id;
       if (!aId) return null;
-      const res = {
+      return {
         agreementId: aId,
         startDate: props.params.startDate,
         endDate: props.params.endDate,
         includeOA: props.params.includeOA,
         accessCountPeriod: props.params.accessCountPeriod,
+        yopInterval: props.params.yopInterval,
+        periodOfUse: '1Y', // XXX currently required by server
       };
-
-      if (props.params.report === 'rbu') {
-        res.yopInterval = props.params.yopInterval;
-        res.periodOfUse = '1Y'; // XXX currently required by server
-      } else if (props.params.report === 'rbp') {
-        res.periodOfUse = props.params.periodOfUse;
-      }
-
-      return res;
     },
   },
 };
