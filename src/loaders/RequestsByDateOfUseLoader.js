@@ -10,7 +10,7 @@ function RequestsByDateOfUseLoader({ params, data, resources }) {
     params={params}
     data={{
       ...data,
-      requestsByPublicationYear: resources.requestsByDateOfUse.records[0],
+      requestsByDateOfUse: resources.requestsByDateOfUse.records[0],
     }}
   />;
 }

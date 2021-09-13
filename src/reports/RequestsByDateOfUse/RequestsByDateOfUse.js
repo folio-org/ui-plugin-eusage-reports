@@ -46,9 +46,9 @@ function renderRequestsByDateOfUseChart(intl, data) {
 function RequestsByDateOfUse({ url, params, hasLoaded, data }) {
   const intl = useIntl();
   const stripes = useStripes();
-  const rbpy = data.requestsByPublicationYear;
+  const rbdou = data.requestsByDateOfUse;
   const countType = params.countType === 'total' ? 'Total_Item_Requests' : 'Unique_Item_Requests';
-  const transformed = useMemo(() => transformReqByUseDateData(rbpy, countType), [rbpy, countType]);
+  const transformed = useMemo(() => transformReqByUseDateData(rbdou, countType), [rbdou, countType]);
   if (!hasLoaded) return <><br /><Loading /><br /></>;
   const modifiedUrl = url.replace('/reqs-by-pub-year?', '/reqs-by-date-of-use?');
 
@@ -62,7 +62,7 @@ function RequestsByDateOfUse({ url, params, hasLoaded, data }) {
       </div>
       {stripes.config.showDevInfo &&
         <Accordion closedByDefault label={<FormattedMessage id="ui-plugin-eusage-reports.useOverTime.raw-data" />}>
-          <pre>{JSON.stringify(rbpy, null, 2)}</pre>
+          <pre>{JSON.stringify(rbdou, null, 2)}</pre>
         </Accordion>
       }
     </>
@@ -77,7 +77,7 @@ RequestsByDateOfUse.propTypes = {
   }).isRequired,
   hasLoaded: PropTypes.bool.isRequired,
   data: PropTypes.shape({
-    requestsByPublicationYear: PropTypes.shape({
+    requestsByDateOfUse: PropTypes.shape({
       // XXX
     }),
   }),
