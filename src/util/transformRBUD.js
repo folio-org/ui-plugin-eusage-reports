@@ -62,7 +62,7 @@ function transformReqByUseDateData(rbdou, metricType) {
     dataByPeriod = rbdou.uniqueRequestsPublicationYearsByPeriod;
   } else {
     // eslint-disable-next-line no-console
-    console.error("Can't happen: unsuported metricType =", metricType);
+    console.error('transformReqByUseDateData: unsuported metricType =', metricType);
     return null;
   }
 
@@ -71,7 +71,7 @@ function transformReqByUseDateData(rbdou, metricType) {
   // count. But some of the hashes can be empty, and I guess in
   // general can omit some years. So -- *sigh* -- we have to walk all
   // of the hashes to determine the complete list of publication
-  // years, and put the in order.
+  // years, and put them in order.
 
   const publicationYearMap = {};
   dataByPeriod.forEach(period => {
@@ -82,14 +82,12 @@ function transformReqByUseDateData(rbdou, metricType) {
   const publicationYears = Object.keys(publicationYearMap).sort((a, b) => a - b);
   // console.log('transformReqByUseDateData, publicationYears =', publicationYears);
 
-  const datasets = publicationYears.map((publicationYear, index) => {
-    return {
-      label: publicationYear,
-      data: dataByPeriod.map(period => period[publicationYear]),
-      backgroundColor: chooseColor(index),
-      stack: 'Stack 0',
-    };
-  });
+  const datasets = publicationYears.map((publicationYear, index) => ({
+    label: publicationYear,
+    data: dataByPeriod.map(period => period[publicationYear]),
+    backgroundColor: chooseColor(index),
+    stack: 'Stack 0',
+  }));
 
   return {
     labels: rbdou.accessCountPeriods,
