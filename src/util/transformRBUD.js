@@ -79,7 +79,7 @@ function transformReqByUseDateData(rbdou, metricType) {
       publicationYearMap[publicationYear] = true;
     });
   });
-  const publicationYears = Object.keys(publicationYearMap).sort((a, b) => a - b);
+  const publicationYears = Object.keys(publicationYearMap).sort();
   // console.log('transformReqByUseDateData, publicationYears =', publicationYears);
 
   const datasets = publicationYears.map((publicationYear, index) => ({
