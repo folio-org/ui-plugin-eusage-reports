@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Bar } from 'react-chartjs-2';
@@ -48,7 +47,15 @@ function RequestsByPublicationYear({ url, params, hasLoaded, data }) {
   const stripes = useStripes();
   const rbpy = data.requestsByPublicationYear;
   const countType = params.countType === 'total' ? 'Total_Item_Requests' : 'Unique_Item_Requests';
-  const transformed = useMemo(() => transformReqByPubYearData(rbpy, countType), [rbpy, countType]);
+
+  // useMemo provokes several bizarre bugs: see UIPER-60 and
+  // UIPER-61. Since this was arguably a premature optimization anyway
+  // -- UI-side calculation is dwarfed by round-trip times -- the
+  // simple solution is just not to optimise.
+  //
+  // const transformed = useMemo(() => transformReqByPubYearData(rbpy, countType), [rbpy, countType]);
+  const transformed = transformReqByPubYearData(rbpy, countType);
+
   if (!hasLoaded) return <><br /><Loading /><br /></>;
 
   return (
