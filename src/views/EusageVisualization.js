@@ -76,11 +76,10 @@ function EusageVisualization({ data }) {
   const formatOptions = [
     { value: 'JOURNAL', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.journals' }) },
     { value: 'BOOK', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.books' }) },
-    { value: 'DATABASE', label: intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.format.databases' }) },
   ];
 
   const [report, setReport] = useState('uot');
-  const [format, setFormat] = useState('JOURNAL');
+  const [persistentFormat, setFormat] = useState('JOURNAL');
   const [includeOA, setIncludeOA] = useState('yes');
 
   const now = new Date();
@@ -94,7 +93,8 @@ function EusageVisualization({ data }) {
 
   // console.log(`report=${report}, format=${format}, includeOA=${includeOA}, startDate=${startDate}, endDate=${endDate}, countType=${countType}`);
 
-  const formatClassName = (report === 'uot') ? css.enabled : css.disabled;
+  const format = (report === 'uot' || report === 'cpu') ? persistentFormat : 'JOURNAL';
+  const formatClassName = (report === 'uot' || report === 'cpu') ? css.enabled : css.disabled;
   const countTypeClassName = (report === 'rbp' || report === 'rbu') ? css.enabled : css.disabled;
   const Chart = reportName2component[report] || (() => <p><b>{report}</b> report not implemented</p>);
 
