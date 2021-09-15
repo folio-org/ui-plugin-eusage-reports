@@ -25,7 +25,9 @@ function myUseMemo(func, params) {
 
   _stashedParams = params;
   _stashedResult = func();
-  console.log('myUseMemo: change in params', changed.map(([i, val]) => `${i}=${val}`).join(', '), '- recalculated', _stashedResult);
+  console.log('myUseMemo: change in params', changed.map(([i, val]) => `${i}=${val}`).join(', '));
+  console.log('myUseMemo: recalculated', _stashedResult);
+  if (_stashedResult) console.log(`new value: length(datasets)=${_stashedResult.datasets.length}, datasets =`, _stashedResult.datasets);
   return _stashedResult;
 }
 
