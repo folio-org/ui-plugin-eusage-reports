@@ -83,9 +83,9 @@ function transformReqByUseDateData(rbdou, metricType) {
   // console.log('transformReqByUseDateData, publicationYears =', publicationYears);
 
   const datasets = publicationYears.map((publicationYear, index) => ({
-    label: publicationYear,
+    label: publicationYear === 'nopub' ? '(No publication date)' : publicationYear,
     data: dataByPeriod.map(period => period[publicationYear]),
-    backgroundColor: chooseColor(index),
+    backgroundColor: publicationYear === 'nopub' ? '#eee' : chooseColor(index),
     stack: 'Stack 0',
   }));
 
