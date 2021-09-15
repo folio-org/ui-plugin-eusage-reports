@@ -5,3 +5,13 @@
     pointer-events: none;
     opacity: 0.5;
 }
+
+.ongoing {
+    width: 100%;
+    padding: 5em 0em;
+    color: #888;
+    background: #eee;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 200%;
+}

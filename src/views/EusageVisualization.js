@@ -20,6 +20,15 @@ import performLongOperation from '../util/performLongOperation';
 import css from './EusageVisualization.css';
 
 
+function AnalysisOngoing() {
+  return (
+    <div className={css.ongoing}>
+      <FormattedMessage id="ui-plugin-eusage-reports.analyze-agreement.ongoing" />
+    </div>
+  );
+}
+
+
 function analyzeAgreement(okapiKy, callout, data, setAnalysisOngoing) {
   setAnalysisOngoing(true);
   performLongOperation(okapiKy, callout,
@@ -214,7 +223,7 @@ function EusageVisualization({ data }) {
 
       {
         analysisOngoing ?
-          <FormattedMessage id="ui-plugin-eusage-reports.analyze-agreement.ongoing" /> :
+          <AnalysisOngoing /> :
           <Chart
             data={data}
             params={{
