@@ -68,6 +68,7 @@
   "button.analyze-agreement.dispatched": "Requested analysis of agreement <i>{agreement}</i> ...",
   "button.analyze-agreement.completed": "... Completed analysis of agreement <i>{agreement}</i>.",
   "button.analyze-agreement.error": "Error analyzing agreement: {error}",
+  "analyze-agreement.ongoing": "Agreement under analysis",
   "report-form.report": "Report",
   "report-form.report.use-over-time": "Use over time",
   "report-form.report.requests-by-date-of-use": "Requests by date of use",

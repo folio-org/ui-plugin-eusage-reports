@@ -20,12 +20,14 @@ import performLongOperation from '../util/performLongOperation';
 import css from './EusageVisualization.css';
 
 
-function analyzeAgreement(okapiKy, callout, data) {
+function analyzeAgreement(okapiKy, callout, data, setAnalysisOngoing) {
+  setAnalysisOngoing(true);
   performLongOperation(okapiKy, callout,
     'analyze-agreement',
     'eusage-reports/report-data/from-agreement',
     { agreementId: data.agreement.id },
-    { agreement: data.agreement.name, i: x => <i>{x}</i> });
+    { agreement: data.agreement.name, i: x => <i>{x}</i> },
+    () => setAnalysisOngoing(false));
 }
 
 
@@ -97,6 +99,8 @@ function EusageVisualization({ data }) {
   const formatClassName = (report === 'uot' || report === 'cpu') ? css.enabled : css.disabled;
   const countTypeClassName = (report === 'rbp' || report === 'rbu') ? css.enabled : css.disabled;
   const Chart = reportName2component[report] || (() => <p><b>{report}</b> report not implemented</p>);
+
+  const [analysisOngoing, setAnalysisOngoing] = useState(false);
 
   return (
     <>
@@ -208,23 +212,27 @@ function EusageVisualization({ data }) {
       </Row>
 
 
-      <Chart
-        data={data}
-        params={{
-          report,
-          format,
-          includeOA: (includeOA === 'yes'),
-          startDate,
-          endDate,
-          countType,
-          accessCountPeriod,
-          yopInterval,
-          periodOfUse,
-        }}
-      />
+      {
+        analysisOngoing ?
+          <FormattedMessage id="ui-plugin-eusage-reports.analyze-agreement.ongoing" /> :
+          <Chart
+            data={data}
+            params={{
+              report,
+              format,
+              includeOA: (includeOA === 'yes'),
+              startDate,
+              endDate,
+              countType,
+              accessCountPeriod,
+              yopInterval,
+              periodOfUse,
+            }}
+          />
+      }
       <br />
 
-      <Button onClick={() => analyzeAgreement(okapiKy, callout, data)}>
+      <Button onClick={() => analyzeAgreement(okapiKy, callout, data, setAnalysisOngoing)}>
         <FormattedMessage id="ui-plugin-eusage-reports.button.analyze-agreement" />
       </Button>
 
