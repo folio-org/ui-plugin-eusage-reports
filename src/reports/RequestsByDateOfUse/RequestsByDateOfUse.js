@@ -47,7 +47,7 @@ function RequestsByDateOfUse({ url, params, hasLoaded, data }) {
   const stripes = useStripes();
   const rbdou = data.requestsByDateOfUse;
   const countType = params.countType === 'total' ? 'Total_Item_Requests' : 'Unique_Item_Requests';
-  const transformed = transformReqByUseDateData(rbdou, countType);
+  const transformed = transformReqByUseDateData(intl, rbdou, countType);
   if (!hasLoaded) return <><br /><Loading /><br /></>;
   const modifiedUrl = url.replace('/reqs-by-pub-year?', '/reqs-by-date-of-use?');
 

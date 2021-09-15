@@ -1,7 +1,7 @@
 import chooseColor from './chooseColor';
 
 
-function transformReqByUseDateData(rbdou, metricType) {
+function transformReqByUseDateData(intl, rbdou, metricType) {
   if (!rbdou) return null;
 
   let dataByPeriod;
@@ -32,7 +32,7 @@ function transformReqByUseDateData(rbdou, metricType) {
   // console.log('transformReqByUseDateData, publicationYears =', publicationYears);
 
   const datasets = publicationYears.map((publicationYear, index) => ({
-    label: publicationYear === 'nopub' ? '(No publication date)' : publicationYear,
+    label: publicationYear === 'nopub' ? intl.formatMessage({ id: 'ui-plugin-eusage-reports.nopub' }) : publicationYear,
     data: dataByPeriod.map(period => period[publicationYear]),
     backgroundColor: publicationYear === 'nopub' ? '#eee' : chooseColor(index),
     stack: 'Stack 0',
