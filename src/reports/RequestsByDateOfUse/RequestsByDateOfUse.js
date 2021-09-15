@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Bar } from 'react-chartjs-2';
@@ -48,7 +47,7 @@ function RequestsByDateOfUse({ url, params, hasLoaded, data }) {
   const stripes = useStripes();
   const rbdou = data.requestsByDateOfUse;
   const countType = params.countType === 'total' ? 'Total_Item_Requests' : 'Unique_Item_Requests';
-  const transformed = useMemo(() => transformReqByUseDateData(rbdou, countType), [rbdou, countType]);
+  const transformed = transformReqByUseDateData(rbdou, countType);
   if (!hasLoaded) return <><br /><Loading /><br /></>;
   const modifiedUrl = url.replace('/reqs-by-pub-year?', '/reqs-by-date-of-use?');
 
