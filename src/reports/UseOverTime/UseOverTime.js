@@ -118,14 +118,18 @@ function renderUseOverTimeChart(intl, uot) {
       ],
     },
     animation: false,
+    maintainAspectRatio: false,
   };
 
   return (
-    <Bar
-      redraw
-      data={data}
-      options={options}
-    />
+    <div style={{ resize: 'vertical', overflow: 'scroll' }}>
+      <Bar
+        redraw
+        data={data}
+        height={400}
+        options={options}
+      />
+    </div>
   );
 }
 

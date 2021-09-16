@@ -63,15 +63,19 @@ function CostPerUse({ url, params, hasLoaded, data }) {
       ],
     },
     animation: false,
+    maintainAspectRatio: false,
   };
 
   return (
     <>
-      <Bar
-        redraw
-        data={graphData}
-        options={options}
-      />
+      <div style={{ resize: 'vertical', overflow: 'scroll' }}>
+        <Bar
+          redraw
+          data={graphData}
+          height={400}
+          options={options}
+        />
+      </div>
       <div style={{ textAlign: 'right', marginTop: '1em' }}>
         <Button buttonStyle="primary" onClick={() => downloadCSV(url, stripes, params)}>
           <FormattedMessage id="ui-plugin-eusage-reports.button.download-csv" />
