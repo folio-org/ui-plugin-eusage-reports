@@ -93,5 +93,7 @@
     "report-form.yop-interval": "Group publication year by",
     "report-form.period-of-use": "Group period of use by",
     "report-form.period.M": "{count, plural, one {# month} other {# months}}",
-    "report-form.period.Y": "{count, plural, one {# year} other {# years}}"
+    "report-form.period.Y": "{count, plural, one {# year} other {# years}}",
+    "nopub": "(No publication date)",
+    "analyze-agreement.ongoing": "Agreement under analysis"
 }
