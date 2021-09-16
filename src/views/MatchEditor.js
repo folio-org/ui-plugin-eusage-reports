@@ -273,9 +273,6 @@ MatchEditor.propTypes = {
     query: PropTypes.shape({
       update: PropTypes.func.isRequired,
     }).isRequired,
-    updateReportTitles: PropTypes.shape({
-      POST: PropTypes.func.isRequired,
-    }).isRequired,
   }).isRequired,
   paneTitleRef: PropTypes.object.isRequired,
 };

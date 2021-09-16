@@ -45,12 +45,6 @@ MatchingSummaryLoader.manifest = {
     },
     records: 'titles',
   },
-  updateReportTitles: {
-    type: 'okapi',
-    path: 'eusage-reports/report-titles',
-    fetch: false,
-    throwErrors: false,
-  },
 };
 
 
