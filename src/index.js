@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Accordion } from '@folio/stripes/components';
 import MatchingSummary from './loaders/MatchingSummaryLoader';
-import EusageVisualization from './views/EusageVisualization';
+import EusageVisualizationLoader from './loaders/EusageVisualizationLoader';
 
 
 // Thank Michal Kuklis for the seeds of this abomination :-)
@@ -44,7 +44,7 @@ const PluginEusageReports = ({ data }) => {
         label={<FormattedMessage id="ui-plugin-eusage-reports.accordion.label" />}
         closedByDefault={false}
       >
-        <EusageVisualization data={data?.data} />
+        <EusageVisualizationLoader data={data?.data} />
       </Accordion>
     );
   }

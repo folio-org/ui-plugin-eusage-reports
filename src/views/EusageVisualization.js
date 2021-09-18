@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { useIntl, FormattedMessage } from 'react-intl';
+import { useIntl, FormattedMessage, FormattedDate } from 'react-intl';
 import PropTypes from 'prop-types';
 import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
 import {
@@ -62,6 +62,7 @@ function yearsBefore(base, n) {
 
 
 function EusageVisualization({ data }) {
+  console.log('data.reportStatus =', data.reportStatus);
   const okapiKy = useOkapiKy();
   const callout = useContext(CalloutContext);
   const intl = useIntl();
@@ -241,9 +242,18 @@ function EusageVisualization({ data }) {
       }
       <br />
 
-      <Button onClick={() => analyzeAgreement(okapiKy, callout, data, setAnalysisOngoing)}>
-        <FormattedMessage id="ui-plugin-eusage-reports.button.analyze-agreement" />
-      </Button>
+      <div>
+        <div style={{ float: 'left' }}>
+          <Button onClick={() => analyzeAgreement(okapiKy, callout, data, setAnalysisOngoing)}>
+            <FormattedMessage id="ui-plugin-eusage-reports.button.analyze-agreement" />
+          </Button>
+        </div>
+        <div style={{ float: 'right' }}>
+          <FormattedMessage id="ui-plugin-eusage-reports.matching-summary.date-of-last-harvest" />
+          <span>: </span>
+          <FormattedDate value={data.reportStatus?.lastUpdated} />
+        </div>
+      </div>
 
       <div style={{ height: '30em' }} />
     </>
@@ -256,6 +266,9 @@ EusageVisualization.propTypes = {
     useOverTime: PropTypes.arrayOf(
       PropTypes.object.isRequired,
     ),
+    reportStatus: PropTypes.shape({
+      lastUpdated: PropTypes.string.isRequired,
+    }),
     agreement: PropTypes.shape({
       id: PropTypes.string,
       name: PropTypes.string,
