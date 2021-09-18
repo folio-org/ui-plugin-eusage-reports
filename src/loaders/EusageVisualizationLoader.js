@@ -5,7 +5,7 @@ import EusageVisualization from '../views/EusageVisualization';
 
 function EusageVisualizationLoader({ data, resources }) {
   return <EusageVisualization
-    hasLoaded={resources.reportStatus.hasLoaded}
+    lastUpdatedHasLoaded={resources.reportStatus.hasLoaded}
     data={{
       ...data,
       reportStatus: resources.reportStatus.records[0],
@@ -22,6 +22,7 @@ EusageVisualizationLoader.manifest = {
       if (!agreementId) return null;
       return `eusage-reports/report-data/status/${agreementId}`;
     },
+    throwErrors: false,
   },
 };
 

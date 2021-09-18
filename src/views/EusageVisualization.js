@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { useIntl, FormattedMessage, FormattedDate } from 'react-intl';
+import { useIntl, FormattedMessage, FormattedDate, FormattedTime } from 'react-intl';
 import PropTypes from 'prop-types';
 import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
 import {
@@ -61,7 +61,7 @@ function yearsBefore(base, n) {
 }
 
 
-function EusageVisualization({ data }) {
+function EusageVisualization({ data, lastUpdatedHasLoaded }) {
   console.log('data.reportStatus =', data.reportStatus);
   const okapiKy = useOkapiKy();
   const callout = useContext(CalloutContext);
@@ -249,9 +249,17 @@ function EusageVisualization({ data }) {
           </Button>
         </div>
         <div style={{ float: 'right' }}>
-          <FormattedMessage id="ui-plugin-eusage-reports.matching-summary.date-of-last-harvest" />
+          <FormattedMessage id="ui-plugin-eusage-reports.last-analyzed" />
           <span>: </span>
-          <FormattedDate value={data.reportStatus?.lastUpdated} />
+          {
+            lastUpdatedHasLoaded ?
+              <>
+                <FormattedDate value={data.reportStatus?.lastUpdated} />
+                ,&nbsp;
+                <FormattedTime value={data.reportStatus?.lastUpdated} hour="numeric" minute="numeric" second="numeric" />
+              </> :
+              <FormattedMessage id="ui-plugin-eusage-reports.last-analyzed.unknown" />
+          }
         </div>
       </div>
 
@@ -274,6 +282,7 @@ EusageVisualization.propTypes = {
       name: PropTypes.string,
     }).isRequired,
   }).isRequired,
+  lastUpdatedHasLoaded: PropTypes.bool.isRequired,
 };
 
 
