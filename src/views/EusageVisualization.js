@@ -254,6 +254,8 @@ function EusageVisualization({ data, lastUpdatedHasLoaded }) {
           {
             lastUpdatedHasLoaded ?
               <>
+                {data.reportStatus?.lastUpdated}
+                {' = '}
                 <FormattedDate value={data.reportStatus?.lastUpdated} />
                 ,&nbsp;
                 <FormattedTime value={data.reportStatus?.lastUpdated} hour="numeric" minute="numeric" second="numeric" />
