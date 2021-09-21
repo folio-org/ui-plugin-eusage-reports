@@ -30,7 +30,7 @@ function AnalysisOngoing() {
 
 
 // eslint-disable-next-line react/prop-types
-function DateLastAnalyzed({ loaded, isoDateTime }) {
+function DateLastAnalyzed({ loaded, isoDateTime, tenantTimezone }) {
   return (
     <>
       <FormattedMessage id="ui-plugin-eusage-reports.last-analyzed" />
@@ -41,8 +41,8 @@ function DateLastAnalyzed({ loaded, isoDateTime }) {
           <>
             <FormattedDate value={isoDateTime} />
             <span>, </span>
-            <FormattedTime value={isoDateTime} hour="numeric" minute="numeric" second="numeric" timeZoneName />
-            <br />
+            <FormattedTime value={isoDateTime} hour="numeric" minute="numeric" second="numeric" />
+            <span> ({tenantTimezone})</span>
           </>
       }
     </>
@@ -268,7 +268,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded }) {
           </Button>
         </div>
         <div style={{ float: 'right' }}>
-          <DateLastAnalyzed loaded={lastUpdatedHasLoaded} isoDateTime={data.reportStatus?.lastUpdated} />
+          <DateLastAnalyzed loaded={lastUpdatedHasLoaded} isoDateTime={data.reportStatus?.lastUpdated} tenantTimezone={intl.timeZone} />
         </div>
       </div>
 
