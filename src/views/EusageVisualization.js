@@ -31,9 +31,6 @@ function AnalysisOngoing() {
 
 // eslint-disable-next-line react/prop-types
 function DateLastAnalyzed({ loaded, isoDateTime }) {
-  // Render according to the browser's (and therefore user's) timezone, not tenant's
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
   return (
     <>
       <FormattedMessage id="ui-plugin-eusage-reports.last-analyzed" />
@@ -42,19 +39,10 @@ function DateLastAnalyzed({ loaded, isoDateTime }) {
         !loaded ?
           <FormattedMessage id="ui-plugin-eusage-reports.last-analyzed.unknown" /> :
           <>
-            <code>{isoDateTime}</code>
-            <span> = </span>
-            <br />
             <FormattedDate value={isoDateTime} />
             <span>, </span>
-            (none): <FormattedTime value={isoDateTime} hour="numeric" minute="numeric" second="numeric" />
+            <FormattedTime value={isoDateTime} hour="numeric" minute="numeric" second="numeric" timeZoneName />
             <br />
-            timezone: <FormattedTime value={isoDateTime} hour="numeric" minute="numeric" second="numeric" timezone={timezone} />
-            <br />
-            timeZone: <FormattedTime value={isoDateTime} hour="numeric" minute="numeric" second="numeric" timeZone={timezone} />
-            <br />
-            &nbsp;({timezone})
-            {/* Consider using <FormattedRelativeTime> here */}
           </>
       }
     </>
