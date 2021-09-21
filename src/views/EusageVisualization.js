@@ -49,14 +49,14 @@ function DateLastAnalyzed({ loaded, isoDateTime, tenantTimezone }) {
   );
 }
 
-function analyzeAgreement(okapiKy, callout, data, setAnalysisOngoing) {
+function analyzeAgreement(okapiKy, callout, data, setAnalysisOngoing, reloadReportStatus) {
   setAnalysisOngoing(true);
   performLongOperation(okapiKy, callout,
     'analyze-agreement',
     'eusage-reports/report-data/from-agreement',
     { agreementId: data.agreement.id },
     { agreement: data.agreement.name, i: x => <i>{x}</i> },
-    () => setAnalysisOngoing(false));
+    () => { setAnalysisOngoing(false); reloadReportStatus(); });
 }
 
 
@@ -81,7 +81,7 @@ function yearsBefore(base, n) {
 }
 
 
-function EusageVisualization({ data, lastUpdatedHasLoaded }) {
+function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus }) {
   const okapiKy = useOkapiKy();
   const callout = useContext(CalloutContext);
   const intl = useIntl();
@@ -263,7 +263,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded }) {
 
       <div>
         <div style={{ float: 'left' }}>
-          <Button onClick={() => analyzeAgreement(okapiKy, callout, data, setAnalysisOngoing)}>
+          <Button onClick={() => analyzeAgreement(okapiKy, callout, data, setAnalysisOngoing, reloadReportStatus)}>
             <FormattedMessage id="ui-plugin-eusage-reports.button.analyze-agreement" />
           </Button>
         </div>
@@ -292,6 +292,7 @@ EusageVisualization.propTypes = {
     }).isRequired,
   }).isRequired,
   lastUpdatedHasLoaded: PropTypes.bool.isRequired,
+  reloadReportStatus: PropTypes.func.isRequired,
 };
 
 

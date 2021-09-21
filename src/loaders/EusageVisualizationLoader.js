@@ -3,7 +3,7 @@ import { stripesConnect } from '@folio/stripes/core';
 import EusageVisualization from '../views/EusageVisualization';
 
 
-function EusageVisualizationLoader({ data, resources }) {
+function EusageVisualizationLoader({ data, resources, mutator }) {
   return <EusageVisualization
     lastUpdatedHasLoaded={resources.reportStatus.hasLoaded && !resources.reportStatus.failed}
     data={{
@@ -15,17 +15,22 @@ function EusageVisualizationLoader({ data, resources }) {
       // failures, we have to explicitly check for failure
       reportStatus: resources.reportStatus.records[0],
     }}
+    reloadReportStatus={() => mutator.toggleVal.replace(resources.toggleVal ? 0 : 1)}
   />;
 }
 
 
 EusageVisualizationLoader.manifest = {
+  toggleVal: {
+    // We mutate this when analyze an agreement, to force a stripes-connect reload
+    initialValue: 0,
+  },
   reportStatus: {
     type: 'okapi',
     path: (_q, _p, _r, _l, props) => {
       const agreementId = props.data.agreement.id;
       if (!agreementId) return null;
-      return `eusage-reports/report-data/status/${agreementId}`;
+      return `eusage-reports/report-data/status/${agreementId}?_unused=${props.resources.toggleVal}`;
     },
     throwErrors: false,
   },
@@ -35,6 +40,7 @@ EusageVisualizationLoader.manifest = {
 EusageVisualizationLoader.propTypes = {
   data: PropTypes.object.isRequired,
   resources: PropTypes.shape({
+    toggleVal: PropTypes.number.isRequired,
     reportStatus: PropTypes.shape({
       hasLoaded: PropTypes.bool.isRequired,
       failed: PropTypes.oneOfType([
@@ -45,6 +51,11 @@ EusageVisualizationLoader.propTypes = {
         PropTypes.object.isRequired,
       ),
     }),
+  }).isRequired,
+  mutator: PropTypes.shape({
+    toggleVal: PropTypes.shape({
+      replace: PropTypes.func.isRequired,
+    }).isRequired,
   }).isRequired,
 };
 
