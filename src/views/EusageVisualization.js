@@ -29,6 +29,38 @@ function AnalysisOngoing() {
 }
 
 
+// eslint-disable-next-line react/prop-types
+function DateLastAnalyzed({ loaded, isoDateTime }) {
+  // Render according to the browser's (and therefore user's) timezone, not tenant's
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  return (
+    <>
+      <FormattedMessage id="ui-plugin-eusage-reports.last-analyzed" />
+      <span>: </span>
+      {
+        !loaded ?
+          <FormattedMessage id="ui-plugin-eusage-reports.last-analyzed.unknown" /> :
+          <>
+            <code>{isoDateTime}</code>
+            <span> = </span>
+            <br />
+            <FormattedDate value={isoDateTime} />
+            <span>, </span>
+            (none): <FormattedTime value={isoDateTime} hour="numeric" minute="numeric" second="numeric" />
+            <br />
+            timezone: <FormattedTime value={isoDateTime} hour="numeric" minute="numeric" second="numeric" timezone={timezone} />
+            <br />
+            timeZone: <FormattedTime value={isoDateTime} hour="numeric" minute="numeric" second="numeric" timeZone={timezone} />
+            <br />
+            &nbsp;({timezone})
+            {/* Consider using <FormattedRelativeTime> here */}
+          </>
+      }
+    </>
+  );
+}
+
 function analyzeAgreement(okapiKy, callout, data, setAnalysisOngoing) {
   setAnalysisOngoing(true);
   performLongOperation(okapiKy, callout,
@@ -62,7 +94,6 @@ function yearsBefore(base, n) {
 
 
 function EusageVisualization({ data, lastUpdatedHasLoaded }) {
-  console.log('data.reportStatus =', data.reportStatus);
   const okapiKy = useOkapiKy();
   const callout = useContext(CalloutContext);
   const intl = useIntl();
@@ -249,19 +280,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded }) {
           </Button>
         </div>
         <div style={{ float: 'right' }}>
-          <FormattedMessage id="ui-plugin-eusage-reports.last-analyzed" />
-          <span>: </span>
-          {
-            lastUpdatedHasLoaded ?
-              <>
-                {data.reportStatus?.lastUpdated}
-                {' = '}
-                <FormattedDate value={data.reportStatus?.lastUpdated} />
-                ,&nbsp;
-                <FormattedTime value={data.reportStatus?.lastUpdated} hour="numeric" minute="numeric" second="numeric" />
-              </> :
-              <FormattedMessage id="ui-plugin-eusage-reports.last-analyzed.unknown" />
-          }
+          <DateLastAnalyzed loaded={lastUpdatedHasLoaded} isoDateTime={data.reportStatus?.lastUpdated} />
         </div>
       </div>
 
