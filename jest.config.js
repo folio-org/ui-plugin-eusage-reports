@@ -22,7 +22,6 @@ module.exports = {
   coverageReporters: ['lcov', 'text'],
   coverageDirectory: './artifacts/coverage-jest/',
 
-/*
   // Support for DOM assertions
   setupFilesAfterEnv: [path.join(__dirname, './test/jest/jest.setup.js')],
 
@@ -35,5 +34,4 @@ module.exports = {
     '^.+\\.(css)$': 'identity-obj-proxy',
     '^.+\\.(svg)$': 'identity-obj-proxy',
   },
-*/
 };
