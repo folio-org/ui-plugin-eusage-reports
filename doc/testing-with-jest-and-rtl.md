@@ -7,13 +7,13 @@ Mike Taylor, Index Data
 <!-- md2toc -l 2 testing-with-jest-and-rtl.md -->
 * [Introduction](#introduction)
 * [Configuring Jest](#configuring-jest)
+    * [Testing basics](#testing-basics)
     * [Support for ES6](#support-for-es6)
     * [Reporting test coverage](#reporting-test-coverage)
     * [Support for DOM assertions](#support-for-dom-assertions)
     * [Establishing mocks](#establishing-mocks)
 * [Configuring ESLint: overrides for Jest tests](#configuring-eslint-overrides-for-jest-tests)
 * [Configuring Jenkins: running tests in CI](#configuring-jenkins-running-tests-in-ci)
-* [Detritus](#detritus)
 
 
 
@@ -42,13 +42,20 @@ While the Jest home page features the admirable goal "Jest aims to work out of t
 This file refers to several files and modules outside itself, and we conventionally keep all these additional parts of the configuration in the [`test/jest`](../test/jest) directory. We will now review the most important entries in the Jest configuration and the files that they use.
 
 
+### Testing basics
+
+The `testMatch` directive lists patterns which filenames must match in order to be considered tests, and `testPathIgnorePatterns` lists pattern which should be ignored -- typically `['/node_modules/']`.
+
+The `reporters` directive specifies how the results of tests are reported. It can be used to override the standard behaviour of using just the `default` reporter -- for example, some of our projects use `reporters: ['jest-junit', 'default']` to leave behind a a `junit.xml` file for some reason.
+
+Dependencies: the only module required to run simple Jest tests is `jest` itself. To generate a `junit.xml` file, `jest-junit` is also needed.
+
+
 ### Support for ES6
 
-Babel is used to support the modern JavaScript dialect ES6. This is achieved by the `transform` directive, which specifies that files whose names end in `.js` or `.jsx` are handled by the transformer defined by [`test/jest/jest-transformer.js`](../test/jest/jest-transformer.js). This short file uses the adapter module [`babel-jest`](https://www.npmjs.com/package/babel-jest) to make Babel function as a Jest transformer, and configures it with the Stripes configuration exported from the additional configuration file [`test/jest/babel.config.js`](../test/jest/babel.config.js). This file in turn gets that configuration from the Stripes CLI module and re-exports it (and so could probably ebe eliminated).
+Babel is used to support the modern JavaScript dialect ES6. This is achieved by the `transform` directive, which specifies that files whose names end in `.js` or `.jsx` are handled by the transformer defined by [`test/jest/jest-transformer.js`](../test/jest/jest-transformer.js). This short file uses the adapter module [`babel-jest`](https://www.npmjs.com/package/babel-jest) to make Babel function as a Jest transformer, and configures it with the Stripes configuration exported from the additional configuration file [`test/jest/babel.config.js`](../test/jest/babel.config.js). This file in turn gets that configuration from the Stripes CLI module and re-exports it. (We get the Stripes CLI configuration from the Stripes CLI instead of directly from `stripes-webpack` because every module already relies on the former, so we can avoid adding yet another dev-dependency on the latter.)
 
 * Dependencies: `babel-jest`, `@folio/stripes-cli`
-
-**NOTE.** I am not clear on why we get the Stripes CLI configuration from the Stripes CLI instead of directly from `stripes-webpack`.
 
 
 ### Reporting test coverage
@@ -70,7 +77,7 @@ We use `setupFilesAfterEnv` to run another file, [`test/jest/jest.setup.js`](../
 
 ### Establishing mocks
 
-*NOTE.* I am not yet using mocks, so my understanding here may well be off.
+**NOTE.** I am not yet using mocks, so my understanding here may well be off.
 
 We use `setupFiles` to run [`test/jest/setupTests.js`](../test/jest/setupTests.js), which in turn installs all the specific mocks provided in the oddly named [`test/jest/__mock__`](../test/jest/__mock__) directory -- which will vary by project -- as well as the misleadingly named `regenerator-runtime` module, which implements `async` for Babel. `setupFiles` also pulls in `jest-canvas-mock`, which mocks the canvas element.
 
@@ -104,11 +111,7 @@ Once you have your tests running, you want them to run automatically in CI. Assu
 
 The CI configuration knows to find the coverasge analysis results in `artifacts/coverage-jest`, which is where the Jest configuration says to leave them, so coverage artifacts should just appear in Jenkins.
 
-
-
-## Detritus
-
-For some reasons, running Jest leaves behind a `junit.xml` file, which can be safely ignored and should be omitted from the version-control repository.
+**NOTE.** The FOLIO project is in the process of moving CI from Jenkins to GitHub Actions. Someone who knows how that works can write the relevant section.
 
 
 
