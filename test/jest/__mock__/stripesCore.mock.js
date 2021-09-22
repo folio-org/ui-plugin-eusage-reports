@@ -1,6 +1,7 @@
-import React from 'react';
+import mockReact from 'react';
 
 jest.mock('@folio/stripes/core', () => {
+  const CalloutContext = mockReact.createContext();
   const STRIPES = {
     connect: (Component) => Component,
     config: {},
@@ -61,5 +62,7 @@ jest.mock('@folio/stripes/core', () => {
         const fakeStripes = stripes || STRIPES;
         return <Component {...rest} stripes={fakeStripes} />;
       },
+    useOkapiKy: () => (...args) => { console.log('okapiKy with args', ...args); },
+    CalloutContext,
   };
 });
