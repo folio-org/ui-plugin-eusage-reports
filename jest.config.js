@@ -7,7 +7,7 @@ module.exports = {
   // Testing basics
   testMatch: ['**/src/**/?(*.)test.{js,jsx}'],
   testPathIgnorePatterns: ['/node_modules/'],
-  reporters: ['jest-junit', 'default'], // XXX try this different ways
+  reporters: ['jest-junit', 'default'],
 
   // Support for ES6
   transform: { '^.+\\.(js|jsx)$': path.join(__dirname, './test/jest/jest-transformer.js') },
