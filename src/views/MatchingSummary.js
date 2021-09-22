@@ -37,7 +37,7 @@ function MatchingSummary({ hasLoaded, data, mutator, reloadReportTitles }) {
   };
 
   return (
-    <>
+    <div data-test-matching-summary>
       <Row>
         <Col xs={3}>
           <KeyValue
@@ -115,7 +115,7 @@ function MatchingSummary({ hasLoaded, data, mutator, reloadReportTitles }) {
           />
         </Layer>
       }
-    </>
+    </div>
   );
 }
 
