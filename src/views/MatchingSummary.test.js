@@ -46,10 +46,6 @@ describe('Matching Summary page', () => {
 
   beforeEach(() => {
     node = renderMatchingSummary();
-    expect(screen.getByText('Records loaded')).toBeVisible();
-    expect(screen.getByText('Pending review')).toBeVisible(); // Because some records are unmatched
-    expect(screen.getByText('4 of 42')).toBeVisible();
-    expect(screen.getByRole('button')).toBeEnabled();
   });
 
   afterEach(cleanup);
@@ -59,5 +55,16 @@ describe('Matching Summary page', () => {
     const content = container.querySelector('[data-test-matching-summary]');
     expect(container).toBeVisible();
     expect(content).toBeVisible();
+
+    // Harvesting date and status
+    expect(screen.getByText('9/22/2021')).toBeVisible(); // US formatting
+    expect(screen.getByText('Pending review')).toBeVisible(); // Because some records are unmatched
+
+    // Counts of records in various categories
+    expect(screen.getByText('Records loaded')).toBeVisible();
+    expect(screen.getByText('4 of 42')).toBeVisible();
+
+    // Invoke match editor
+    expect(screen.getByRole('button')).toBeEnabled();
   });
 });
