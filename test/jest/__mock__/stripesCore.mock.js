@@ -36,7 +36,7 @@ jest.mock('@folio/stripes/core', () => {
     },
     withOkapi: true,
   };
-  return {
+  const res = {
     AppIcon: jest.fn(({ ariaLabel }) => <span>{ariaLabel}</span>),
     TitleManager: jest.fn(({ children, ...rest }) => (
       <span {...rest}>{children}</span>
@@ -62,7 +62,12 @@ jest.mock('@folio/stripes/core', () => {
         const fakeStripes = stripes || STRIPES;
         return <Component {...rest} stripes={fakeStripes} />;
       },
-    useOkapiKy: () => (...args) => { console.log('okapiKy with args', ...args); },
+    useOkapiKy: jest.fn(),
     CalloutContext,
   };
+
+  res.useOkapiKy.mockImplementation(() => {
+    console.log('  *** in top-level mocked useOkapiKy');
+  });
+  return res;
 });
