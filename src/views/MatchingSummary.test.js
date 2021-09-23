@@ -65,6 +65,7 @@ describe('Matching Summary page', () => {
     expect(screen.getByText('4 of 42')).toBeVisible();
 
     // Invoke match editor
+    expect(screen.getByRole('button')).toHaveTextContent('Update matches');
     expect(screen.getByRole('button')).toBeEnabled();
   });
 });
