@@ -1,6 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { useOkapiKy } from '@folio/stripes/core';
 import reportTitles from '../../test/jest/data/reportTitles';
 import MatchingSummary from './MatchingSummary';
 import rawTranslations from '../../translations/ui-plugin-eusage-reports/en';
@@ -50,7 +51,7 @@ describe('Matching Summary page', () => {
 
   afterEach(cleanup);
 
-  it('should be rendered', () => {
+  it('should be rendered', async () => {
     const { container } = node;
     const content = container.querySelector('[data-test-matching-summary]');
     expect(container).toBeVisible();
@@ -64,8 +65,26 @@ describe('Matching Summary page', () => {
     expect(screen.getByText('Records loaded')).toBeVisible();
     expect(screen.getByText('4 of 42')).toBeVisible();
 
-    // Invoke match editor
+    // Check and click update-matches button
     expect(screen.getByRole('button')).toHaveTextContent('Update matches');
     expect(screen.getByRole('button')).toBeEnabled();
+
+    useOkapiKy.mockImplementation(() => {
+      console.log('*** in mocked useOkapiKy');
+      return () => {
+        console.log(' *** in mocked okapiKy');
+        return {
+          post: () => ({
+            json: () => ({
+              isLoading: false,
+              expenseClasses: [{ id: 'id', name: 'name' }],
+            }),
+          }),
+        };
+      };
+    });
+
+    fireEvent.click(screen.getByRole('button'));
+    await waitFor(() => screen.getByText('Requested update'));
   });
 });
