@@ -78,14 +78,14 @@ describe('Matching Summary page', () => {
     expect(content).toBeVisible();
 
     // Harvesting date and status
-    // XXX We should check for values associated with keys:
-    // See https://folio-project.slack.com/archives/C210UCHQ9/p1632414298168000?thread_ts=1632407596.164700&cid=C210UCHQ9
-    expect(screen.getByText('9/22/2021')).toBeVisible(); // US formatting
-    expect(screen.getByText('Pending review')).toBeVisible(); // Because some records are unmatched
+    expect(screen.getByText('Date of last harvest').nextElementSibling).toHaveTextContent('9/22/2021'); // US formatting
+    expect(screen.getByText('Status').nextElementSibling).toHaveTextContent('Pending review'); // Some records are unmatched
 
     // Counts of records in various categories
-    expect(screen.getByText('Records loaded')).toBeVisible();
-    expect(screen.getByText('4 of 42')).toBeVisible();
+    expect(screen.getByText('Records loaded').nextElementSibling).toHaveTextContent('4 of 42');
+    expect(screen.getByText('Matched').nextElementSibling).toHaveTextContent('2');
+    expect(screen.getByText('Unmatched').nextElementSibling).toHaveTextContent('1');
+    expect(screen.getByText('Ignored').nextElementSibling).toHaveTextContent('1');
 
     // Check and click update-matches button
     expect(screen.getByRole('button')).toHaveTextContent('Update matches');
