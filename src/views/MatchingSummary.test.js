@@ -58,6 +58,7 @@ describe('Matching Summary page', () => {
     expect(content).toBeVisible();
 
     // Harvesting date and status
+    // XXX See https://folio-project.slack.com/archives/C210UCHQ9/p1632414298168000?thread_ts=1632407596.164700&cid=C210UCHQ9
     expect(screen.getByText('9/22/2021')).toBeVisible(); // US formatting
     expect(screen.getByText('Pending review')).toBeVisible(); // Because some records are unmatched
 
@@ -69,6 +70,7 @@ describe('Matching Summary page', () => {
     expect(screen.getByRole('button')).toHaveTextContent('Update matches');
     expect(screen.getByRole('button')).toBeEnabled();
 
+    // See https://folio-project.slack.com/archives/C210UCHQ9/p1632425791183300?thread_ts=1632350696.158900&cid=C210UCHQ9
     useOkapiKy.mockImplementation(() => {
       console.log('*** in mocked useOkapiKy');
       return () => {
