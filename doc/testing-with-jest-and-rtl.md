@@ -77,23 +77,32 @@ We use `setupFilesAfterEnv` to run another file, [`test/jest/jest.setup.js`](../
 
 ### Establishing mocks
 
-**NOTE.** I am not yet using mocks, so my understanding here may well be off.
-
-We use `setupFiles` to run [`test/jest/setupTests.js`](../test/jest/setupTests.js), which in turn installs all the specific mocks provided in the oddly named [`test/jest/__mock__`](../test/jest/__mock__) directory -- which will vary by project -- as well as the misleadingly named `regenerator-runtime` module, which implements `async` for Babel. `setupFiles` also pulls in `jest-canvas-mock`, which mocks the canvas element.
+We use `setupFiles` to run [`test/jest/setupTests.js`](../test/jest/setupTests.js), which in turn installs all the specific mocks provided in the oddly named [`test/jest/__mock__`](../test/jest/__mock__) directory, as well as the misleadingly named `regenerator-runtime` module, which implements `async` for Babel. `setupFiles` also pulls in `jest-canvas-mock`, which mocks the canvas element.
 
 We also use `moduleNameMapper`, for reasons I do not properly understand, to mock CSS and SVG files using thw `identity-obj-proxy` module.
 
 * Dependencies: `regenerator-runtime`, `jest-canvas-mock`, `identity-obj-proxy`
 
+The individual mocks in the [`test/jest/__mock__`](../test/jest/__mock__) directory fall into two categories:
+
+* Files that mock the modules making up the Stripes framework:
+[stripesCore.mock.js](../test/jest/__mock__/stripesCore.mock.js),
+[stripesConnect.mock.js](../test/jest/__mock__/stripesConnect.mock.js),
+etc.
+These are required for the tested components to be able to function outside the context of Stripes itself. Unfortunately, each project has its own copies of these, which start off similar but inevitably diverge in all sorts of directions. For example, I had to add support for `useOkapiKy` and `CalloutContext` to the stripes-core mock in `ui-plugin-eusage-reports` but other projects that need these will need to copy from here or independently recode them.
+
+* In some modules, this directory is also used as the repository for mocked data-sets used by specific tests: for example, ui-users provides [`cashDrawerReconciliationReportData.mock.js`](https://github.com/folio-org/ui-users/blob/master/test/jest/__mock__/cashDrawerReconciliationReportData.mock.js), which exports a data-structure used in tests including [`cashDrawerReconciliationReportCSV.test.js`](https://github.com/folio-org/ui-users/blob/master/src/components/data/reports/cashDrawerReconciliationReportCSV.test.js).
+
+**UNSOLICITED PERSONAL OPINION.** Data fixtures are quite different thing from the system mocks, and would be better stored elsewhere, perhaps `/test/data`.
 
 
 ## Configuring ESLint: overrides for Jest tests
 
-Tests written for Jest include some aspects that are usually flagged as errors by ESLint -- for example, use of global functions such as `test` and `expect`. To keep lint-clean, we can instruct ESLint to override its usual rules for files matching `*.test.js` by using the `jest` environment when linting them. Add this clause to the top-level `.eslintrc`:
+Tests written for Jest include some aspects that are usually flagged as errors by ESLint -- for example, use of global functions such as `test` and `expect`. Sinilarly, mocks provided to the tests will use these globals. To keep lint-clean, we can instruct ESLint to override its usual rules for files matching `*.test.js` and all files in the Jest area by using the `jest` environment when linting them. Add this clause to the top-level `.eslintrc`:
 
 	"overrides": [
 	  {
-	    "files": "**/*.test.js",
+	   "files": ["**/*.test.js", "test/jest/**/*"],
 	    "env": {
 	      "jest": true
 	    }
