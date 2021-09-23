@@ -18,6 +18,7 @@ module.exports = {
     'src/**/*.{js,jsx}',
     '!test/**',
     '!**/node_modules/**',
+    '!src/util/myUseMemo.js',
   ],
   coverageReporters: ['lcov', 'text'],
   coverageDirectory: './artifacts/coverage-jest/',
