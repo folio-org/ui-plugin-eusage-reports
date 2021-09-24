@@ -95,5 +95,7 @@
     "report-form.period.M": "{count, plural, zero {شهر} one {شهر} two {شهرين} few {شهور} many {شهراً} other {شهراً}}",
     "report-form.period.Y": "{count, plural, zero {سنة} one {سنة} two {سنتين} few {سنوات} many {سنة} other {سنة}}",
     "nopub": "(لا يوجد تاريخ نشر)",
-    "analyze-agreement.ongoing": "اتفاقية قيد التحليل"
+    "analyze-agreement.ongoing": "اتفاقية قيد التحليل",
+    "last-analyzed": "آخر تحليل",
+    "last-analyzed.unknown": "(غير معروف)"
 }
