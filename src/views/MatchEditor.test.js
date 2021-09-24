@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render, screen, fireEvent } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import reportTitles from '../../test/jest/data/reportTitles';
 import withIntlConfiguration from '../../test/jest/util/withIntlConfiguration';
 import MatchEditor from './MatchEditor';

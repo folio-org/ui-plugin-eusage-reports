@@ -1,5 +1,4 @@
 import { IntlProvider } from 'react-intl';
-import { render } from '@testing-library/react';
 import stripesComponentsTranslations from '@folio/stripes-components/translations/stripes-components/en';
 import localTranslations from '../../../translations/ui-plugin-eusage-reports/en';
 
