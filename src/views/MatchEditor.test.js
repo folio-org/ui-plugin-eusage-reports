@@ -47,21 +47,8 @@ describe('Match Editor page', () => {
 
     // Counts of records in various categories
     expect(screen.getByText('Records loaded (4)')).toBeVisible();
-
-    /*
-    // Counts of records in various categories
-    expect(screen.getByText('Records loaded').nextElementSibling).toHaveTextContent('4 of 42');
-    expect(screen.getByText('Matched').nextElementSibling).toHaveTextContent('2');
-    expect(screen.getByText('Unmatched').nextElementSibling).toHaveTextContent('1');
-    expect(screen.getByText('Ignored').nextElementSibling).toHaveTextContent('1');
-
-    // Check and click update-matches button
-    expect(screen.getByRole('button')).toHaveTextContent('Update matches');
-    expect(screen.getByRole('button')).toBeEnabled();
-
-    fireEvent.click(screen.getByRole('button'));
-    // XXX The callout mock renders nothing on screen for us to wait for
-    // await waitFor(() => screen.getByText('Requested update'));
-    */
+    expect(screen.getByText('Matched (2)')).toBeVisible();
+    expect(screen.getByText('Unmatched (1)')).toBeVisible();
+    expect(screen.getByText('Ignored (1)')).toBeVisible();
   });
 });
