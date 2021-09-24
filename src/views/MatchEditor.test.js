@@ -1,50 +1,32 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
 import { cleanup, render, screen, fireEvent } from '@testing-library/react';
-import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
 import reportTitles from '../../test/jest/data/reportTitles';
+import withIntlConfiguration from '../../test/jest/util/withIntlConfiguration';
 import MatchEditor from './MatchEditor';
-import rawTranslations from '../../translations/ui-plugin-eusage-reports/en';
 
-const translations = {};
-Object.keys(rawTranslations).forEach(key => {
-  translations[`ui-plugin-eusage-reports.${key}`] = rawTranslations[key];
-});
-
-
-// To skip the mock of stripes-components and use the real thing:
-// jest.unmock('@folio/stripes/components');
+jest.unmock('react-intl');
 
 
 const renderMatchEditor = () => {
   const queryData = { matchType: undefined };
-  const callout = {
-    sendCallout: (_calloutData) => {
-      // console.log('*** sendCallout:', _calloutData.message.props.id);
-    }
-  };
 
-  return render(
-    <CalloutContext.Provider value={callout}>
-      <IntlProvider locale="en-US" messages={translations}>
-        <MatchEditor
-          matchType="loaded"
-          onClose={() => console.log('*** onClose')}
-          data={{
-            usageDataProvider: {
-              label: 'JSTOR',
-            },
-            reportTitles,
-          }}
-          mutator={{
-            query: {
-              update: (newData) => Object.assign(queryData, newData),
-            },
-          }}
-        />
-      </IntlProvider>
-    </CalloutContext.Provider>
-  );
+  return render(withIntlConfiguration(
+    <MatchEditor
+      matchType="loaded"
+      onClose={() => {}}
+      data={{
+        usageDataProvider: {
+          label: 'JSTOR',
+        },
+        reportTitles,
+      }}
+      mutator={{
+        query: {
+          update: (newData) => Object.assign(queryData, newData),
+        },
+      }}
+    />
+  ));
 };
 
 
@@ -63,11 +45,10 @@ describe('Match Editor page', () => {
     expect(container).toBeVisible();
     expect(content).toBeVisible();
 
-    /*
-    // Harvesting date and status
-    expect(screen.getByText('Date of last harvest').nextElementSibling).toHaveTextContent('9/22/2021'); // US formatting
-    expect(screen.getByText('Status').nextElementSibling).toHaveTextContent('Pending review'); // Some records are unmatched
+    // Counts of records in various categories
+    expect(screen.getByText('Records loaded (4)')).toBeVisible();
 
+    /*
     // Counts of records in various categories
     expect(screen.getByText('Records loaded').nextElementSibling).toHaveTextContent('4 of 42');
     expect(screen.getByText('Matched').nextElementSibling).toHaveTextContent('2');
