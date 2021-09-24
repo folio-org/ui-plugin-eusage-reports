@@ -1,3 +1,4 @@
+import React from 'react';
 import { IntlProvider } from 'react-intl';
 import stripesComponentsTranslations from '@folio/stripes-components/translations/stripes-components/en';
 import localTranslations from '../../../translations/ui-plugin-eusage-reports/en';

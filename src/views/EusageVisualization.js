@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useIntl, FormattedMessage, FormattedDate } from 'react-intl';
 import PropTypes from 'prop-types';
 import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
