@@ -51,7 +51,7 @@ const renderMatchingSummary = () => {
         }
       />
     </CalloutContext.Provider>
-  );
+  ));
 };
 
 
