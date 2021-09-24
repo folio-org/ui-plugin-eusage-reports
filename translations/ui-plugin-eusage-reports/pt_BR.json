@@ -95,5 +95,7 @@
     "report-form.period.M": "{count, plural, one {mês} other {meses}}",
     "report-form.period.Y": "{count, plural, one {ano} other {anos}}",
     "nopub": "(No publication date)",
-    "analyze-agreement.ongoing": "Agreement under analysis"
+    "analyze-agreement.ongoing": "Agreement under analysis",
+    "last-analyzed": "Last analyzed",
+    "last-analyzed.unknown": "(unknown)"
 }
