@@ -158,7 +158,7 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
 
   return (
     <HasCommand commands={[{ name: 'close', handler: onClose }]}>
-      <Paneset isRoot>
+      <Paneset isRoot data-test-match-editor>
         <Pane
           defaultWidth="fill"
           dismissible
@@ -274,7 +274,7 @@ MatchEditor.propTypes = {
       update: PropTypes.func.isRequired,
     }).isRequired,
   }).isRequired,
-  paneTitleRef: PropTypes.object.isRequired,
+  paneTitleRef: PropTypes.object,
 };
 
 
