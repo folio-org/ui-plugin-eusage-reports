@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { useIntl, FormattedMessage, FormattedDate, FormattedTime } from 'react-intl';
+import { useIntl, FormattedMessage, FormattedDate } from 'react-intl';
 import PropTypes from 'prop-types';
 import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
 import {
@@ -30,9 +30,8 @@ function AnalysisOngoing() {
 
 
 // eslint-disable-next-line react/prop-types
-function DateLastAnalyzed({ loaded, isoDateTime, intl: { timeZone } }) {
+function DateLastAnalyzed({ loaded, isoDateTime }) {
   // Render according to the browser's (and therefore user's) timezone, not tenant's
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   return (
     <>
@@ -42,14 +41,12 @@ function DateLastAnalyzed({ loaded, isoDateTime, intl: { timeZone } }) {
         !loaded ?
           <FormattedMessage id="ui-plugin-eusage-reports.last-analyzed.unknown" /> :
           <>
-            <code>{isoDateTime}</code>
-            <span> = </span>
             <FormattedDate value={isoDateTime} />
             <span>, </span>
-            <br />
-            Tenant: <FormattedTime value={isoDateTime} hour="numeric" minute="numeric" second="numeric" /> ({timeZone})
-            <br />
-            Local: <FormattedTime value={isoDateTime} hour="numeric" minute="numeric" second="numeric" timeZone={timezone} /> ({timezone})
+            {/* eslint-disable-next-line react/prop-types */}
+            {isoDateTime.replace(/.*T(.*)\..*/, '$1')}
+            <span> </span>
+            UCT
           </>
       }
     </>
