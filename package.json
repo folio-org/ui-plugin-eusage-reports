@@ -1,6 +1,6 @@
 {
   "name": "@folio/plugin-eusage-reports",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Stripes plugin module to View eUsage reports",
   "repository": "folio-org/ui-plugin-eusage-reports",
   "publishConfig": {
