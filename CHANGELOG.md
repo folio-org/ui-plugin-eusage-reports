@@ -1,6 +1,6 @@
 # Change history for ui-plugin-eusage-reports
 
-## [1.1.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v1.1.0) (IN PROGRESS)
+## [1.1.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v1.1.0) (2021-09-24)
 
 * First proper release.
 
