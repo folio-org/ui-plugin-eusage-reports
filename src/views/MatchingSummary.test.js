@@ -1,18 +1,11 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
 import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
+import withIntlConfiguration from '../../test/jest/util/withIntlConfiguration';
 import reportTitles from '../../test/jest/data/reportTitles';
 import MatchingSummary from './MatchingSummary';
-import rawTranslations from '../../translations/ui-plugin-eusage-reports/en';
 
 jest.unmock('react-intl');
-
-const translations = {};
-Object.keys(rawTranslations).forEach(key => {
-  translations[`ui-plugin-eusage-reports.${key}`] = rawTranslations[key];
-});
-
 
 // Empirically, this has to be done at the top level, not within the test. No-one knows why
 // See https://folio-project.slack.com/archives/C210UCHQ9/p1632425791183300?thread_ts=1632350696.158900&cid=C210UCHQ9
@@ -35,30 +28,28 @@ const renderMatchingSummary = () => {
     }
   };
 
-  return render(
+  return render(withIntlConfiguration(
     <CalloutContext.Provider value={callout}>
-      <IntlProvider locale="en-US" messages={translations}>
-        <MatchingSummary
-          hasLoaded
-          data={{
-            query: queryData,
-            counterReports: [],
-            usageDataProvider: {
-              harvestingDate: '2021-09-22T20:26:29.995390',
-            },
-            reportTitles,
-            reportTitlesCount: 42,
-          }}
-          mutator={{
-            query: {
-              update: (newData) => Object.assign(queryData, newData),
-            },
-          }}
-          reloadReportTitles={
-            () => undefined
-          }
-        />
-      </IntlProvider>
+      <MatchingSummary
+        hasLoaded
+        data={{
+          query: queryData,
+          counterReports: [],
+          usageDataProvider: {
+            harvestingDate: '2021-09-22T20:26:29.995390',
+          },
+          reportTitles,
+          reportTitlesCount: 42,
+        }}
+        mutator={{
+          query: {
+            update: (newData) => Object.assign(queryData, newData),
+          },
+        }}
+        reloadReportTitles={
+          () => undefined
+        }
+      />
     </CalloutContext.Provider>
   );
 };
