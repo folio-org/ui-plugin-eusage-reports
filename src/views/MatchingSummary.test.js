@@ -6,6 +6,8 @@ import reportTitles from '../../test/jest/data/reportTitles';
 import MatchingSummary from './MatchingSummary';
 import rawTranslations from '../../translations/ui-plugin-eusage-reports/en';
 
+jest.unmock('react-intl');
+
 const translations = {};
 Object.keys(rawTranslations).forEach(key => {
   translations[`ui-plugin-eusage-reports.${key}`] = rawTranslations[key];

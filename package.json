@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "@folio/stripes-webpack": "^1.2.0",
+    "@folio/stripes-acq-components": "^2.4.3",
     "lodash": "^4.17.21",
     "randomcolor": "^0.6.2",
     "react-chartjs-2": "^2.11.1"
