@@ -2,7 +2,7 @@
 
 ## [1.2.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v1.2.0) (2021-09-27)
 
-* Upgrade to run under either v6 or v7 of the Stripes framework. Fixes UILDP-1.
+* Upgrade to run under either v6 or v7 of the Stripes framework. Fixes UIPER-75.
 
 ## [1.1.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v1.1.0) (2021-09-24)
 
