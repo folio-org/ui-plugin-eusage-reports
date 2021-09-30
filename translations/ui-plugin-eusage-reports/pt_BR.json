@@ -58,7 +58,7 @@
     "button.analyze-agreement.completed": "... Análise concluída do acordo <i> {agreement} </i> .",
     "button.analyze-agreement.error": "Erro ao analisar o acordo: {error}",
     "matching-summary.loaded-count": "Registros carregados ({count})",
-    "matching-summary.matched-count": "Correspondido ({contagem})",
+    "matching-summary.matched-count": "Correspondido ({count})",
     "matching-summary.unmatched-count": "Sem correspondência ( {count} )",
     "matching-summary.ignored-count": "Ignorado ({count})",
     "column.isbn": "ISBN",
