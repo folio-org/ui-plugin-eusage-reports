@@ -24,7 +24,7 @@
     "action.edit": "Bearbeiten",
     "action.ignore": "Ignorieren",
     "action.unignore": "Nicht mehr ignorieren",
-    "action.edited": "Der Titel <i>{title}</i> ist nun manuell gemacht.",
+    "action.edited": "Der Titel <i>{title}</i> ist nun manuell gematcht.",
     "action.not-edited": "Folgender Titel konnte nicht manuell gematcht werden: {error}",
     "action.ignored": "Der Titel <i>{title}</i> wird nun ignoriert.",
     "action.unignored": "Der Titel  <i>{title}</i> wird nicht mehr ignoriert.",
