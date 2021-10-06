@@ -4,7 +4,7 @@ import { stripesConnect } from '@folio/stripes/core';
 import CostPerUse from '../reports/CostPerUse';
 
 
-function CostPerUseLoader({ params, data, resources }) {
+function CostPerUseLoader({ params, data, resources, xCaption, yCaption }) {
   return <CostPerUse
     url={resources.costPerUse.url}
     hasLoaded={resources.costPerUse.hasLoaded}
@@ -13,6 +13,8 @@ function CostPerUseLoader({ params, data, resources }) {
       ...data,
       costPerUse: resources.costPerUse.records[0],
     }}
+    xCaption={xCaption}
+    yCaption={yCaption}
   />;
 }
 
@@ -56,6 +58,8 @@ CostPerUseLoader.propTypes = {
       ),
     }),
   }).isRequired,
+  xCaption: PropTypes.string.isRequired,
+  yCaption: PropTypes.string.isRequired,
 };
 
 

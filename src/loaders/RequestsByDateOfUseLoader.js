@@ -4,7 +4,7 @@ import { stripesConnect } from '@folio/stripes/core';
 import RequestsByDateOfUse from '../reports/RequestsByDateOfUse';
 
 
-function RequestsByDateOfUseLoader({ params, data, resources }) {
+function RequestsByDateOfUseLoader({ params, data, resources, xCaption, yCaption }) {
   return <RequestsByDateOfUse
     url={resources.requestsByDateOfUse.url}
     hasLoaded={resources.requestsByDateOfUse.hasLoaded}
@@ -13,6 +13,8 @@ function RequestsByDateOfUseLoader({ params, data, resources }) {
       ...data,
       requestsByDateOfUse: resources.requestsByDateOfUse.records[0],
     }}
+    xCaption={xCaption}
+    yCaption={yCaption}
   />;
 }
 
@@ -58,6 +60,8 @@ RequestsByDateOfUseLoader.propTypes = {
       ),
     }),
   }).isRequired,
+  xCaption: PropTypes.string.isRequired,
+  yCaption: PropTypes.string.isRequired,
 };
 
 

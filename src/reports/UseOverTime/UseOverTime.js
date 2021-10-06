@@ -91,7 +91,7 @@ function renderUseOverTimeTable(uot) {
 }
 
 
-function renderUseOverTimeChart(intl, uot) {
+function renderUseOverTimeChart(intl, uot, xCaption, yCaption) {
   const data = {
     labels: uot.accessCountPeriods,
     datasets: [
@@ -110,8 +110,20 @@ function renderUseOverTimeChart(intl, uot) {
 
   const options = {
     scales: {
+      xAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: xCaption,
+          },
+        },
+      ],
       yAxes: [
         {
+          scaleLabel: {
+            display: true,
+            labelString: yCaption,
+          },
           ticks: {
             beginAtZero: true,
           },
@@ -135,7 +147,7 @@ function renderUseOverTimeChart(intl, uot) {
 }
 
 
-function UseOverTime({ url, params, hasLoaded, data }) {
+function UseOverTime({ url, params, hasLoaded, data, xCaption, yCaption }) {
   const intl = useIntl();
   const stripes = useStripes();
   if (!hasLoaded) return <><br /><Loading /><br /></>;
@@ -143,7 +155,7 @@ function UseOverTime({ url, params, hasLoaded, data }) {
 
   return (
     <>
-      {renderUseOverTimeChart(intl, uot)}
+      {renderUseOverTimeChart(intl, uot, xCaption, yCaption)}
       <div style={{ textAlign: 'right', marginTop: '1em' }}>
         <Button buttonStyle="primary" onClick={() => downloadCSV(url, stripes, params)}>
           <FormattedMessage id="ui-plugin-eusage-reports.button.download-csv" />
@@ -183,6 +195,8 @@ UseOverTime.propTypes = {
       ).isRequired,
     }),
   }),
+  xCaption: PropTypes.string.isRequired,
+  yCaption: PropTypes.string.isRequired,
 };
 
 

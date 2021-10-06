@@ -4,7 +4,7 @@ import { stripesConnect } from '@folio/stripes/core';
 import RequestsByPublicationYear from '../reports/RequestsByPublicationYear';
 
 
-function RequestsByPublicationYearLoader({ params, data, resources }) {
+function RequestsByPublicationYearLoader({ params, data, resources, xCaption, yCaption }) {
   return <RequestsByPublicationYear
     url={resources.requests.url}
     hasLoaded={resources.requests.hasLoaded}
@@ -13,6 +13,8 @@ function RequestsByPublicationYearLoader({ params, data, resources }) {
       ...data,
       requestsByPublicationYear: resources.requests.records[0],
     }}
+    xCaption={xCaption}
+    yCaption={yCaption}
   />;
 }
 
@@ -58,6 +60,8 @@ RequestsByPublicationYearLoader.propTypes = {
       ),
     }),
   }).isRequired,
+  xCaption: PropTypes.string.isRequired,
+  yCaption: PropTypes.string.isRequired,
 };
 
 

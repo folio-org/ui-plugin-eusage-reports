@@ -8,11 +8,23 @@ import transformReqByPubYearData from '../../util/transformRBPY';
 import downloadCSV from '../../util/downloadCSV';
 
 
-function renderRequestsByPublicationYearChart(intl, data) {
+function renderRequestsByPublicationYearChart(intl, data, xCaption, yCaption) {
   const options = {
     scales: {
+      xAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: xCaption,
+          },
+        },
+      ],
       yAxes: [
         {
+          scaleLabel: {
+            display: true,
+            labelString: yCaption,
+          },
           ticks: {
             beginAtZero: true,
           },
@@ -43,7 +55,7 @@ function renderRequestsByPublicationYearChart(intl, data) {
 }
 
 
-function RequestsByPublicationYear({ url, params, hasLoaded, data }) {
+function RequestsByPublicationYear({ url, params, hasLoaded, data, xCaption, yCaption }) {
   const intl = useIntl();
   const stripes = useStripes();
   const rbpy = data.requestsByPublicationYear;
@@ -61,7 +73,7 @@ function RequestsByPublicationYear({ url, params, hasLoaded, data }) {
 
   return (
     <>
-      {renderRequestsByPublicationYearChart(intl, transformed)}
+      {renderRequestsByPublicationYearChart(intl, transformed, xCaption, yCaption)}
       <div style={{ textAlign: 'right', marginTop: '1em' }}>
         <Button buttonStyle="primary" onClick={() => downloadCSV(url, stripes, params)}>
           <FormattedMessage id="ui-plugin-eusage-reports.button.download-csv" />
@@ -88,6 +100,8 @@ RequestsByPublicationYear.propTypes = {
       // XXX
     }),
   }),
+  xCaption: PropTypes.string.isRequired,
+  yCaption: PropTypes.string.isRequired,
 };
 
 

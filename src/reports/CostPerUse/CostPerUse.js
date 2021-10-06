@@ -7,7 +7,7 @@ import { Loading, Button } from '@folio/stripes/components';
 import downloadCSV from '../../util/downloadCSV';
 
 
-function CostPerUse({ url, params, hasLoaded, data }) {
+function CostPerUse({ url, params, hasLoaded, data, xCaption, yCaption }) {
   const intl = useIntl();
   const stripes = useStripes();
   if (!hasLoaded) return <><br /><Loading /><br /></>;
@@ -44,9 +44,21 @@ function CostPerUse({ url, params, hasLoaded, data }) {
 
   const options = {
     scales: {
+      xAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: xCaption,
+          },
+        },
+      ],
       yAxes: [
         {
           id: 'costPerUse',
+          scaleLabel: {
+            display: true,
+            labelString: yCaption,
+          },
           ticks: {
             beginAtZero: true,
           },
@@ -107,6 +119,8 @@ CostPerUse.propTypes = {
       ).isRequired,
     }),
   }),
+  xCaption: PropTypes.string.isRequired,
+  yCaption: PropTypes.string.isRequired,
 };
 
 
