@@ -37,10 +37,11 @@
   },
   "devDependencies": {
     "@folio/eslint-config-stripes": "^5.4.0",
-    "@folio/stripes": "^6.0.0 || ^7.0.0",
+    "@folio/stripes": "^7.0.0",
     "@folio/stripes-cli": "^2.4.0",
-    "@folio/stripes-components": "^9.0.0 || ^10.0.0",
-    "@folio/stripes-core": "^7.0.0 || ^8.0.0",
+    "@folio/stripes-components": "^10.0.0",
+    "@folio/stripes-erm-components": "^6.0.0",
+    "@folio/stripes-core": "^8.0.0",
     "@testing-library/dom": "^7.26.3",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
@@ -53,16 +54,16 @@
     "jest": "^26.6.3",
     "jest-canvas-mock": "^2.3.0",
     "jest-junit": "^12.0.0",
-    "react": "^16.5.0",
-    "react-dom": "^16.5.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-intl": "^5.8.0",
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.3"
   },
   "dependencies": {
-    "@folio/stripes-webpack": "^1.2.0",
-    "@folio/stripes-acq-components": "^2.4.3",
     "chart.js": "^3.1.0",
+    "@folio/stripes-webpack": "^2.0.0",
+    "@folio/stripes-acq-components": "^3.0.0",
     "lodash": "^4.17.21",
     "randomcolor": "^0.6.2",
     "react-chartjs-2": "^2.11.1"
@@ -71,9 +72,9 @@
     "@folio/plugin-find-eresource": "^2.1.0 || ^3.0.0 || ^4.0.0"
   },
   "peerDependencies": {
-    "@folio/stripes": "^6.0.0 || ^7.0.0",
+    "@folio/stripes": "^7.0.0",
     "prop-types": "*",
-    "react": "^16.0.0 || ^17.0.2",
+    "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-intl": "^5.8.0",
     "react-router-dom": "^5.2.0"
