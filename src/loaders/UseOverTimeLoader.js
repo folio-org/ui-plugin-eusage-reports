@@ -4,7 +4,7 @@ import { stripesConnect } from '@folio/stripes/core';
 import UseOverTime from '../reports/UseOverTime';
 
 
-function UseOverTimeLoader({ params, data, resources }) {
+function UseOverTimeLoader({ params, data, resources, xCaption, yCaption }) {
   return <UseOverTime
     url={resources.useOverTime.url}
     hasLoaded={resources.useOverTime.hasLoaded}
@@ -13,6 +13,8 @@ function UseOverTimeLoader({ params, data, resources }) {
       ...data,
       useOverTime: resources.useOverTime.records[0],
     }}
+    xCaption={xCaption}
+    yCaption={yCaption}
   />;
 }
 
@@ -56,6 +58,8 @@ UseOverTimeLoader.propTypes = {
       ),
     }),
   }).isRequired,
+  xCaption: PropTypes.string.isRequired,
+  yCaption: PropTypes.string.isRequired,
 };
 
 

@@ -103,8 +103,10 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
     ),
   }));
 
+  const reportName2tag = {};
   const reportName2component = {};
   reports.forEach(r => {
+    reportName2tag[r.value] = r.tag;
     if (r.component) reportName2component[r.value] = r.component;
   });
 
@@ -131,6 +133,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
   const format = (report === 'uot' || report === 'cpu') ? persistentFormat : 'JOURNAL';
   const formatClassName = (report === 'uot' || report === 'cpu') ? css.enabled : css.disabled;
   const countTypeClassName = (report === 'rbp' || report === 'rbu') ? css.enabled : css.disabled;
+  const tag = reportName2tag[report];
   const Chart = reportName2component[report] || (() => <p><b>{report}</b> report not implemented</p>);
 
   const [analysisOngoing, setAnalysisOngoing] = useState(false);
@@ -216,7 +219,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
       <Row>
         <Col xs={4}>
           <Select
-            label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.access-count-period' })}
+            label={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.report.${tag}.left-picker` })}
             dataOptions={makeOptions(accessCountPeriodOptions)}
             value={accessCountPeriod}
             onChange={e => setAccessCountPeriod(e.target.value)}
@@ -226,14 +229,14 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
           {
             report === 'rbu' ?
               <Select
-                label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.yop-interval' })}
+                label={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.report.${tag}.right-picker` })}
                 dataOptions={makeOptions(yopIntervalOptions)}
                 value={yopInterval}
                 onChange={e => setYopInterval(e.target.value)}
               />
               : report === 'rbp' ?
                 <Select
-                  label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.period-of-use' })}
+                  label={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.report.${tag}.right-picker` })}
                   dataOptions={makeOptions(periodOfUseOptions)}
                   value={periodOfUse}
                   onChange={e => setPeriodOfUse(e.target.value)}
@@ -261,6 +264,8 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
               yopInterval,
               periodOfUse,
             }}
+            xCaption={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.report.${tag}.x-axis` })}
+            yCaption={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.report.${tag}.y-axis` })}
           />
       }
       <br />

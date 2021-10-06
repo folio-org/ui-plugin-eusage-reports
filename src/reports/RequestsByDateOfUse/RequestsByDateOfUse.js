@@ -8,11 +8,23 @@ import transformReqByUseDateData from '../../util/transformRBUD';
 import downloadCSV from '../../util/downloadCSV';
 
 
-function renderRequestsByDateOfUseChart(intl, data) {
+function renderRequestsByDateOfUseChart(intl, data, xCaption, yCaption) {
   const options = {
     scales: {
+      xAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: xCaption,
+          },
+        },
+      ],
       yAxes: [
         {
+          scaleLabel: {
+            display: true,
+            labelString: yCaption,
+          },
           ticks: {
             beginAtZero: true,
           },
@@ -43,7 +55,7 @@ function renderRequestsByDateOfUseChart(intl, data) {
 }
 
 
-function RequestsByDateOfUse({ url, params, hasLoaded, data }) {
+function RequestsByDateOfUse({ url, params, hasLoaded, data, xCaption, yCaption }) {
   const intl = useIntl();
   const stripes = useStripes();
   const rbdou = data.requestsByDateOfUse;
@@ -54,7 +66,7 @@ function RequestsByDateOfUse({ url, params, hasLoaded, data }) {
 
   return (
     <>
-      {renderRequestsByDateOfUseChart(intl, transformed)}
+      {renderRequestsByDateOfUseChart(intl, transformed, xCaption, yCaption)}
       <div style={{ textAlign: 'right', marginTop: '1em' }}>
         <Button buttonStyle="primary" onClick={() => downloadCSV(modifiedUrl, stripes, params)}>
           <FormattedMessage id="ui-plugin-eusage-reports.button.download-csv" />
@@ -81,6 +93,8 @@ RequestsByDateOfUse.propTypes = {
       // XXX
     }),
   }),
+  xCaption: PropTypes.string.isRequired,
+  yCaption: PropTypes.string.isRequired,
 };
 
 
