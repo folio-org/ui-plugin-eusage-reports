@@ -26,6 +26,14 @@
       {
         "permissionName": "module.ui-plugin-eusage-reports.enabled",
         "displayName": "UI: eusage-reports plugin is enabled"
+      },
+      {
+        "permissionName": "plugin-eusage-reports.view-charts",
+        "displayName": "eUsage reports: charts may be viewed",
+        "subPermissions": [
+          "module.ui-plugin-eusage-reports.enabled"
+        ],
+        "visible": true
       }
     ]
   },
