@@ -1,5 +1,9 @@
 # Change history for ui-plugin-eusage-reports
 
+## [2.0.1](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.0.1) (IN PROGRESS)
+
+* "eUsage reports" accordion in the Agreements app is closed by default. Fixes UIPER-70.
+
 ## [2.0.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.0.0) (2021-10-06)
 
 * Now requires v7 of the Stripes framework, with questionable support for v6 dropped. (The strange release deadlines for Kiwi meant that we had to release a v7-compatible version of this module before v7 was itself released, but now that it's out we can make things simpler and more reliable.)
