@@ -3,7 +3,7 @@
 ## [2.0.1](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.0.1) (IN PROGRESS)
 
 * "eUsage reports" accordion in the Agreements app is closed by default. Fixes UIPER-70.
-* New permission, "eUsage reports: charts may be viewed" (`plugin-eusage-reports.view-charts`). Towards UIPER-74.
+* New permission, "eUsage reports: charts may be viewed" (`plugin-eusage-reports.view-charts`), determines whether the "eUsage reports" accordion is visible. Fixes UIPER-74.
 * Send `format` parameter as part of cost-per-use charting requests. Fixes UIPER-79.
 
 ## [2.0.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.0.0) (2021-10-06)

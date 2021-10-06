@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { IfPermission } from '@folio/stripes/core';
 import { Accordion } from '@folio/stripes/components';
 import MatchingSummary from './loaders/MatchingSummaryLoader';
 import EusageVisualizationLoader from './loaders/EusageVisualizationLoader';
@@ -40,13 +41,15 @@ const PluginEusageReports = ({ data }) => {
     );
   } else {
     return (
-      <Accordion
-        id="plugin-eusage-reports-charts"
-        label={<FormattedMessage id="ui-plugin-eusage-reports.accordion.label" />}
-        closedByDefault
-      >
-        <EusageVisualizationLoader data={data?.data} />
-      </Accordion>
+      <IfPermission perm="plugin-eusage-reports.view-charts">
+        <Accordion
+          id="plugin-eusage-reports-charts"
+          label={<FormattedMessage id="ui-plugin-eusage-reports.accordion.label" />}
+          closedByDefault
+        >
+          <EusageVisualizationLoader data={data?.data} />
+        </Accordion>
+      </IfPermission>
     );
   }
 };
