@@ -28,7 +28,7 @@ CostPerUseLoader.manifest = {
         agreementId: aId,
         startDate: props.params.startDate,
         endDate: props.params.endDate,
-        // format: props.params.format, // Not supported on back-end
+        format: props.params.format,
         includeOA: props.params.includeOA,
         accessCountPeriod: props.params.accessCountPeriod,
       };
