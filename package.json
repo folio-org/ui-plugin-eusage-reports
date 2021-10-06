@@ -40,7 +40,6 @@
     "@folio/stripes": "^7.0.0",
     "@folio/stripes-cli": "^2.4.0",
     "@folio/stripes-components": "^10.0.0",
-    "@folio/stripes-erm-components": "^6.0.0",
     "@folio/stripes-core": "^8.0.0",
     "@testing-library/dom": "^7.26.3",
     "@testing-library/jest-dom": "^5.11.9",
