@@ -55,7 +55,7 @@
   "action.unignored": "Title <i>{title}</i> will no longer be ignored",
   "action.not-ignored": "It was not possible to ignore this title: {error}",
   "action.not-unignored": "It was not possible to stop ignoring this title: {error}",
-  "action.no-agreement-plugin": "No agreement plugin",
+  "action.no-agreement-plugin": "No find-eresource plugin",
   "select-eresource": "Select e-resource for title <i>{title}</i>",
   "button.update-matches": "Update matches",
   "button.update-matches.dispatched": "Requested update on matches for {yearMonth} ...",
