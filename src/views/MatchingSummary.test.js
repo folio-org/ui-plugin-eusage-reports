@@ -2,7 +2,6 @@ import React from 'react';
 import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
 import withIntlConfiguration from '../../test/jest/util/withIntlConfiguration';
-import reportTitles from '../../test/jest/data/reportTitles';
 import MatchingSummary from './MatchingSummary';
 
 jest.unmock('react-intl');
@@ -38,7 +37,12 @@ const renderMatchingSummary = () => {
           usageDataProvider: {
             harvestingDate: '2021-09-22T20:26:29.995390',
           },
-          reportTitles,
+          categories: [
+            { key: 'loaded', count: 4 },
+            { key: 'matched', count: 2 },
+            { key: 'unmatched', count: 1 },
+            { key: 'ignored', count: 1 }
+          ],
           reportTitlesCount: 42,
         }}
         mutator={{
