@@ -2,13 +2,22 @@
 
 _By John Malconian, edited by Mike Taylor_
 
-6-7 July 2021.
+July-October 2021.
+
+<!-- md2toc -l 2 updating-stripes-bundle-on-thor-server.md -->
+* [Create the code](#create-the-code)
+* [Build the UI bundle](#build-the-ui-bundle)
+* [Deploy the new bundle](#deploy-the-new-bundle)
+* [View the new bundle](#view-the-new-bundle)
+* [If there are new permissions](#if-there-are-new-permissions)
+
 
 ## Create the code
 
 * Write the code in `ui-plugin-eusage-reports` and related modules.
 * Merge the changes to their respective master branches.
 * Watch the progress of [the tip-of-master build job ](https://jenkins-aws.indexdata.com/job/folio-org/job/ui-plugin-eusage-reports/job/master/) and wait until it has finished.
+
 
 ## Build the UI bundle
 
@@ -40,7 +49,21 @@ The image created will be called docker.dev.folio.org/platform-complete:thor-$JE
 * Shift-reload https://thor.ci.folio.org in your browser
 * Log back into the UI.
 
-**Note.**
-The process described above will work assuming no new permissions have been added to the module. If new permissions are added, you will need to grant them to the `diku_admin` user after posting an updated module descriptor to Okapi. See [_How to get started with Rancher environment_](https://dev.folio.org/faqs/how-to-get-started-with-rancher/) for additional info.
+
+## If there are new permissions
+
+The process described above is sufficient assuming no new permissions have been added to the module. If new permissions are added, you will need to do two things:
+
+1. Add them to the system: get the latest module descriptor for the UI module providing new permissions from the FOLIO MD registry, POST it to Okapi, and enable for the diku tenant. This can all be done using a single Docker command:
+```
+	docker run --rm -e TENANT_ID=diku -e OKAPI_URL=https://thor-okapi.ci.folio.org -e MODULE_NAME=folio_plugin-eusage-reports docker.dev.folio.org/folio-okapi-registration
+```
+
+2. Grant the permissions to a user, most conviently be adding them all in a single shot:
+```
+	docker run --rm -e TENANT_ID=diku -e ADMIN_USER=diku_admin -e ADMIN_PASSWORD=Thor_Admin3636 -e OKAPI_URL=https://thor-okapi.ci.folio.org folioci/bootstrap-superuser 
+```
+
+See [_How to get started with Rancher environment_](https://dev.folio.org/faqs/how-to-get-started-with-rancher/) for additional info.
 
 
