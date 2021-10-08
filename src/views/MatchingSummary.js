@@ -102,7 +102,7 @@ function MatchingSummary({ hasLoaded, data, mutator, reloadReportTitles }) {
           <MatchEditorLoader
             onClose={() => matchTitlesOfType(null)}
             matchType={matchType}
-            data={data}
+            data={{ ...data, categories }}
             mutator={mutator}
             paneTitleRef={pluginPaneTitleRef}
           />

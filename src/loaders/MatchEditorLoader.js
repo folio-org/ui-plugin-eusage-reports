@@ -38,9 +38,9 @@ function MatchEditorLoader({ matchType, onClose, paneTitleRef, data, resources, 
     paneTitleRef={paneTitleRef}
     data={{
       usageDataProvider: data.usageDataProvider,
-      // XXX we will not pass reportTitles, but let the resources carry this information
+      categories: data.categories,
       reportTitles: resources.reportTitles.records,
-      reportTitlesCount: resources.reportTitles.other?.totalRecords,
+      reportTitlesCount: resources.reportTitles.other?.totalRecords, // XXX Do we need this?
     }}
     query={resources.query}
     source={source}
@@ -92,6 +92,12 @@ MatchEditorLoader.propTypes = {
     usageDataProvider: PropTypes.shape({
       id: PropTypes.string,
     }).isRequired,
+    categories: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        count: PropTypes.number.isRequired,
+      }).isRequired,
+    ).isRequired,
   }).isRequired,
   resources: PropTypes.shape({
     reportTitles: PropTypes.shape({

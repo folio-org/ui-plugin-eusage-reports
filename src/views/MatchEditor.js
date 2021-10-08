@@ -17,7 +17,6 @@ import {
   LoadingPane,
 } from '@folio/stripes/components';
 import { SearchAndSortQuery } from '@folio/stripes/smart-components';
-import generateTitleCategories from '../util/generateTitleCategories';
 
 
 function maybeLinkTitle(rec) {
@@ -143,7 +142,7 @@ function actionMenu(intl, callout, okapiKy, rec, setRecordToEdit, triggerReRende
 
 function MatchEditor({ matchType, onClose, data, query, source, onNeedMoreData, mutator, paneTitleRef }) {
   const intl = useIntl();
-  const categories = generateTitleCategories(data.reportTitles);
+  const categories = data.categories;
   const callout = useContext(CalloutContext);
   const okapiKy = useOkapiKy();
   const [recordToEdit, setRecordToEdit] = useState();
@@ -196,7 +195,7 @@ function MatchEditor({ matchType, onClose, data, query, source, onNeedMoreData, 
                   >
                     <FormattedMessage
                       id={`ui-plugin-eusage-reports.matching-summary.${cat.key}-count`}
-                      values={{ count: cat.data.length }}
+                      values={{ count: cat.count }}
                     />
                   </Button>
                 ))
@@ -278,6 +277,12 @@ MatchEditor.propTypes = {
     usageDataProvider: PropTypes.shape({
       label: PropTypes.string.isRequired,
     }).isRequired,
+    categories: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        count: PropTypes.number.isRequired,
+      }).isRequired,
+    ).isRequired,
     reportTitles: PropTypes.arrayOf(
       PropTypes.shape({
         kbTitleId: PropTypes.string,
