@@ -280,7 +280,7 @@ MatchEditor.propTypes = {
     categories: PropTypes.arrayOf(
       PropTypes.shape({
         key: PropTypes.string.isRequired,
-        count: PropTypes.number.isRequired,
+        count: PropTypes.number,
       }).isRequired,
     ).isRequired,
     reportTitles: PropTypes.arrayOf(
