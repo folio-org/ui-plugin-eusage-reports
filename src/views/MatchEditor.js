@@ -140,7 +140,7 @@ function actionMenu(intl, callout, okapiKy, rec, setRecordToEdit, triggerReRende
 }
 
 
-function MatchEditor({ matchType, onClose, data, query, source, onNeedMoreData, mutator, paneTitleRef }) {
+function MatchEditor({ matchType, onClose, data, source, onNeedMoreData, mutator, paneTitleRef }) {
   const intl = useIntl();
   const categories = data.categories;
   const callout = useContext(CalloutContext);
@@ -149,7 +149,6 @@ function MatchEditor({ matchType, onClose, data, query, source, onNeedMoreData, 
   const [ignoredAdditionalPropToTriggerReRender, setIgnoredAdditionalPropToTriggerReRender] = useState(false);
   const triggerReRender = () => setIgnoredAdditionalPropToTriggerReRender(!ignoredAdditionalPropToTriggerReRender);
   const count = source ? source.totalCount() : 0;
-  const sortOrder = query.sort || '';
 
   return (
     <HasCommand commands={[{ name: 'close', handler: onClose }]}>
@@ -203,10 +202,7 @@ function MatchEditor({ matchType, onClose, data, query, source, onNeedMoreData, 
             </ButtonGroup>
           </Layout>
 
-          <SearchAndSortQuery
-            initialSearchState={{ query: '' }}
-            initialSortState={{ sort: 'counterReportTitle' }}
-          >
+          <SearchAndSortQuery initialSearchState={{ query: '' }}>
             {
               (sasqParams) => {
                 return (
@@ -255,8 +251,6 @@ function MatchEditor({ matchType, onClose, data, query, source, onNeedMoreData, 
                     nonInteractiveHeaders={[]}
                     onHeaderClick={sasqParams.onSort}
                     onNeedMoreData={onNeedMoreData}
-                    sortDirection={sortOrder.startsWith('-') ? 'descending' : 'ascending'}
-                    sortOrder={sortOrder.replace(/^-/, '').replace(/,.*/, '')}
                     ignoredAdditionalPropToTriggerReRender={ignoredAdditionalPropToTriggerReRender}
                   />
                 );
@@ -290,7 +284,6 @@ MatchEditor.propTypes = {
       }).isRequired,
     ).isRequired,
   }).isRequired,
-  query: PropTypes.object.isRequired,
   source: PropTypes.shape({
     loaded: PropTypes.func.isRequired,
     pending: PropTypes.func.isRequired,
