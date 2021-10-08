@@ -1,8 +1,9 @@
 # Change history for ui-plugin-eusage-reports
 
-## [2.2.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.0) (IN PROGRESS)
+## [2.2.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.0) (2021-10-08)
 
 * "eUsage reports: charts may be viewed" (`plugin-eusage-reports.view-charts`) permission now includes all relevant back-end permissions. Fixes the last part of UIPER-74.
+* Resolve method of displaying more results in eUsage titles screen. We now use `<SearchAndSortQuery>` to present the Match Editor. Fixes UIPER-16.
 
 ## [2.1.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.1.0) (2021-10-06)
 
