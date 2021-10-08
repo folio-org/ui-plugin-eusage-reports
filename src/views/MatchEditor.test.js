@@ -1,5 +1,8 @@
 import React from 'react';
+import { createBrowserHistory } from 'history';
+import { Router } from 'react-router-dom';
 import { cleanup, render, screen } from '@testing-library/react';
+import generateTitleCategories from '../util/generateTitleCategories';
 import reportTitles from '../../test/jest/data/reportTitles';
 import withIntlConfiguration from '../../test/jest/util/withIntlConfiguration';
 import MatchEditor from './MatchEditor';
@@ -9,23 +12,30 @@ jest.unmock('react-intl');
 
 const renderMatchEditor = () => {
   const queryData = { matchType: undefined };
+  const categories = generateTitleCategories(reportTitles);
+  const history = createBrowserHistory();
 
   return render(withIntlConfiguration(
-    <MatchEditor
-      matchType="loaded"
-      onClose={() => {}}
-      data={{
-        usageDataProvider: {
-          label: 'JSTOR',
-        },
-        reportTitles,
-      }}
-      mutator={{
-        query: {
-          update: (newData) => Object.assign(queryData, newData),
-        },
-      }}
-    />
+    <Router history={history}>
+      <MatchEditor
+        matchType="loaded"
+        onClose={() => {}}
+        data={{
+          usageDataProvider: {
+            label: 'JSTOR',
+          },
+          categories: categories.map(({ key, data }) => ({ key, count: data.length })),
+          reportTitles,
+        }}
+        mutator={{
+          query: {
+            update: (newData) => Object.assign(queryData, newData),
+          },
+        }}
+        hasLoaded
+        onNeedMoreData={() => undefined}
+      />
+    </Router>
   ));
 };
 

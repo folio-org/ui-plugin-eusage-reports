@@ -1,23 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { stripesConnect } from '@folio/stripes/core';
+import parseFacets from '../util/parseFacets';
 import MatchingSummary from '../views/MatchingSummary';
 
 
 function MatchingSummaryLoader({ data, resources, mutator }) {
-  // We would like to determine whether the 'reportTitles' resource
-  // has loaded just by looking at resources.reportTitles.hasLoaded,
-  // but when that has once become true, it remains forever true, even
-  // after the UDB changes and a new data-set needs to be loaded.
-  const hasLoaded = (resources.reportTitles.url || '').includes(data.usageDataProvider.id);
+  const rt = resources.reportTitles;
 
+  // We would like to determine whether the 'reportTitles' resource
+  // has loaded just by looking at rt.hasLoaded, but when that has
+  // once become true, it remains forever true, even after the UDB
+  // changes and a new data-set needs to be loaded.
+  const hasLoaded = (rt.url || '').includes(data.usageDataProvider.id);
+
+  const categories = parseFacets(rt.other?.resultInfo?.facets || []);
   return <MatchingSummary
     hasLoaded={hasLoaded}
     data={{
       ...data,
       query: resources.query,
-      reportTitles: resources.reportTitles.records,
-      reportTitlesCount: resources.reportTitles.other?.totalRecords,
+      categories,
+      reportTitlesCount: rt.other?.totalRecords,
     }}
     mutator={mutator}
     reloadReportTitles={() => mutator.toggleVal.replace(resources.toggleVal ? 0 : 1)}
@@ -37,7 +41,7 @@ MatchingSummaryLoader.manifest = {
     path: 'eusage-reports/report-titles',
     params: (_q, _p, _r, _l, props) => {
       const params = {
-        limit: 1000,
+        limit: 0, // We Only care about the counts in the facets
         _unused: props.resources.toggleVal,
       };
       const udpId = props.data.usageDataProvider.id;
@@ -58,11 +62,13 @@ MatchingSummaryLoader.propTypes = {
   resources: PropTypes.shape({
     reportTitles: PropTypes.shape({
       url: PropTypes.string,
-      records: PropTypes.arrayOf(
-        PropTypes.object.isRequired,
-      ),
       other: PropTypes.shape({
         totalRecords: PropTypes.number.isRequired,
+        resultInfo: PropTypes.shape({
+          facets: PropTypes.arrayOf(
+            PropTypes.object.isRequired,
+          ).isRequired,
+        }),
       }),
     }).isRequired,
     toggleVal: PropTypes.number.isRequired,

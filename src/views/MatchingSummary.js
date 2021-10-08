@@ -4,7 +4,6 @@ import { FormattedMessage, FormattedDate } from 'react-intl';
 import { useStripes, useOkapiKy, CalloutContext } from '@folio/stripes/core';
 import { AccordionSet, Accordion, Row, Col, KeyValue, Loading, Layer, Button } from '@folio/stripes/components';
 import MatchEditorLoader from '../loaders/MatchEditorLoader';
-import generateTitleCategories from '../util/generateTitleCategories';
 import performLongOperation from '../util/performLongOperation';
 
 
@@ -26,9 +25,9 @@ function MatchingSummary({ hasLoaded, data, mutator, reloadReportTitles }) {
   const matchType = data.query.matchType;
   const matchTitlesOfType = (key) => mutator.query.update({ matchType: key });
 
-  const categories = generateTitleCategories(data.reportTitles);
-  const nUnmatched = categories.filter(c => c.key === 'unmatched')[0].data.length;
-  const status = nUnmatched > 0 ? 'pending' : data.reportTitles.length > 0 ? 'reviewed' : 'no-records';
+  const categories = data.categories;
+  const nUnmatched = categories.filter(c => c.key === 'unmatched')[0].count;
+  const status = nUnmatched > 0 ? 'pending' : data.reportTitlesCount > 0 ? 'reviewed' : 'no-records';
 
   const pluginPaneTitleRef = React.useRef();
   const focusHandler = () => {
@@ -67,9 +66,9 @@ function MatchingSummary({ hasLoaded, data, mutator, reloadReportTitles }) {
                   hasLoaded ?
                     <span style={{ color: '#008', textDecoration: 'underline' }}>
                       {
-                        (cat.key !== 'loaded' || cat.data.length === data.reportTitlesCount) ?
-                          cat.data.length :
-                          `${cat.data.length} of ${data.reportTitlesCount}`
+                        (cat.key !== 'loaded' || cat.count === data.reportTitlesCount) ?
+                          cat.count :
+                          `${cat.count} of ${data.reportTitlesCount}`
                       }
                     </span> :
                     <Loading />
@@ -93,12 +92,6 @@ function MatchingSummary({ hasLoaded, data, mutator, reloadReportTitles }) {
                 {JSON.stringify(data.counterReports, null, 2)}
               </pre>
             </Accordion>
-
-            <Accordion closedByDefault label={`${data.reportTitles.length} report titles`}>
-              <pre>
-                {JSON.stringify(data.reportTitles, null, 2)}
-              </pre>
-            </Accordion>
           </AccordionSet>
         </>
       }
@@ -109,7 +102,7 @@ function MatchingSummary({ hasLoaded, data, mutator, reloadReportTitles }) {
           <MatchEditorLoader
             onClose={() => matchTitlesOfType(null)}
             matchType={matchType}
-            data={data}
+            data={{ ...data, categories }}
             mutator={mutator}
             paneTitleRef={pluginPaneTitleRef}
           />
@@ -130,10 +123,10 @@ MatchingSummary.propTypes = {
     usageDataProvider: PropTypes.shape({
       harvestingDate: PropTypes.string,
     }).isRequired,
-    reportTitles: PropTypes.arrayOf(
+    categories: PropTypes.arrayOf(
       PropTypes.shape({
-        kbTitleId: PropTypes.string,
-        kbManualMatch: PropTypes.bool.isRequired,
+        key: PropTypes.string.isRequired,
+        count: PropTypes.number,
       }).isRequired,
     ).isRequired,
     reportTitlesCount: PropTypes.number,
