@@ -6,21 +6,22 @@ import searchableIndexes from '../util/searchableIndexes';
 import MatchEditor from '../views/MatchEditor';
 
 
-const INITIAL_RESULT_COUNT = 100;
-const RESULT_COUNT_INCREMENT = 100;
+const INITIAL_RESULT_COUNT = 30;
+const RESULT_COUNT_INCREMENT = 20;
 
 
 const indexNames = Object.keys(searchableIndexes).sort();
 
 
-function MatchEditorLoader({ matchType, onClose, data, resources, mutator, paneTitleRef }) {
+function MatchEditorLoader({ matchType, onClose, paneTitleRef, data, resources, mutator }) {
   const stripes = useStripes();
+
   let [source, setSource] = useState(); // eslint-disable-line prefer-const
   if (!source) {
-    source = new StripesConnectedSource({ resources, mutator }, stripes.logger, 'courses');
+    source = new StripesConnectedSource({ resources, mutator }, stripes.logger, 'reportTitles');
     setSource(source);
   } else {
-    source.update({ resources, mutator }, 'courses');
+    source.update({ resources, mutator }, 'reportTitles');
   }
 
   const handleNeedMoreData = () => source.fetchMore(RESULT_COUNT_INCREMENT);
@@ -34,63 +35,52 @@ function MatchEditorLoader({ matchType, onClose, data, resources, mutator, paneT
   return <MatchEditor
     matchType={matchType}
     onClose={onClose}
-    hasLoaded={hasLoaded}
+    paneTitleRef={paneTitleRef}
     data={{
       usageDataProvider: data.usageDataProvider,
-      query: resources.query, // XXX Do we need this?
+      // XXX we will not pass reportTitles, but let the resources carry this information
       reportTitles: resources.reportTitles.records,
       reportTitlesCount: resources.reportTitles.other?.totalRecords,
     }}
-    onNeedMoreData={handleNeedMoreData}
-    query={resources.query} // XXX Do we need this?
     source={source}
     mutator={mutator}
-    reloadReportTitles={() => mutator.toggleVal.replace(resources.toggleVal ? 0 : 1)}
-    paneTitleRef={paneTitleRef}
+    hasLoaded={hasLoaded}
+    onNeedMoreData={handleNeedMoreData}
   />;
 }
 
 
 MatchEditorLoader.manifest = {
   query: {},
-  resultCount: { initialValue: INITIAL_RESULT_COUNT },
+  resultCount: {
+    // Implicitly mutated by source.fetchMore()
+    initialValue: INITIAL_RESULT_COUNT
+  },
   toggleVal: {
     // We mutate this when we update matches, to force a stripes-connect reload
     initialValue: 0,
   },
-
   reportTitles: {
     type: 'okapi',
+    path: 'eusage-reports/report-titles',
+    records: 'titles',
     recordsRequired: '%{resultCount}',
     perRequest: RESULT_COUNT_INCREMENT,
-    path: 'eusage-reports/report-titles',
-    params: {
-      providerId: '!{data.usageDataProvider.id}',
-      _unused: '!{resources.toggleVal}',
-    },
-    UNUSED_params: (_q, _p, _r, _l, props) => {
-      const query = makeQueryFunction(
-        'cql.allRecords=1',
-        indexNames.map(index => `${index}="%{query.query}*"`).join(' or '),
-        {},
-        [],
-      );
-      const params = {
-        // query,
-        _unused: props.resources.toggleVal,
-        limit: 1000,
-      };
+    params: (_q, _p, _r, _l, props) => {
       const udpId = props.data.usageDataProvider.id;
-      if (udpId) params.providerId = udpId;
-      return params;
+      if (!udpId) return undefined;
+
+      return {
+        providerId: udpId,
+        _unused: props.resources.toggleVal,
+        query: makeQueryFunction(
+          'cql.allRecords=1',
+          indexNames.map(index => `${index}="%{query.query}*"`).join(' or '),
+          {}, // XXX sortMap
+          [], // XXX filterConfig
+        ),
+      };
     },
-    records: 'titles',
-  },
-  updateReportTitles: {
-    type: 'okapi',
-    path: 'eusage-reports/report-titles',
-    fetch: false,
-    throwErrors: false,
   },
 };
 
