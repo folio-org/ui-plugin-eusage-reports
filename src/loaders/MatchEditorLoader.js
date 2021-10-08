@@ -6,8 +6,8 @@ import searchableIndexes from '../util/searchableIndexes';
 import MatchEditor from '../views/MatchEditor';
 
 
-const INITIAL_RESULT_COUNT = 30;
-const RESULT_COUNT_INCREMENT = 20;
+const INITIAL_RESULT_COUNT = 100;
+const RESULT_COUNT_INCREMENT = 100;
 
 
 const indexNames = Object.keys(searchableIndexes).sort();
@@ -42,6 +42,7 @@ function MatchEditorLoader({ matchType, onClose, paneTitleRef, data, resources, 
       reportTitles: resources.reportTitles.records,
       reportTitlesCount: resources.reportTitles.other?.totalRecords,
     }}
+    query={resources.query}
     source={source}
     mutator={mutator}
     hasLoaded={hasLoaded}
@@ -66,19 +67,18 @@ MatchEditorLoader.manifest = {
     records: 'titles',
     recordsRequired: '%{resultCount}',
     perRequest: RESULT_COUNT_INCREMENT,
+    query: makeQueryFunction(
+      'cql.allRecords=1',
+      indexNames.map(index => `${index}="%{query.query}*"`).join(' or '),
+      {}, // XXX sortMap
+      [], // XXX filterConfig
+    ),
     params: (_q, _p, _r, _l, props) => {
       const udpId = props.data.usageDataProvider.id;
       if (!udpId) return undefined;
-
       return {
         providerId: udpId,
         _unused: props.resources.toggleVal,
-        query: makeQueryFunction(
-          'cql.allRecords=1',
-          indexNames.map(index => `${index}="%{query.query}*"`).join(' or '),
-          {}, // XXX sortMap
-          [], // XXX filterConfig
-        ),
       };
     },
   },
@@ -92,7 +92,6 @@ MatchEditorLoader.propTypes = {
     usageDataProvider: PropTypes.shape({
       id: PropTypes.string,
     }).isRequired,
-    reportTitles: PropTypes.array.isRequired,
   }).isRequired,
   resources: PropTypes.shape({
     reportTitles: PropTypes.shape({

@@ -16,6 +16,7 @@ import {
   DropdownMenu,
   LoadingPane,
 } from '@folio/stripes/components';
+import { SearchAndSortQuery } from '@folio/stripes/smart-components';
 import generateTitleCategories from '../util/generateTitleCategories';
 
 
@@ -140,21 +141,16 @@ function actionMenu(intl, callout, okapiKy, rec, setRecordToEdit, triggerReRende
 }
 
 
-function byTitle(a, b) {
-  const key = 'counterReportTitle';
-  return a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0;
-}
-
-
-function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
+function MatchEditor({ matchType, onClose, data, query, source, onNeedMoreData, mutator, paneTitleRef }) {
   const intl = useIntl();
   const categories = generateTitleCategories(data.reportTitles);
-  const dataSet = categories.filter(c => c.key === matchType)[0].data.sort(byTitle);
   const callout = useContext(CalloutContext);
   const okapiKy = useOkapiKy();
   const [recordToEdit, setRecordToEdit] = useState();
   const [ignoredAdditionalPropToTriggerReRender, setIgnoredAdditionalPropToTriggerReRender] = useState(false);
   const triggerReRender = () => setIgnoredAdditionalPropToTriggerReRender(!ignoredAdditionalPropToTriggerReRender);
+  const count = source ? source.totalCount() : 0;
+  const sortOrder = query.sort || '';
 
   return (
     <HasCommand commands={[{ name: 'close', handler: onClose }]}>
@@ -208,47 +204,66 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
             </ButtonGroup>
           </Layout>
 
-          <MultiColumnList
-            autosize
-            contentData={dataSet}
-            visibleColumns={['counterReportTitle', 'kbTitleName', 'isbn', 'issn', 'eissn', 'doi', 'status', 'action']}
-            columnMapping={{
-              id: <FormattedMessage id="ui-plugin-eusage-reports.column.id" />,
-              counterReportTitle: <FormattedMessage id="ui-plugin-eusage-reports.column.counterReportTitle" />,
-              kbTitleName: <FormattedMessage id="ui-plugin-eusage-reports.column.kbTitleName" />,
-              kbTitleId: <FormattedMessage id="ui-plugin-eusage-reports.column.kbTitleId" />,
-              isbn: <FormattedMessage id="ui-plugin-eusage-reports.column.isbn" />,
-              issn: <FormattedMessage id="ui-plugin-eusage-reports.column.issn" />,
-              eissn: <FormattedMessage id="ui-plugin-eusage-reports.column.eissn" />,
-              doi: <FormattedMessage id="ui-plugin-eusage-reports.column.doi" />,
-              status: <FormattedMessage id="ui-plugin-eusage-reports.column.status" />,
-              action: <FormattedMessage id="ui-plugin-eusage-reports.column.action" />,
-            }}
-            columnWidths={{
-              id: '90px',
-              counterReportTitle: '300px',
-              kbTitleName: '300px',
-              kbTitleId: '90px',
-              isbn: '150px',
-              issn: '100px',
-              eissn: '100px',
-              doi: '100px',
-              status: '100px',
-              action: '80px',
-            }}
-            formatter={{
-              kbTitleName: r => maybeLinkTitle(r),
-              id: r => r.id.substring(0, 8),
-              kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
-              isbn: r => r.ISBN,
-              issn: r => r.printISSN,
-              eissn: r => r.onlineISSN,
-              doi: r => r.DOI,
-              status: r => calculateStatus(intl, r),
-              action: r => actionMenu(intl, callout, okapiKy, r, setRecordToEdit, triggerReRender, data.reportTitles),
-            }}
-            ignoredAdditionalPropToTriggerReRender={ignoredAdditionalPropToTriggerReRender}
-          />
+          <SearchAndSortQuery
+            initialSearchState={{ query: '' }}
+            initialSortState={{ sort: 'counterReportTitle' }}
+          >
+            {
+              (sasqParams) => {
+                return (
+                  <MultiColumnList
+                    id="list-title-matches"
+                    autosize
+                    virtualize
+                    visibleColumns={['counterReportTitle', 'kbTitleName', 'isbn', 'issn', 'eissn', 'doi', 'status', 'action']}
+                    columnMapping={{
+                      id: <FormattedMessage id="ui-plugin-eusage-reports.column.id" />,
+                      counterReportTitle: <FormattedMessage id="ui-plugin-eusage-reports.column.counterReportTitle" />,
+                      kbTitleName: <FormattedMessage id="ui-plugin-eusage-reports.column.kbTitleName" />,
+                      kbTitleId: <FormattedMessage id="ui-plugin-eusage-reports.column.kbTitleId" />,
+                      isbn: <FormattedMessage id="ui-plugin-eusage-reports.column.isbn" />,
+                      issn: <FormattedMessage id="ui-plugin-eusage-reports.column.issn" />,
+                      eissn: <FormattedMessage id="ui-plugin-eusage-reports.column.eissn" />,
+                      doi: <FormattedMessage id="ui-plugin-eusage-reports.column.doi" />,
+                      status: <FormattedMessage id="ui-plugin-eusage-reports.column.status" />,
+                      action: <FormattedMessage id="ui-plugin-eusage-reports.column.action" />,
+                    }}
+                    columnWidths={{
+                      id: '90px',
+                      counterReportTitle: '300px',
+                      kbTitleName: '300px',
+                      kbTitleId: '90px',
+                      isbn: '150px',
+                      issn: '100px',
+                      eissn: '100px',
+                      doi: '100px',
+                      status: '100px',
+                      action: '80px',
+                    }}
+                    formatter={{
+                      kbTitleName: r => maybeLinkTitle(r),
+                      id: r => r.id.substring(0, 8),
+                      kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
+                      isbn: r => r.ISBN,
+                      issn: r => r.printISSN,
+                      eissn: r => r.onlineISSN,
+                      doi: r => r.DOI,
+                      status: r => calculateStatus(intl, r),
+                      action: r => actionMenu(intl, callout, okapiKy, r, setRecordToEdit, triggerReRender, data.reportTitles),
+                    }}
+                    contentData={data.reportTitles}
+                    totalCount={count}
+                    nonInteractiveHeaders={[]}
+                    onHeaderClick={sasqParams.onSort}
+                    onNeedMoreData={onNeedMoreData}
+                    sortDirection={sortOrder.startsWith('-') ? 'descending' : 'ascending'}
+                    sortOrder={sortOrder.replace(/^-/, '').replace(/,.*/, '')}
+                    ignoredAdditionalPropToTriggerReRender={ignoredAdditionalPropToTriggerReRender}
+                  />
+                );
+              }
+            }
+          </SearchAndSortQuery>
         </Pane>
       </Paneset>
     </HasCommand>
@@ -270,6 +285,13 @@ MatchEditor.propTypes = {
       }).isRequired,
     ).isRequired,
   }).isRequired,
+  query: PropTypes.object.isRequired,
+  source: PropTypes.shape({
+    loaded: PropTypes.func.isRequired,
+    pending: PropTypes.func.isRequired,
+    totalCount: PropTypes.func.isRequired,
+  }),
+  onNeedMoreData: PropTypes.func.isRequired,
   mutator: PropTypes.shape({
     query: PropTypes.shape({
       update: PropTypes.func.isRequired,
