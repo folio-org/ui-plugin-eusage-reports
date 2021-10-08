@@ -67,17 +67,32 @@ MatchEditorLoader.manifest = {
     records: 'titles',
     recordsRequired: '%{resultCount}',
     perRequest: RESULT_COUNT_INCREMENT,
-    query: makeQueryFunction(
+    // We will need to do something with this later when handling searches
+    __unused_query: makeQueryFunction(
       'cql.allRecords=1',
       indexNames.map(index => `${index}="%{query.query}*"`).join(' or '),
       {}, // XXX sortMap
       [], // XXX filterConfig
     ),
     params: (_q, _p, _r, _l, props) => {
+      function matchType2query(t) {
+        switch (t) {
+          case 'loaded': return undefined;
+          case 'matched': return 'kbTitleId<>""';
+          // It seems wrong that we have to do our own URL-encoding here
+          case 'unmatched': return 'kbTitleId=="" and kbManualMatch=false';
+          case 'ignored': return 'kbTitleId=="" and kbManualMatch=true';
+          default:
+            console.error('impossible match-type', t); // eslint-disable-line no-console
+            return undefined;
+        }
+      }
+
       const udpId = props.data.usageDataProvider.id;
       if (!udpId) return undefined;
       return {
         providerId: udpId,
+        query: matchType2query(props.matchType),
         _unused: props.resources.toggleVal,
       };
     },
