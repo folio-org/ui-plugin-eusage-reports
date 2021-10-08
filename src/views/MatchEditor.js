@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { useOkapiKy, CalloutContext, Pluggable } from '@folio/stripes/core';
+import { useOkapiKy, AppIcon, CalloutContext, Pluggable } from '@folio/stripes/core';
 import {
   HasCommand,
   Paneset,
@@ -160,6 +160,7 @@ function MatchEditor({ mutator, matchType, onClose, data, paneTitleRef }) {
     <HasCommand commands={[{ name: 'close', handler: onClose }]}>
       <Paneset isRoot data-test-match-editor>
         <Pane
+          appIcon={<AppIcon app="erm-usage" />}
           defaultWidth="fill"
           dismissible
           onClose={onClose}
