@@ -1,5 +1,9 @@
 # Change history for ui-plugin-eusage-reports
 
+## [2.2.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.0) (IN PROGRESS)
+
+* "eUsage reports: charts may be viewed" (`plugin-eusage-reports.view-charts`) permission now includes all relevant back-end permissions. Fixes the last part of UIPER-74.
+
 ## [2.1.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.1.0) (2021-10-06)
 
 * "eUsage reports" accordion in the Agreements app is closed by default. Fixes UIPER-70.
