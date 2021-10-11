@@ -6,9 +6,9 @@ import MatchingSummary from '../views/MatchingSummary';
 
 
 function MatchingSummaryLoader({ data, resources, mutator }) {
-  const rt = resources.reportTitles;
+  const rt = resources.reportTitlesSummary;
 
-  // We would like to determine whether the 'reportTitles' resource
+  // We would like to determine whether the 'reportTitlesSummary' resource
   // has loaded just by looking at rt.hasLoaded, but when that has
   // once become true, it remains forever true, even after the UDB
   // changes and a new data-set needs to be loaded.
@@ -36,7 +36,7 @@ MatchingSummaryLoader.manifest = {
     initialValue: 0,
   },
 
-  reportTitles: {
+  reportTitlesSummary: {
     type: 'okapi',
     path: 'eusage-reports/report-titles',
     params: (_q, _p, _r, _l, props) => {
@@ -60,7 +60,7 @@ MatchingSummaryLoader.propTypes = {
     }).isRequired,
   }).isRequired,
   resources: PropTypes.shape({
-    reportTitles: PropTypes.shape({
+    reportTitlesSummary: PropTypes.shape({
       url: PropTypes.string,
       other: PropTypes.shape({
         totalRecords: PropTypes.number.isRequired,
