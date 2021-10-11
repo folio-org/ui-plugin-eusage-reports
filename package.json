@@ -46,6 +46,7 @@
     "lint": "eslint -f unix .",
     "qlint": "eslint -f unix  --rule '{\"no-console\":\"off\"}' .",
     "test": "jest",
+    "coverage": "jest --coverage",
     "start": "stripes serve --port 3005"
   },
   "devDependencies": {
