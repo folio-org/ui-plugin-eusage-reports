@@ -77,7 +77,7 @@ MatchEditorLoader.manifest = {
     params: (_q, _p, _r, _l, props) => {
       function matchType2query(t) {
         switch (t) {
-          case 'loaded': return undefined;
+          case 'loaded': return 'cql.allRecords=1';
           case 'matched': return 'kbTitleId<>""';
           // It seems wrong that we have to do our own URL-encoding here
           case 'unmatched': return 'kbTitleId="" and kbManualMatch=false';
@@ -92,7 +92,7 @@ MatchEditorLoader.manifest = {
       if (!udpId) return undefined;
       return {
         providerId: udpId,
-        query: matchType2query(props.matchType),
+        query: matchType2query(props.matchType) + ' sortby counterReportTitle',
         _unused: props.resources.toggleVal,
       };
     },
