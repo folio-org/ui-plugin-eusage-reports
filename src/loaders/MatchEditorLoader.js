@@ -80,8 +80,8 @@ MatchEditorLoader.manifest = {
           case 'loaded': return undefined;
           case 'matched': return 'kbTitleId<>""';
           // It seems wrong that we have to do our own URL-encoding here
-          case 'unmatched': return 'kbTitleId=="" and kbManualMatch=false';
-          case 'ignored': return 'kbTitleId=="" and kbManualMatch=true';
+          case 'unmatched': return 'kbTitleId="" and kbManualMatch=false';
+          case 'ignored': return 'kbTitleId="" and kbManualMatch=true';
           default:
             console.error('impossible match-type', t); // eslint-disable-line no-console
             return undefined;
