@@ -1,8 +1,9 @@
 export default [
   // automatically matched
   {
+    id: 'db6bfba5-79d4-46ba-bcf6-db72af4eeb9a',
     counterReportTitle: 'Silmarillion',
-    kbTitleId: '123',
+    kbTitleId: '427a0411-5ada-49f0-a317-332459931a16',
     kbTitleName: 'The Silmarillion',
     kbManualMatch: false,
   },
