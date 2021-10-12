@@ -296,6 +296,7 @@ MatchEditor.propTypes = {
     }).isRequired,
   }).isRequired,
   paneTitleRef: PropTypes.object,
+  disableAutosize: PropTypes.bool,
 };
 
 
