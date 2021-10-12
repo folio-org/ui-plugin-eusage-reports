@@ -10,6 +10,12 @@ import MatchEditor from './MatchEditor';
 jest.unmock('react-intl');
 
 
+// By exhaustive and painful experiment, I have determined that when
+// rendered by RTL, the actual content of a <MultiColumnList> is not
+// included in the render if the "autosize" attribute is true, so in
+// order to make this test work, I had to add a "disableAutosize"
+// attribute and pass that in.
+//
 const renderMatchEditor = () => {
   const queryData = { matchType: undefined };
   const categories = generateTitleCategories(reportTitles);
@@ -34,6 +40,7 @@ const renderMatchEditor = () => {
         }}
         hasLoaded
         onNeedMoreData={() => undefined}
+        disableAutosize
       />
     </Router>
   ));
@@ -60,5 +67,9 @@ describe('Match Editor page', () => {
     expect(screen.getByText('Matched (2)')).toBeVisible();
     expect(screen.getByText('Unmatched (1)')).toBeVisible();
     expect(screen.getByText('Ignored (1)')).toBeVisible();
+  });
+
+  it('should contain actual content', async () => {
+    expect(screen.getByText('The Silmarillion')).toBeVisible();
   });
 });
