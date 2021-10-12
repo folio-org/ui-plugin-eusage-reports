@@ -1,6 +1,33 @@
 export default [
-  { counterReportTitle: 'Sil', kbTitleId: 'The Silmarillion', kbManualMatch: false }, // automatically matched
-  { counterReportTitle: 'LotR', kbTitleId: 'The Lord of the Rings', kbManualMatch: true }, // manually matched
-  { counterReportTitle: 'BoLT', kbTitleId: undefined, kbManualMatch: false }, // unmatched
-  { counterReportTitle: 'Hob', kbTitleId: undefined, kbManualMatch: true }, // ignored
+  // automatically matched
+  {
+    counterReportTitle: 'Silmarillion',
+    kbTitleId: '123',
+    kbTitleName: 'The Silmarillion',
+    kbManualMatch: false,
+  },
+
+  // manually matched
+  {
+    counterReportTitle: 'Lord of the Ring',
+    kbTitleId: '456',
+    kbTitleName: 'The Lord of the Rings',
+    kbManualMatch: true,
+  },
+
+  // unmatched
+  {
+    counterReportTitle: 'The Book of Lost Tales',
+    kbTitleId: undefined,
+    kbTitleName: undefined,
+    kbManualMatch: false,
+  },
+
+  // ignored
+  {
+    counterReportTitle: 'The Hobbit',
+    kbTitleId: undefined,
+    kbTitleName: undefined,
+    kbManualMatch: true,
+  },
 ];
