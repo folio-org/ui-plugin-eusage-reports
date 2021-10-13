@@ -41,6 +41,7 @@ MatchingSummaryLoader.manifest = {
     path: 'eusage-reports/report-titles',
     params: (_q, _p, _r, _l, props) => {
       const params = {
+        facets: 'status',
         limit: 0, // We Only care about the counts in the facets
         _unused: props.resources.toggleVal,
       };
