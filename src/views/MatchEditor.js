@@ -140,7 +140,7 @@ function actionMenu(intl, callout, okapiKy, rec, setRecordToEdit, triggerReRende
 }
 
 
-function MatchEditor({ matchType, onClose, data, source, onNeedMoreData, mutator, paneTitleRef, disableAutosize }) {
+function MatchEditor({ matchType, onClose, data, source, onNeedMoreData, mutator, paneTitleRef }) {
   const intl = useIntl();
   const categories = data.categories;
   const callout = useContext(CalloutContext);
@@ -208,7 +208,6 @@ function MatchEditor({ matchType, onClose, data, source, onNeedMoreData, mutator
                 return (
                   <MultiColumnList
                     id="list-title-matches"
-                    autosize={!disableAutosize}
                     virtualize
                     visibleColumns={['counterReportTitle', 'kbTitleName', 'isbn', 'issn', 'eissn', 'doi', 'status', 'action']}
                     columnMapping={{
@@ -296,7 +295,6 @@ MatchEditor.propTypes = {
     }).isRequired,
   }).isRequired,
   paneTitleRef: PropTypes.object,
-  disableAutosize: PropTypes.bool,
 };
 
 
