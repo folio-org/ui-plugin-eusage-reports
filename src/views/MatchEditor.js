@@ -182,6 +182,7 @@ function MatchEditor({ matchType, onClose, data, source, onNeedMoreData, mutator
             </Pluggable>
           }
 
+          <div>matchType={matchType}</div>
           <Layout className="textCentered">
             <ButtonGroup>
               {
