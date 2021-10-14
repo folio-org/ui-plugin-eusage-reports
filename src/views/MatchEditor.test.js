@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { cleanup, render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockOffsetSize } from '@folio/stripes-acq-components/test/jest/helpers/mockOffsetSize';
 import generateTitleCategories from '../util/generateTitleCategories';
@@ -56,64 +56,10 @@ const renderMatchEditor = () => {
 
 
 describe('Match Editor page', () => {
-  let node;
-  let container;
-
-  beforeEach(() => {
-    node = renderMatchEditor();
-    container = node.container;
-  });
-
-  afterEach(cleanup);
-
-  it('should be rendered', async () => {
-    const content = container.querySelector('[data-test-match-editor]');
-    expect(container).toBeVisible();
-    expect(content).toBeVisible();
-
-    // Counts of records in various categories
-    expect(screen.getByText('Records loaded (4)')).toBeVisible();
-    expect(screen.getByText('Matched (2)')).toBeVisible();
-    expect(screen.getByText('Unmatched (1)')).toBeVisible();
-    expect(screen.getByText('Ignored (1)')).toBeVisible();
-  });
-
-  it('should contain actual content', async () => {
-    expect(screen.getByText('The Silmarillion')).toBeVisible();
-    expect(container.querySelector('[data-test-match-editor]')).toBeInTheDocument();
-    expect(container.querySelectorAll('[data-test-match-editor] .mclRowContainer > [role=row]').length).toEqual(4);
-  });
-
-  function expectButtonToHaveClass(pattern, shouldBeIncluded, singleClass) {
-    const matchedButton = screen.getByRole('button', { name: pattern });
-    const classNames = matchedButton.className.split(' ');
-
-    if (shouldBeIncluded) {
-      expect(classNames).toContain(singleClass);
-    } else {
-      expect(classNames).not.toContain(singleClass);
-    }
-  }
-
-  it('should switch between tabs', () => {
-    expectButtonToHaveClass(/Records loaded/, true, 'primary');
-    expectButtonToHaveClass(/Records loaded/, false, 'default');
-    expectButtonToHaveClass(/Matched/, true, 'default');
-    expectButtonToHaveClass(/Matched/, false, 'primary');
-
-    act(() => {
-      userEvent.click(screen.getByRole('button', { name: /Matched/ }));
-    });
-
-    // I don't know why we need a timeout, but we do. Wrapping in
-    // act() doesn't suffice for the re-rendering updates to complete
-    // before the next assertions happen.
-    // See https://folio-project.slack.com/archives/C210UCHQ9/p1634201292315200
-    setTimeout(() => {
-      expectButtonToHaveClass(/Records loaded/, false, 'primary');
-      expectButtonToHaveClass(/Records loaded/, true, 'default');
-      expectButtonToHaveClass(/Matched/, false, 'default');
-      expectButtonToHaveClass(/Matched/, true, 'primary');
-    }, 0);
+  it('should switch between tabs', async () => {
+    renderMatchEditor();
+    expect(await screen.findByText('matchType=loaded')).toBeVisible();
+    userEvent.click(screen.getByRole('button', { name: /Matched/ }));
+    expect(await screen.findByText('matchType=matched')).toBeVisible();
   });
 });
