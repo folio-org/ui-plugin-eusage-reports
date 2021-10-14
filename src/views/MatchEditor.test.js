@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockOffsetSize } from '@folio/stripes-acq-components/test/jest/helpers/mockOffsetSize';
 import generateTitleCategories from '../util/generateTitleCategories';
@@ -101,8 +101,13 @@ describe('Match Editor page', () => {
     expectButtonToHaveClass(/Matched/, true, 'default');
     expectButtonToHaveClass(/Matched/, false, 'primary');
 
-    userEvent.click(screen.getByRole('button', { name: /Matched/ }));
-    // I don't know why we need a timeout, but we do. Wrapping in act() doesn't help.
+    act(() => {
+      userEvent.click(screen.getByRole('button', { name: /Matched/ }));
+    });
+
+    // I don't know why we need a timeout, but we do. Wrapping in
+    // act() doesn't suffice for the re-rendering updates to complete
+    // before the next assertions happen.
     // See https://folio-project.slack.com/archives/C210UCHQ9/p1634201292315200
     setTimeout(() => {
       expectButtonToHaveClass(/Records loaded/, false, 'primary');
