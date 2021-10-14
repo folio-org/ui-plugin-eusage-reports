@@ -102,12 +102,13 @@ describe('Match Editor page', () => {
     expectButtonToHaveClass(/Matched/, false, 'primary');
 
     userEvent.click(screen.getByRole('button', { name: /Matched/ }));
-    /*
-    // Does not work yet: see https://folio-project.slack.com/archives/C210UCHQ9/p1634201292315200
-    expectButtonToHaveClass(/Records loaded/, false, 'primary');
-    expectButtonToHaveClass(/Records loaded/, true, 'default');
-    expectButtonToHaveClass(/Matched/, false, 'default');
-    expectButtonToHaveClass(/Matched/, true, 'primary');
-    */
+    // I don't know why we need a timeout, but we do. Wrapping in act() doesn't help.
+    // See https://folio-project.slack.com/archives/C210UCHQ9/p1634201292315200
+    setTimeout(() => {
+      expectButtonToHaveClass(/Records loaded/, false, 'primary');
+      expectButtonToHaveClass(/Records loaded/, true, 'default');
+      expectButtonToHaveClass(/Matched/, false, 'default');
+      expectButtonToHaveClass(/Matched/, true, 'primary');
+    }, 0);
   });
 });
