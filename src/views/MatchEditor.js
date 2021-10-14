@@ -208,7 +208,6 @@ function MatchEditor({ matchType, onClose, data, source, onNeedMoreData, mutator
                 return (
                   <MultiColumnList
                     id="list-title-matches"
-                    autosize
                     virtualize
                     visibleColumns={['counterReportTitle', 'kbTitleName', 'isbn', 'issn', 'eissn', 'doi', 'status', 'action']}
                     columnMapping={{
