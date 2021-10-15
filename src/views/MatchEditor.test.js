@@ -12,7 +12,7 @@ import MatchEditor from './MatchEditor';
 
 jest.unmock('react-intl');
 
-function okapiKy(path, options) {
+function okapiKy(_path, _options) {
   // console.log(`*** mocked okapiKy ${options.method} to`, path);
   return new Promise((resolve, _reject) => {
     // console.log('*** mocked okapiKy resolving promise');
@@ -21,10 +21,10 @@ function okapiKy(path, options) {
 }
 
 // XXX we're not actually using any of these at this point
-okapiKy.get = (path, options) => okapiKy(path, { method: GET, ...options });
-okapiKy.post = (path, options) => okapiKy(path, { method: POST, ...options });
-okapiKy.put = (path, options) => okapiKy(path, { method: PUT, ...options });
-okapiKy.delete = (path, options) => okapiKy(path, { method: DELETE, ...options });
+okapiKy.get = (path, options) => okapiKy(path, { method: 'GET', ...options });
+okapiKy.post = (path, options) => okapiKy(path, { method: 'POST', ...options });
+okapiKy.put = (path, options) => okapiKy(path, { method: 'PUT', ...options });
+okapiKy.delete = (path, options) => okapiKy(path, { method: 'DELETE', ...options });
 
 
 // Empirically, this has to be done at the top level, not within the test. No-one knows why
@@ -58,28 +58,28 @@ const renderMatchEditor = () => {
 
   mockOffsetSize(500, 500); // See above
   return render(withIntlConfiguration(
-   <CalloutContext.Provider value={callout}>
-    <Router history={history}>
-      <MatchEditor
-        matchType={queryData.matchType}
-        onClose={() => {}}
-        data={{
-          usageDataProvider: {
-            label: 'JSTOR',
-          },
-          categories: categories.map(({ key, data }) => ({ key, count: data.length })),
-          reportTitles,
-        }}
-        mutator={{
-          query: {
-            update: (newData) => Object.assign(queryData, newData),
-          },
-        }}
-        hasLoaded
-        onNeedMoreData={() => undefined}
-      />
-    </Router>
-   </CalloutContext.Provider>
+    <CalloutContext.Provider value={callout}>
+      <Router history={history}>
+        <MatchEditor
+          matchType={queryData.matchType}
+          onClose={() => {}}
+          data={{
+            usageDataProvider: {
+              label: 'JSTOR',
+            },
+            categories: categories.map(({ key, data }) => ({ key, count: data.length })),
+            reportTitles,
+          }}
+          mutator={{
+            query: {
+              update: (newData) => Object.assign(queryData, newData),
+            },
+          }}
+          hasLoaded
+          onNeedMoreData={() => undefined}
+        />
+      </Router>
+    </CalloutContext.Provider>
   ));
 };
 
