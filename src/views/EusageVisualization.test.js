@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import withIntlConfiguration from '../../test/jest/util/withIntlConfiguration';
 import EusageVisualization from './EusageVisualization';
 
@@ -36,5 +36,15 @@ describe('eUsage visualization page', () => {
   it('should be rendered', async () => {
     const { container } = node;
     expect(container).toBeVisible();
+
+    const report = screen.getByLabelText('Report');
+    expect(report.value).toBe('uot'); // Use over time
+    fireEvent.change(report, { target: { value: 'rbu' } });
+    expect(report.value).toBe('rbu');
+
+    const startMonthY = container.querySelector('#input-startDate-y');
+    expect(startMonthY.value).toBe('2019');
+    fireEvent.change(startMonthY, { target: { value: 2018 } });
+    expect(startMonthY.value).toBe('2018');
   });
 });
