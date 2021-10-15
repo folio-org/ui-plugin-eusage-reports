@@ -289,9 +289,6 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
 
 EusageVisualization.propTypes = {
   data: PropTypes.shape({
-    useOverTime: PropTypes.arrayOf(
-      PropTypes.object.isRequired,
-    ),
     reportStatus: PropTypes.shape({
       lastUpdated: PropTypes.string.isRequired,
     }),
