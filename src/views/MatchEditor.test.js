@@ -12,8 +12,27 @@ import MatchEditor from './MatchEditor';
 
 jest.unmock('react-intl');
 
-function okapiKy(_path, _options) {
-  // console.log(`*** mocked okapiKy ${options.method} to`, path);
+function okapiKy(path, options) {
+  // console.log(`*** mocked okapiKy ${options.method} to ${path} with`, JSON.stringify(options, null, 2));
+  const method = options.method;
+  if (method !== 'POST') throw new Error(`mocked okapiKy: non-POST method ${method}`);
+  const titles = options.json?.titles;
+  if (!titles) throw new Error('mocked okapiKy: no titles in POSTed JSON');
+
+  titles.forEach(newRec => {
+    const rec = reportTitles.find(x => x.id === newRec.id);
+    // console.log('found record', rec);
+    Object.assign(rec, newRec);
+    if (!newRec.kbTitleId) rec.kbTitleId = undefined;
+    // console.log('record is now', rec);
+
+    if (rec.kbManualMatch && !rec.kbTitleId) {
+      // console.log('ignored record', rec.id);
+    } else if (!rec.kbManualMatch && !rec.kbTitleId) {
+      // console.log('unignored record', rec.id);
+    } // else ...
+  });
+
   return new Promise((resolve, _reject) => {
     // console.log('*** mocked okapiKy resolving promise');
     resolve({ status: 'ok' });
@@ -154,13 +173,47 @@ describe('Match Editor page', () => {
     const actionButton = row.querySelector('button');
     expect(actionButton).toBeInTheDocument();
 
+    expect(reportTitles[0].kbManualMatch).toBe(false);
+    expect(reportTitles[0].kbTitleId).toBeDefined();
+
+    // Ignore the first title
     userEvent.click(actionButton);
     const ignoreButton = getByText(row, 'Ignore');
     expect(ignoreButton).toBeVisible();
-
-    // We're not ready to do this until we've mocked okapiKy
     await act(async () => {
       await userEvent.click(ignoreButton);
     });
+    expect(reportTitles[0].kbManualMatch).toBe(true);
+    expect(reportTitles[0].kbTitleId).toBeUndefined();
+
+    // Unignore the first title
+    userEvent.click(actionButton);
+    const unIgnoreButton = getByText(row, 'Stop ignoring');
+    expect(unIgnoreButton).toBeVisible();
+    await act(async () => {
+      await userEvent.click(unIgnoreButton);
+    });
+    expect(reportTitles[0].kbManualMatch).toBe(false);
+  });
+
+  it('should change the match of a record', async () => {
+    const rows = container.querySelectorAll('[data-test-match-editor] .mclRowContainer > [role=row]');
+    const row = rows[1];
+    const actionButton = row.querySelector('button');
+
+    expect(reportTitles[1].kbTitleName).toBe('The Lord of the Rings');
+    expect(reportTitles[1].kbTitleId).toBeDefined();
+
+    // Edit the match for the first title
+    userEvent.click(actionButton);
+    const editButton = getByText(row, 'Edit');
+    expect(editButton).toBeVisible();
+    await act(async () => {
+      await userEvent.click(editButton);
+    });
+
+    // Unfortunately, we have no way to interact with the plugin, as
+    // it's not included in the implicit single-module bundle.
+    // So there is nothing more to test here.
   });
 });
