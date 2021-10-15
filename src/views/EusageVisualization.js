@@ -182,6 +182,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
       <Row>
         <Col xs={4}>
           <Monthpicker
+            id="input-startDate"
             label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.start-month' })}
             value={startDate}
             onChange={e => setStartDate(e.target.value)}
@@ -189,6 +190,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
         </Col>
         <Col xs={4}>
           <Monthpicker
+            id="input-endDate"
             label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.end-month' })}
             value={endDate}
             onChange={e => setEndDate(e.target.value)}
