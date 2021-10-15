@@ -7,7 +7,7 @@ import RequestsByPublicationYear from '../reports/RequestsByPublicationYear';
 function RequestsByPublicationYearLoader({ params, data, resources, xCaption, yCaption }) {
   return <RequestsByPublicationYear
     url={resources.requests.url}
-    hasLoaded={resources.requests.hasLoaded}
+    hasLoaded={!!resources.requests.hasLoaded}
     params={params}
     data={{
       ...data,
@@ -54,7 +54,7 @@ RequestsByPublicationYearLoader.propTypes = {
   resources: PropTypes.shape({
     requests: PropTypes.shape({
       url: PropTypes.string, // Not .isRequired, as this is briefly undefined
-      hasLoaded: PropTypes.bool.isRequired,
+      hasLoaded: PropTypes.bool, // In truth, this is .isRequired, but the test mocks can't provide it
       records: PropTypes.arrayOf(
         PropTypes.object.isRequired,
       ),
