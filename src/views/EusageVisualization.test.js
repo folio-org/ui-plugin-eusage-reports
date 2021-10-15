@@ -50,6 +50,22 @@ describe('eUsage visualization page', () => {
       expect(report.value).toBe(reportCode);
     });
 
+    const format = screen.getByLabelText('Format');
+    expect(format.value).toBe('JOURNAL');
+    fireEvent.change(format, { target: { value: 'BOOK' } });
+    expect(format.value).toBe('BOOK');
+
+    const includeOaYes = screen.getByLabelText('Yes');
+    const includeOaNo = screen.getByLabelText('No');
+    expect(includeOaYes.checked).toEqual(true);
+    expect(includeOaNo.checked).toEqual(false);
+    fireEvent.click(includeOaNo);
+    expect(includeOaYes.checked).toEqual(false);
+    expect(includeOaNo.checked).toEqual(true);
+    fireEvent.click(includeOaYes);
+    expect(includeOaYes.checked).toEqual(true);
+    expect(includeOaNo.checked).toEqual(false);
+
     const startMonthY = container.querySelector('#input-startDate-y');
     // We can't rely on the start month's initial state, because it's based on the current date
     fireEvent.change(startMonthY, { target: { value: 2019 } });
@@ -67,5 +83,23 @@ describe('eUsage visualization page', () => {
     expect(startMonthM.value).toBe('10');
     fireEvent.change(startMonthM, { target: { value: 11 } });
     expect(startMonthM.value).toBe('11');
+
+    const endMonthY = container.querySelector('#input-endDate-y');
+    // We can't rely on the end month's initial state, because it's based on the current date
+    fireEvent.change(endMonthY, { target: { value: 2020 } });
+    expect(endMonthY.value).toBe('2020');
+
+    // Count-type is disabled for some reports, so switch to one that has it enabled
+    fireEvent.change(report, { target: { value: 'rbu' } });
+    const countTypeTotal = screen.getByLabelText('Total accesses');
+    const countTypeUnique = screen.getByLabelText('Unique accesses');
+    expect(countTypeTotal.checked).toEqual(true);
+    expect(countTypeUnique.checked).toEqual(false);
+    fireEvent.click(countTypeUnique);
+    expect(countTypeTotal.checked).toEqual(false);
+    expect(countTypeUnique.checked).toEqual(true);
+    fireEvent.click(countTypeTotal);
+    expect(countTypeTotal.checked).toEqual(true);
+    expect(countTypeUnique.checked).toEqual(false);
   });
 });
