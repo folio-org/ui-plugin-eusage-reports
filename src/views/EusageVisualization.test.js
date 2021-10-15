@@ -6,8 +6,6 @@ import EusageVisualization from './EusageVisualization';
 jest.unmock('react-intl');
 
 const renderEusageVisualization = () => {
-  const queryData = { matchType: undefined };
-
   return render(withIntlConfiguration(
     <EusageVisualization
       data={{
