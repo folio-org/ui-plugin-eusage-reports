@@ -146,7 +146,7 @@ describe('Match Editor page', () => {
     }, 0);
   });
 
-  it('should change a matched record to ignored', () => {
+  it('should change a matched record to ignored', async () => {
     const rows = container.querySelectorAll('[data-test-match-editor] .mclRowContainer > [role=row]');
     expect(rows.length).toEqual(4);
     const row = rows[0];
@@ -159,8 +159,8 @@ describe('Match Editor page', () => {
     expect(ignoreButton).toBeVisible();
 
     // We're not ready to do this until we've mocked okapiKy
-    act(() => {
-      userEvent.click(ignoreButton);
+    await act(async () => {
+      await userEvent.click(ignoreButton);
     });
   });
 });
