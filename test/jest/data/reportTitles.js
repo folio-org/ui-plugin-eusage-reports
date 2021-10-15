@@ -10,7 +10,7 @@ export default [
 
   // manually matched
   {
-    counterReportTitle: 'Lord of the Ring',
+    counterReportTitle: 'Lord of the Rings',
     kbTitleId: '456',
     kbTitleName: 'The Lord of the Rings',
     kbManualMatch: true,
