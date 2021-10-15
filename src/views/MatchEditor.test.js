@@ -3,7 +3,7 @@ import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
 import { cleanup, render, screen, act, getByText } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
+import { useOkapiKy, CalloutContext, Pluggable } from '@folio/stripes/core';
 import { mockOffsetSize } from '@folio/stripes-acq-components/test/jest/helpers/mockOffsetSize';
 import generateTitleCategories from '../util/generateTitleCategories';
 import reportTitles from '../../test/jest/data/reportTitles';
@@ -11,6 +11,22 @@ import withIntlConfiguration from '../../test/jest/util/withIntlConfiguration';
 import MatchEditor from './MatchEditor';
 
 jest.unmock('react-intl');
+
+
+// Depends on the stripes-connect mock provisding Pluggable as a jest.fn, which is does not -- yet
+const mockPluggableIsSupported = false;
+
+if (mockPluggableIsSupported) {
+  Pluggable.mockImplementation(props => {
+    if (props.type !== 'find-eresource') throw new Error(`mocked Pluggable: unsupported type ${props.type}`);
+    props.onEresourceSelected({
+      id: '29168',
+      name: 'LotR special edition',
+    });
+    return <>Mocked pluggable: {props.children}</>;
+  });
+}
+
 
 function okapiKy(path, options) {
   // console.log(`*** mocked okapiKy ${options.method} to ${path} with`, JSON.stringify(options, null, 2));
@@ -209,11 +225,15 @@ describe('Match Editor page', () => {
     const editButton = getByText(row, 'Edit');
     expect(editButton).toBeVisible();
     await act(async () => {
+      // I have no idea why this generates a "Cannot update a
+      // component while rendering a different component" error, but
+      // it doesn't seem to prevent things from working.
       await userEvent.click(editButton);
     });
 
-    // Unfortunately, we have no way to interact with the plugin, as
-    // it's not included in the implicit single-module bundle.
-    // So there is nothing more to test here.
+    if (mockPluggableIsSupported) {
+      expect(reportTitles[1].kbTitleName).toBe('LotR special edition');
+      expect(reportTitles[1].kbTitleId).toBe('29168');
+    }
   });
 });
