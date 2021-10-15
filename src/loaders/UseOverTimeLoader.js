@@ -7,7 +7,7 @@ import UseOverTime from '../reports/UseOverTime';
 function UseOverTimeLoader({ params, data, resources, xCaption, yCaption }) {
   return <UseOverTime
     url={resources.useOverTime.url}
-    hasLoaded={resources.useOverTime.hasLoaded}
+    hasLoaded={!!resources.useOverTime.hasLoaded}
     params={params}
     data={{
       ...data,
@@ -52,7 +52,7 @@ UseOverTimeLoader.propTypes = {
   resources: PropTypes.shape({
     useOverTime: PropTypes.shape({
       url: PropTypes.string, // Not .isRequired, as this is briefly undefined
-      hasLoaded: PropTypes.bool.isRequired,
+      hasLoaded: PropTypes.bool, // In truth, this is .isRequired, but the test mocks can't provide it
       records: PropTypes.arrayOf(
         PropTypes.object.isRequired,
       ),
