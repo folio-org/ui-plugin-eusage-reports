@@ -1,0 +1,16 @@
+{
+  "agreementId" : "a0416544-6027-4fac-97f7-547d34946db2",
+  "accessCountPeriods" : [ "nopub" ],
+  "totalItemRequestsTotal" : 259,
+  "totalItemRequestsByPeriod" : [ 259 ],
+  "totalRequestsPeriodsOfUseByPeriod" : [ {
+    "2019" : 185,
+    "2020" : 74
+  } ],
+  "uniqueItemRequestsTotal" : 201,
+  "uniqueItemRequestsByPeriod" : [ 201 ],
+  "uniqueRequestsPeriodsOfUseByPeriod" : [ {
+    "2019" : 141,
+    "2020" : 60
+  } ]
+}

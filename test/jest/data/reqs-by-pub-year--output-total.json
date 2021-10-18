@@ -1,0 +1,23 @@
+{
+  "datasets": [
+    {
+      "backgroundColor": "#a9d62c",
+      "data": [
+        185
+      ],
+      "label": "2019",
+      "stack": "Stack 0"
+    },
+    {
+      "backgroundColor": "#86f282",
+      "data": [
+        74
+      ],
+      "label": "2020",
+      "stack": "Stack 0"
+    }
+  ],
+  "labels": [
+    "nopub"
+  ]
+}
