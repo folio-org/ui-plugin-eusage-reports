@@ -1,25 +1,42 @@
 import React from 'react';
-import { cleanup, render, screen, fireEvent } from '@testing-library/react';
+import { cleanup, render, screen, act, fireEvent } from '@testing-library/react';
+import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
 import withIntlConfiguration from '../../test/jest/util/withIntlConfiguration';
 import EusageVisualization from './EusageVisualization';
 
 jest.unmock('react-intl');
 
+// Empirically, this has to be done at the top level, not within the test. No-one knows why
+// See https://folio-project.slack.com/archives/C210UCHQ9/p1632425791183300?thread_ts=1632350696.158900&cid=C210UCHQ9
+useOkapiKy.mockReturnValue({
+  post: (_path) => {
+    // console.log('*** mocked okapiKy POST to', _path);
+    return new Promise((resolve, _reject) => {
+      // console.log('*** mocked okapiKy resolving promise');
+      resolve({ status: 'ok' });
+    });
+  },
+});
+
 const renderEusageVisualization = () => {
+  const callout = { sendCallout: () => undefined };
+
   return render(withIntlConfiguration(
-    <EusageVisualization
-      data={{
-        reportStatus: {
-          lastUpdated: '2021-09-30T19:04:25.608079'
-        },
-        agreement: {
-          id: '12368',
-          name: 'The Royal Society',
-        }
-      }}
-      lastUpdatedHasLoaded
-      reloadReportStatus={() => undefined}
-    />
+    <CalloutContext.Provider value={callout}>
+      <EusageVisualization
+        data={{
+          reportStatus: {
+            lastUpdated: '2021-09-30T19:04:25.608079'
+          },
+          agreement: {
+            id: '12368',
+            name: 'The Royal Society',
+          }
+        }}
+        lastUpdatedHasLoaded
+        reloadReportStatus={() => undefined}
+      />
+    </CalloutContext.Provider>
   ));
 };
 
@@ -89,7 +106,7 @@ describe('eUsage visualization page', () => {
     fireEvent.change(endMonthY, { target: { value: 2020 } });
     expect(endMonthY.value).toBe('2020');
 
-    // Count-type is disabled for some reports, so switch to one that has it enabled
+    // Count-type and pickers are disabled for some reports, so switch to one that has them enabled
     fireEvent.change(report, { target: { value: 'rbu' } });
     const countTypeTotal = screen.getByLabelText('Total accesses');
     const countTypeUnique = screen.getByLabelText('Unique accesses');
@@ -101,5 +118,30 @@ describe('eUsage visualization page', () => {
     fireEvent.click(countTypeTotal);
     expect(countTypeTotal.checked).toEqual(true);
     expect(countTypeUnique.checked).toEqual(false);
+
+    const leftPicker = screen.getByLabelText('Scale: Select interval for period of use');
+    expect(leftPicker.value).toBe('1Y');
+    fireEvent.change(leftPicker, { target: { value: '2Y' } });
+    expect(leftPicker.value).toBe('2Y');
+
+    const rightPicker = screen.getByLabelText('Stacks: Group publication year by');
+    expect(rightPicker.value).toBe('5Y');
+    fireEvent.change(rightPicker, { target: { value: '10Y' } });
+    expect(rightPicker.value).toBe('10Y');
+
+    // The secondary right-picker is enabled only for the "rbp" report
+    fireEvent.change(report, { target: { value: 'rbp' } });
+    const rightPicker2 = screen.getByLabelText('Stacks: Group period of use by');
+    expect(rightPicker2.value).toBe('1Y');
+    fireEvent.change(rightPicker2, { target: { value: '5Y' } });
+    expect(rightPicker2.value).toBe('5Y');
+  });
+
+  it('should be able to analyse the agreement', async () => {
+    const analyzeButton = screen.getByRole('button', { name: 'Analyze agreement' });
+    expect(analyzeButton).toBeVisible();
+    await act(async () => {
+      fireEvent.click(analyzeButton);
+    });
   });
 });
