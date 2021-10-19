@@ -23,6 +23,6 @@ test('fails to parses RBUD with bad metric-type', () => {
   /* eslint-disable no-console */
   const oldError = console.error;
   console.error = () => undefined;
-  expect(transformReqByUseDateData(RBUD, 'whatever')).toBe(null);
+  expect(transformReqByUseDateData(intl, RBUD, 'whatever')).toBe(null);
   console.error = oldError;
 });
