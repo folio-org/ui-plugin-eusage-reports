@@ -1,3 +1,5 @@
+/* eslint-disable quotes */
+/* eslint-disable semi-style */
 export default
 {
   "labels": [
