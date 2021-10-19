@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { Bar } from 'react-chartjs-2';
 import { useStripes } from '@folio/stripes/core';
-import { Loading, MultiColumnList, Button, Accordion } from '@folio/stripes/components';
+import { Loading, MultiColumnList, NoValue, Button, Accordion } from '@folio/stripes/components';
 import downloadCSV from '../../util/downloadCSV';
 
 
@@ -29,8 +29,12 @@ function renderUseOverTimeTable(uot) {
   const dataLines = uot.items.map(item => {
     const rec = {
       title: item.title,
-      accessType: <FormattedMessage id={`ui-plugin-eusage-reports.useOverTime.access.${item.accessType}`} />,
-      metricType: <FormattedMessage id={`ui-plugin-eusage-reports.useOverTime.metric.${item.metricType}`} />,
+      accessType: item.accessType ?
+        <FormattedMessage id={`ui-plugin-eusage-reports.useOverTime.access.${item.accessType}`} /> :
+        <NoValue />,
+      metricType: item.metricType ?
+        <FormattedMessage id={`ui-plugin-eusage-reports.useOverTime.metric.${item.metricType}`} /> :
+        <NoValue />,
     };
 
     dates.forEach((date, i) => {
