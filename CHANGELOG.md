@@ -1,5 +1,9 @@
 # Change history for ui-plugin-eusage-reports
 
+## [2.2.2](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.2) (IN PROGRESS)
+
+* Create new permission governing use of the match-editor, with all necessary subpermissions. Fixes UIPER-87.
+
 ## [2.2.1](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.1) (2021-10-19)
 
 * Invert the sense of `<>` and `=` when used with empty terms to mean "field is defined" and "field is not defined", matching the corresponding change made in mod-eusage-reports v1.0.1 to match RMB behaviour. Fixes UIPER-85.
