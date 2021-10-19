@@ -1,16 +1,20 @@
-function downloadCSV(url, stripes, params) {
+// Note: mocks should ONLY be passed in testing
+function downloadCSV(url, stripes, params, mocks) {
+  const effectiveDocument = mocks ? mocks.document : document;
+  const effectiveWindow = mocks ? mocks.window : window;
+
   const partialPath = url.replace(/.*\/(.*?)\?.*/, '$1');
-  fetch(`${url}&csv=true`, {
+  return fetch(`${url}&csv=true`, {
     headers: {
       'X-Okapi-Tenant': stripes.okapi.tenant,
       'X-Okapi-Token': stripes.okapi.token,
     }
   }).then(response => response.blob())
     .then(blob => {
-      const a = document.createElement('a');
-      a.href = window.URL.createObjectURL(blob);
+      const a = effectiveDocument.createElement('a');
+      a.href = effectiveWindow.URL.createObjectURL(blob);
       a.download = `${partialPath}--${params.startDate}--${params.endDate}.csv`;
-      document.body.appendChild(a);
+      effectiveDocument.body.appendChild(a);
       a.click();
       a.remove();
     });
