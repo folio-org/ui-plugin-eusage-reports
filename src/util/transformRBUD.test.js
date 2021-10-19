@@ -8,7 +8,7 @@ const intl = {
 };
 
 test('returns null for undefined RBUD', () => {
-  expect(transformReqByUseDateData(undefined, 'Total_Item_Requests')).toStrictEqual(null);
+  expect(transformReqByUseDateData(intl, undefined, 'Total_Item_Requests')).toStrictEqual(null);
 });
 
 test('parses RBUD data to total-stats', () => {
