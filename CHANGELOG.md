@@ -1,5 +1,13 @@
 # Change history for ui-plugin-eusage-reports
 
+## [2.2.1](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.1) (2021-10-19)
+
+* Invert the sense of `<>` and `=` when used with empty terms to mean "field is defined" and "field is not defined", matching the corresponding change made in mod-eusage-reports v1.0.1 to match RMB behaviour. Fixes UIPER-85.
+* Match-editor requests sorting by COUNTER-report title. Fixes UIPER-86.
+* Add some more unit tests. Towards UIPER-28.
+* Update some translations.
+* Remove redundant dependency on `stripes-webpack`.
+
 ## [2.2.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.0) (2021-10-08)
 
 * "eUsage reports: charts may be viewed" (`plugin-eusage-reports.view-charts`) permission now includes all relevant back-end permissions. Fixes the last part of UIPER-74.
