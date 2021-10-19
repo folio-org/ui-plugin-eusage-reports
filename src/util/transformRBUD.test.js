@@ -19,7 +19,7 @@ test('parses RBUD data to unique-stats', () => {
   expect(transformReqByUseDateData(intl, RBUD, 'Unique_Item_Requests')).toStrictEqual(RBUDoutUnique);
 });
 
-test('fails to parses RBUD with bad metric-type', () => {
+test('fails to parse RBUD with bad metric-type', () => {
   /* eslint-disable no-console */
   const oldError = console.error;
   console.error = () => undefined;

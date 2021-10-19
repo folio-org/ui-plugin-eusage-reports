@@ -15,7 +15,7 @@ test('parses RBPY data to unique-stats', () => {
   expect(transformReqByPubYearData(RBPY, 'Unique_Item_Requests')).toStrictEqual(RBPYoutUnique);
 });
 
-test('fails to parses RBPY with bad metric-type', () => {
+test('fails to parse RBPY with bad metric-type', () => {
   /* eslint-disable no-console */
   const oldError = console.error;
   console.error = () => undefined;
