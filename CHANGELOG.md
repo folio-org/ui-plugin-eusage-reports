@@ -1,6 +1,6 @@
 # Change history for ui-plugin-eusage-reports
 
-## [2.2.1](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.1) (IN PROGRESS)
+## [2.2.1](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.1) (2021-10-19)
 
 * Invert the sense of `<>` and `=` when used with empty terms to mean "field is defined" and "field is not defined", matching the corresponding change made in mod-eusage-reports v1.0.1 to match RMB behaviour. Fixes UIPER-85.
 * Match-editor requests sorting by COUNTER-report title. Fixes UIPER-86.
