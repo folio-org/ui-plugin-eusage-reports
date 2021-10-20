@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'; // eslint-disable-line import/no-extraneous-dependencies
+import fetch from 'node-fetch';
 import { useOkapiKy } from '@folio/stripes/core';
 import downloadCSV from './downloadCSV';
 
