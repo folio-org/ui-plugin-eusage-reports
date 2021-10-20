@@ -31,13 +31,15 @@ const PluginEusageReports = ({ data }) => {
 
   if (data?.op === 'match-names') {
     return (
-      <Accordion
-        id="plugin-eusage-reports-titles"
-        label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.label" />}
-        closedByDefault={false}
-      >
-        <MatchingSummary data={data?.data} />
-      </Accordion>
+      <IfPermission perm="plugin-eusage-reports.edit-matches">
+        <Accordion
+          id="plugin-eusage-reports-titles"
+          label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.label" />}
+          closedByDefault={false}
+        >
+          <MatchingSummary data={data?.data} />
+        </Accordion>
+      </IfPermission>
     );
   } else {
     return (

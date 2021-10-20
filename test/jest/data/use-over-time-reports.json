@@ -1,0 +1,146 @@
+{
+  "agreementId": "a0416544-6027-4fac-97f7-547d34946db2",
+  "accessCountPeriods": [
+    "2019",
+    "2020",
+    "2021"
+  ],
+  "totalItemRequestsTotal": 259,
+  "uniqueItemRequestsTotal": 201,
+  "totalItemRequestsByPeriod": [
+    185,
+    74,
+    0
+  ],
+  "uniqueItemRequestsByPeriod": [
+    141,
+    60,
+    0
+  ],
+  "items": [
+    {
+      "kbId": "ac3fb941-7cb6-4f5c-b2b2-2573cae2bbb5",
+      "title": "ABA Journal",
+      "printISSN": "0747-0088",
+      "onlineISSN": "2162-7983",
+      "accessType": "Controlled",
+      "metricType": "Total_Item_Requests",
+      "accessCountTotal": 56,
+      "accessCountsByPeriod": [
+        28,
+        28,
+        0
+      ]
+    },
+    {
+      "kbId": "ac3fb941-7cb6-4f5c-b2b2-2573cae2bbb5",
+      "title": "ABA Journal",
+      "printISSN": "0747-0088",
+      "onlineISSN": "2162-7983",
+      "accessType": "Controlled",
+      "metricType": "Unique_Item_Requests",
+      "accessCountTotal": 46,
+      "accessCountsByPeriod": [
+        21,
+        25,
+        0
+      ]
+    },
+    {
+      "kbId": "0be4c28d-fd75-49c8-9554-453087cd36cc",
+      "title": "American Journal of Agricultural Economics",
+      "printISSN": "0002-9092",
+      "onlineISSN": "1467-8276",
+      "accessType": "Controlled",
+      "metricType": "Total_Item_Requests",
+      "accessCountTotal": 92,
+      "accessCountsByPeriod": [
+        92,
+        0,
+        0
+      ]
+    },
+    {
+      "kbId": "0be4c28d-fd75-49c8-9554-453087cd36cc",
+      "title": "American Journal of Agricultural Economics",
+      "printISSN": "0002-9092",
+      "onlineISSN": "1467-8276",
+      "accessType": "Controlled",
+      "metricType": "Unique_Item_Requests",
+      "accessCountTotal": 70,
+      "accessCountsByPeriod": [
+        70,
+        0,
+        0
+      ]
+    },
+    {
+      "kbId": "72b906ad-7813-4ac8-b872-fa68d133004f",
+      "title": "The Agricultural History Review",
+      "accessType": null,
+      "metricType": null,
+      "accessCountTotal": 0,
+      "accessCountsByPeriod": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "kbId": "7e3b8c1d-74d6-4c1d-95c5-494b8a7198ff",
+      "title": "The Annals of Statistics",
+      "printISSN": "0090-5364",
+      "onlineISSN": "2168-8966",
+      "accessType": "Controlled",
+      "metricType": "Total_Item_Requests",
+      "accessCountTotal": 110,
+      "accessCountsByPeriod": [
+        64,
+        46,
+        0
+      ]
+    },
+    {
+      "kbId": "7e3b8c1d-74d6-4c1d-95c5-494b8a7198ff",
+      "title": "The Annals of Statistics",
+      "printISSN": "0090-5364",
+      "onlineISSN": "2168-8966",
+      "accessType": "Controlled",
+      "metricType": "Unique_Item_Requests",
+      "accessCountTotal": 84,
+      "accessCountsByPeriod": [
+        49,
+        35,
+        0
+      ]
+    },
+    {
+      "kbId": "1109dc00-396f-4f3b-b442-056defe7a2f4",
+      "title": "Théologie et Philosophie",
+      "printISSN": "0259-7152",
+      "onlineISSN": "2297-1238",
+      "accessType": "Controlled",
+      "metricType": "Total_Item_Requests",
+      "accessCountTotal": 1,
+      "accessCountsByPeriod": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "kbId": "1109dc00-396f-4f3b-b442-056defe7a2f4",
+      "title": "Théologie et Philosophie",
+      "printISSN": "0259-7152",
+      "onlineISSN": "2297-1238",
+      "accessType": "Controlled",
+      "metricType": "Unique_Item_Requests",
+      "accessCountTotal": 1,
+      "accessCountsByPeriod": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}
