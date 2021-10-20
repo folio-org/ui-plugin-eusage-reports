@@ -1,6 +1,6 @@
 import React from 'react';
 import fetch from 'node-fetch';
-import { cleanup, render, screen, fireEvent, act } from '@testing-library/react';
+import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import withIntlConfiguration from '../../../test/jest/util/withIntlConfiguration';
 import data from '../../../test/jest/data/reqs-by-date-of-use--input';
 import RequestsByDateOfUse from './RequestsByDateOfUse';
