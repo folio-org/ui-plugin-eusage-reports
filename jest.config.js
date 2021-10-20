@@ -35,4 +35,5 @@ module.exports = {
     '^.+\\.(css)$': 'identity-obj-proxy',
     '^.+\\.(svg)$': 'identity-obj-proxy',
   },
+  slowTestThreshold: 10,
 };
