@@ -84,14 +84,9 @@ describe('Use-over-time report', () => {
     const container = node.container;
 
     expect(container).toBeVisible();
-
-    const tfHeading = screen.queryByText('Tabular form');
-    expect(tfHeading).toBeVisible();
-
-    const textNode = screen.getByText('Unique item requests across period');
-    expect(textNode).toBeVisible();
-    // XXX This doesn't work: I can't figure how to traverse the DOM
-    // expect(textNode.parentNode().nextSibling().toBeVisible();
+    expect(screen.queryByText('Tabular form')).toBeVisible();
+    expect(screen.getByText((_, e) => e.textContent === 'Unique item requests across period: 201')).toBeVisible();
+    expect(screen.getByText((_, e) => e.textContent === 'Total item requests across period: 259')).toBeVisible();
 
     // There is probably a clever way to assert that there are in the same table row
     expect(screen.getByText('Totals - Total item requests')).toBeVisible();
