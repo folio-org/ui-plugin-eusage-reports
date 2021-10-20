@@ -34,7 +34,7 @@ describe('Cost-per-use report', () => {
   afterEach(cleanup);
 
   it('should not render the graph when not loaded', async () => {
-    const node = renderCostPerUse(false, false);
+    const node = renderCostPerUse(false);
     const container = node.container;
 
     expect(container).toBeVisible();
@@ -43,7 +43,7 @@ describe('Cost-per-use report', () => {
   });
 
   it('should render the graph when loaded', async () => {
-    const node = renderCostPerUse(true, false);
+    const node = renderCostPerUse(true);
     const container = node.container;
 
     expect(container).toBeVisible();
