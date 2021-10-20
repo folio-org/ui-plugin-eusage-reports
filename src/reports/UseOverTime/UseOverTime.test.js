@@ -24,7 +24,7 @@ UseOverTimeWrapper.propTypes = { showDevInfo: PropTypes.bool };
 
 
 const renderUseOverTime = (hasLoaded, showDevInfo) => {
-  const url = 'https://thor-okapi.ci.folio.org/eusage-reports/stored-reports/reqs-by-date-of-use?accessCountPeriod=1Y&agreementId=3b6623de-de39-4b43-abbc-998bed892025&endDate=2021-10&includeOA=true&startDate=2019-10&yopInterval=10Y';
+  const url = 'https://thor-okapi.ci.folio.org/eusage-reports/stored-reports/use-over-time?accessCountPeriod=1Y&agreementId=a0416544-6027-4fac-97f7-547d34946db2&endDate=2021-10&format=JOURNAL&includeOA=true&startDate=2019-10';
 
   return render(
     withIntlConfiguration(
