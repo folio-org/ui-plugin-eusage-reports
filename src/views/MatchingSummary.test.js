@@ -91,5 +91,11 @@ describe('Matching Summary page', () => {
     fireEvent.click(screen.getByRole('button'));
     // XXX The callout mock renders nothing on screen for us to wait for
     // await waitFor(() => screen.getByText('Requested update'));
+
+    fireEvent.click(screen.getByRole('button'));
+
+    const link = screen.getByText('Matched').nextElementSibling;
+    fireEvent.click(link);
+    // XXX Is the match-editor actually up now?
   });
 });
