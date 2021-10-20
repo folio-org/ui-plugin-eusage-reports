@@ -72,6 +72,9 @@ describe('Use-over-time report', () => {
     const tfHeading = screen.queryByText('Tabular form');
     expect(tfHeading).toBeNull();
 
+    // I don't know why this function needs to be mocked, but it does
+    window.URL.createObjectURL = () => undefined;
+
     // Just checking we can click the download-CSV button; actual testing for this is elsewhere
     fireEvent.click(screen.getByRole('button'));
   });

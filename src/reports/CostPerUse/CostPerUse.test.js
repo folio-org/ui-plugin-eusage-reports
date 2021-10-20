@@ -10,10 +10,11 @@ window.fetch = fetch;
 
 
 const renderCostPerUse = (hasLoaded) => {
+  const url = 'https://thor-okapi.ci.folio.org/eusage-reports/stored-reports/cost-per-use?accessCountPeriod=1Y&agreementId=a0416544-6027-4fac-97f7-547d34946db2&endDate=2021-10&format=JOURNAL&includeOA=true&startDate=2019-10';
   return render(
     withIntlConfiguration(
       <CostPerUse
-        url="not used in this test"
+        url={url}
         hasLoaded={hasLoaded}
         params={{
           format: 'whatever',
@@ -51,6 +52,9 @@ describe('Cost-per-use report', () => {
     expect(graph).toBeVisible();
     // Beyond here, it's difficult to test rendering, as what we get
     // is a PNG with embedded text. Short of OCRing it, we're stuck.
+
+    // I don't know why this function needs to be mocked, but it does
+    window.URL.createObjectURL = () => undefined;
 
     // Just checking we can click the download-CSV button; actual testing for this is elsewhere
     fireEvent.click(screen.getByRole('button'));
