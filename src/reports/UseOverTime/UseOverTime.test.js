@@ -4,7 +4,7 @@ import fetch from 'node-fetch';
 import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import { useStripes } from '@folio/stripes/core';
 import withIntlConfiguration from '../../../test/jest/util/withIntlConfiguration';
-import data from '../../../test/jest/data/use-over-time-reports';
+import data from '../../../test/jest/data/use-over-time-report';
 import UseOverTime from './UseOverTime';
 
 jest.unmock('react-intl');
