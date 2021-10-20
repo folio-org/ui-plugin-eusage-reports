@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { cleanup, render, screen } from '@testing-library/react';
+import fetch from 'node-fetch';
+import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import { useStripes } from '@folio/stripes/core';
 import withIntlConfiguration from '../../../test/jest/util/withIntlConfiguration';
 import data from '../../../test/jest/data/use-over-time-reports';
 import UseOverTime from './UseOverTime';
 
 jest.unmock('react-intl');
+window.fetch = fetch;
 
 
 function UseOverTimeWrapper(props) {
@@ -69,6 +71,9 @@ describe('Use-over-time report', () => {
 
     const tfHeading = screen.queryByText('Tabular form');
     expect(tfHeading).toBeNull();
+
+    // Just checking we can click the download-CSV button; actual testing for this is elsewhere
+    fireEvent.click(screen.getByRole('button'));
   });
 
   it('should render the devInfo when setting is true', async () => {

@@ -1,10 +1,12 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import fetch from 'node-fetch';
+import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import withIntlConfiguration from '../../../test/jest/util/withIntlConfiguration';
 import data from '../../../test/jest/data/cost-per-use-report';
 import CostPerUse from './CostPerUse';
 
 jest.unmock('react-intl');
+window.fetch = fetch;
 
 
 const renderCostPerUse = (hasLoaded) => {
@@ -49,5 +51,8 @@ describe('Cost-per-use report', () => {
     expect(graph).toBeVisible();
     // Beyond here, it's difficult to test rendering, as what we get
     // is a PNG with embedded text. Short of OCRing it, we're stuck.
+
+    // Just checking we can click the download-CSV button; actual testing for this is elsewhere
+    fireEvent.click(screen.getByRole('button'));
   });
 });
