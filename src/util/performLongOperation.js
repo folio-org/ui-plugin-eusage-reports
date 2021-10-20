@@ -13,7 +13,7 @@ function performLongOperation(okapiKy, callout, operation, path, data, values, w
     />
   });
 
-  p.then(() => {
+  return p.then(() => {
     callout.sendCallout({
       message: <FormattedMessage
         id={`ui-plugin-eusage-reports.button.${operation}.completed`}
