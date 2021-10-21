@@ -10,9 +10,15 @@ import MatchEditorLoader from '../loaders/MatchEditorLoader';
 jest.unmock('react-intl');
 
 jest.mock('../loaders/MatchEditorLoader');
-MatchEditorLoader.mockImplementation((_props) => {
-  // XXX exercise callbacks here
-  return <div>Mocked MatchEditorLoader</div>;
+MatchEditorLoader.mockImplementation((props) => {
+  return (
+    <div>
+      Mocked MatchEditorLoader
+      <button data-test-close-match-editor type="button" onClick={props.onClose}>
+        Close match-editor
+      </button>
+    </div>
+  );
 });
 
 
@@ -127,6 +133,7 @@ describe('Matching Summary page', () => {
   });
 
   it('should link to various tabs of the match editor', () => {
+    const { container } = node;
     expect(savedQueryData.matchType).toBeUndefined();
 
     const paramName2caption = {
@@ -136,12 +143,15 @@ describe('Matching Summary page', () => {
       ignored: 'Ignored',
     };
 
+    // Open each tab in turn
     Object.keys(paramName2caption).forEach(paramName => {
       const caption = paramName2caption[paramName];
       const target = screen.getByText(caption);
       fireEvent.click(target);
       expect(savedQueryData.matchType).toBeDefined();
       expect(savedQueryData.matchType).toBe(paramName);
+      const closeButton = container.querySelector('[data-test-close-match-editor]');
+      fireEvent.click(closeButton);
     });
   });
 });
