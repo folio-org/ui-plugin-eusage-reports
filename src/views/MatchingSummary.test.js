@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
+import { Paneset } from '@folio/stripes/components';
 import withIntlConfiguration from '../../test/jest/util/withIntlConfiguration';
 import MatchingSummary from './MatchingSummary';
+import MatchEditorLoader from '../loaders/MatchEditorLoader';
 
 jest.unmock('react-intl');
+
+jest.mock('../loaders/MatchEditorLoader');
+MatchEditorLoader.mockImplementation((_props) => {
+  // XXX exercise callbacks here
+  return <div>Mocked MatchEditorLoader</div>;
+});
+
 
 // Empirically, this has to be done at the top level, not within the test. No-one knows why
 // See https://folio-project.slack.com/archives/C210UCHQ9/p1632425791183300?thread_ts=1632350696.158900&cid=C210UCHQ9
@@ -19,7 +29,36 @@ useOkapiKy.mockReturnValue({
 });
 
 
-const queryData = { matchType: undefined };
+let savedQueryData = {};
+function MatchingSummaryWrapper(props) {
+  const [queryData, setQueryData] = useState({ matchType: undefined });
+  const mutator = {
+    query: {
+      update: (newData) => {
+        const merged = { ...queryData, ...newData };
+        setQueryData(merged);
+        savedQueryData = merged; // To make visible to tests
+      }
+    }
+  };
+
+  const { data, ...rest } = props;
+  return (
+    <Paneset>
+      <MatchingSummary
+        {...rest}
+        data={{
+          query: queryData,
+          ...data
+        }}
+        mutator={mutator}
+      />
+    </Paneset>
+  );
+}
+MatchingSummaryWrapper.propTypes = { data: PropTypes.object.isRequired };
+
+
 const renderMatchingSummary = () => {
   const callout = {
     sendCallout: (_calloutData) => {
@@ -29,10 +68,9 @@ const renderMatchingSummary = () => {
 
   return render(withIntlConfiguration(
     <CalloutContext.Provider value={callout}>
-      <MatchingSummary
+      <MatchingSummaryWrapper
         hasLoaded
         data={{
-          query: queryData,
           counterReports: [],
           usageDataProvider: {
             harvestingDate: '2021-09-22T20:26:29.995390',
@@ -44,11 +82,6 @@ const renderMatchingSummary = () => {
             { key: 'ignored', count: 1 }
           ],
           reportTitlesCount: 42,
-        }}
-        mutator={{
-          query: {
-            update: (newData) => Object.assign(queryData, newData),
-          },
         }}
         reloadReportTitles={
           () => undefined
@@ -94,7 +127,7 @@ describe('Matching Summary page', () => {
   });
 
   it('should link to various tabs of the match editor', () => {
-    expect(queryData.matchType).toBeUndefined();
+    expect(savedQueryData.matchType).toBeUndefined();
 
     const paramName2caption = {
       loaded: 'Records loaded',
@@ -105,9 +138,10 @@ describe('Matching Summary page', () => {
 
     Object.keys(paramName2caption).forEach(paramName => {
       const caption = paramName2caption[paramName];
-      fireEvent.click(screen.getByText(caption));
-      expect(queryData.matchType).toBeDefined();
-      expect(queryData.matchType).toBe(paramName);
+      const target = screen.getByText(caption);
+      fireEvent.click(target);
+      expect(savedQueryData.matchType).toBeDefined();
+      expect(savedQueryData.matchType).toBe(paramName);
     });
   });
 });
