@@ -19,8 +19,8 @@ useOkapiKy.mockReturnValue({
 });
 
 
+const queryData = { matchType: undefined };
 const renderMatchingSummary = () => {
-  const queryData = { matchType: undefined };
   const callout = {
     sendCallout: (_calloutData) => {
       // console.log('*** sendCallout:', _calloutData.message.props.id);
@@ -91,11 +91,23 @@ describe('Matching Summary page', () => {
     fireEvent.click(screen.getByRole('button'));
     // XXX The callout mock renders nothing on screen for us to wait for
     // await waitFor(() => screen.getByText('Requested update'));
+  });
 
-    fireEvent.click(screen.getByRole('button'));
+  it('should link to various tabs of the match editor', () => {
+    expect(queryData.matchType).toBeUndefined();
 
-    const link = screen.getByText('Matched').nextElementSibling;
-    fireEvent.click(link);
-    // XXX Is the match-editor actually up now?
+    const paramName2caption = {
+      loaded: 'Records loaded',
+      matched: 'Matched',
+      unmatched: 'Unmatched',
+      ignored: 'Ignored',
+    };
+
+    Object.keys(paramName2caption).forEach(paramName => {
+      const caption = paramName2caption[paramName];
+      fireEvent.click(screen.getByText(caption));
+      expect(queryData.matchType).toBeDefined();
+      expect(queryData.matchType).toBe(paramName);
+    });
   });
 });
