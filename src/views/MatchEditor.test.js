@@ -14,19 +14,20 @@ import MatchEditor from './MatchEditor';
 jest.unmock('react-intl');
 
 
-// Depends on the stripes-connect mock provisding Pluggable as a jest.fn, which is does not -- yet
-const mockPluggableIsSupported = false;
-
-if (mockPluggableIsSupported) {
-  Pluggable.mockImplementation(props => {
-    if (props.type !== 'find-eresource') throw new Error(`mocked Pluggable: unsupported type ${props.type}`);
-    props.onEresourceSelected({
-      id: '29168',
-      name: 'LotR special edition',
-    });
-    return <>Mocked pluggable: {props.children}</>;
+Pluggable.mockImplementation(props => {
+  if (props.type !== 'find-eresource') throw new Error(`mocked Pluggable: unsupported type ${props.type}`);
+  props.onEresourceSelected({
+    id: '29168',
+    name: 'Lost Tales special edition',
   });
-}
+  props.onClose();
+  return (
+    <>
+      <h3>{props.modalLabel}</h3>
+      {props.renderTrigger()}
+    </>
+  );
+});
 
 
 function okapiKy(path, options) {
@@ -107,6 +108,8 @@ const renderMatchEditor = () => {
         expect(translated).toBe('Title <i>Silmarillion</i> will no longer be ignored');
       } else if (msgId === 'ui-plugin-eusage-reports.action.not-ignored') {
         expect(translated).toBe('It was not possible to ignore this title: Error: bad ID');
+      } else if (msgId === 'ui-plugin-eusage-reports.action.edited') {
+        expect(translated).toBe('Title <i>The Book of Lost Tales</i> now manually matched');
       } else {
         // eslint-disable-next-line no-console
         console.error('sendCallout with unexpected msgId', msgId);
@@ -250,13 +253,14 @@ describe('Match Editor page', () => {
 
   it('should change the match of a record', async () => {
     const rows = container.querySelectorAll('[data-test-match-editor] .mclRowContainer > [role=row]');
-    const row = rows[1];
+    const row = rows[2];
     const actionButton = row.querySelector('button');
 
-    expect(reportTitles[1].kbTitleName).toBe('The Lord of the Rings');
-    expect(reportTitles[1].kbTitleId).toBeDefined();
+    // This record is initially unmatched
+    expect(reportTitles[2].kbTitleName).toBeUndefined();
+    expect(reportTitles[2].kbTitleId).toBeUndefined();
 
-    // Edit the match for the first title
+    // Edit the match for the second title
     userEvent.click(actionButton);
     const editButton = getByText(row, 'Edit');
     expect(editButton).toBeVisible();
@@ -267,9 +271,7 @@ describe('Match Editor page', () => {
       await userEvent.click(editButton);
     });
 
-    if (mockPluggableIsSupported) {
-      expect(reportTitles[1].kbTitleName).toBe('LotR special edition');
-      expect(reportTitles[1].kbTitleId).toBe('29168');
-    }
+    expect(reportTitles[2].kbTitleName).toBe('Lost Tales special edition');
+    expect(reportTitles[2].kbTitleId).toBe('29168');
   });
 });
