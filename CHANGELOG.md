@@ -1,6 +1,6 @@
 # Change history for ui-plugin-eusage-reports
 
-## [2.2.2](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.2) (IN PROGRESS)
+## [2.2.2](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.2) (2021-10-22)
 
 * Create new permission governing use of the match-editor, with all necessary subpermissions. Fixes UIPER-87.
 

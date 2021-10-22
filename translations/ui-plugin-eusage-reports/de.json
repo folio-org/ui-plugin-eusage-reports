@@ -31,7 +31,7 @@
     "action.not-ignored": "Folgender Titel konnte nicht ignoriert werden: {error}",
     "action.not-unignored": "Folgender Titel konnte nicht von der Ignorierliste entfernt werden: {error}",
     "action.no-agreement-plugin": "Kein eManagement-Plugin",
-    "select-eresource": "E-resource für den Titel <i>{title}</i> auswählen",
+    "select-eresource": "E-Resource für den Titel <i>{title}</i> auswählen",
     "report-form.report": "Bericht",
     "report-form.report.cost-per-use": "Cost per use",
     "report-form.format": "Format",
