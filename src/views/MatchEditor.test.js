@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
+import ReactDOMServer from 'react-dom/server';
 import { cleanup, render, screen, act, getByText } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useOkapiKy, CalloutContext, Pluggable } from '@folio/stripes/core';
@@ -86,8 +87,13 @@ const renderMatchEditor = () => {
   const categories = generateTitleCategories(reportTitles);
   const history = createBrowserHistory();
   const callout = {
-    sendCallout: (_calloutData) => {
-      // console.log('*** sendCallout:', _calloutData.message.props.id);
+    sendCallout: (calloutData) => {
+      const translated = ReactDOMServer.renderToString(withIntlConfiguration(<>{calloutData.message}</>));
+      if (calloutData.message.props.id === 'ui-plugin-eusage-reports.action.ignored') {
+        expect(translated).toBe('Title <i>Silmarillion</i> will now be ignored');
+      } else if (calloutData.message.props.id === 'ui-plugin-eusage-reports.action.unignored') {
+        expect(translated).toBe('Title <i>Silmarillion</i> will no longer be ignored');
+      }
     }
   };
 
