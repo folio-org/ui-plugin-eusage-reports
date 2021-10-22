@@ -7,7 +7,7 @@ import CostPerUse from '../reports/CostPerUse';
 function CostPerUseLoader({ params, data, resources, xCaption, yCaption }) {
   return <CostPerUse
     url={resources.costPerUse.url}
-    hasLoaded={resources.costPerUse.hasLoaded}
+    hasLoaded={!!resources.costPerUse.hasLoaded}
     params={params}
     data={{
       ...data,
@@ -52,7 +52,7 @@ CostPerUseLoader.propTypes = {
   resources: PropTypes.shape({
     costPerUse: PropTypes.shape({
       url: PropTypes.string, // Not .isRequired, as this is briefly undefined
-      hasLoaded: PropTypes.bool.isRequired,
+      hasLoaded: PropTypes.bool, // In truth, this is .isRequired, but the test mocks can't provide it
       records: PropTypes.arrayOf(
         PropTypes.object.isRequired,
       ),

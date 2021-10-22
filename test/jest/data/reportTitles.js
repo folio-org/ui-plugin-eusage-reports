@@ -10,6 +10,7 @@ export default [
 
   // manually matched
   {
+    id: 'bad', // Test knows to reject ignore requests on this ID
     counterReportTitle: 'Lord of the Rings',
     kbTitleId: '456',
     kbTitleName: 'The Lord of the Rings',

@@ -1,0 +1,83 @@
+{
+  "amountEncumberedTotal": 1500,
+  "amountPaidTotal": 1500,
+  "accessCountPeriods": [
+    "2019",
+    "2020",
+    "2021"
+  ],
+  "costByPeriod": [
+    0,
+    500,
+    0
+  ],
+  "totalItemRequestsByPeriod": [
+    0,
+    28,
+    0
+  ],
+  "uniqueItemRequestsByPeriod": [
+    0,
+    25,
+    0
+  ],
+  "totalItemCostsPerRequestsByPeriod": [
+    null,
+    17.86,
+    null
+  ],
+  "uniqueItemCostsPerRequestsByPeriod": [
+    null,
+    20,
+    null
+  ],
+  "titleCountByPeriod": [
+    2,
+    1,
+    0
+  ],
+  "items": [
+    {
+      "kbId": "ac3fb941-7cb6-4f5c-b2b2-2573cae2bbb5",
+      "title": "ABA Journal",
+      "derivedTitle": false,
+      "printISSN": "0747-0088",
+      "onlineISSN": "2162-7983",
+      "orderType": "Ongoing",
+      "poLineIDs": [
+        "10001-1"
+      ],
+      "invoiceNumbers": [
+        "1"
+      ],
+      "amountPaid": 1000,
+      "amountEncumbered": 1000,
+      "totalItemRequests": 28,
+      "uniqueItemRequests": 25,
+      "fiscalDateStart": "2020-07-01",
+      "fiscalDateEnd": "2021-06-30",
+      "costPerTotalRequest": 35.71,
+      "costPerUniqueRequest": 40
+    },
+    {
+      "kbId": "0be4c28d-fd75-49c8-9554-453087cd36cc",
+      "title": "American Journal of Agricultural Economics",
+      "derivedTitle": false,
+      "printISSN": "0002-9092",
+      "onlineISSN": "1467-8276",
+      "orderType": "Ongoing",
+      "poLineIDs": [
+        "10002-1"
+      ],
+      "invoiceNumbers": [
+        "2"
+      ],
+      "amountPaid": 500,
+      "amountEncumbered": 500,
+      "totalItemRequests": 0,
+      "uniqueItemRequests": 0,
+      "fiscalDateStart": "2020-07-01",
+      "fiscalDateEnd": "2021-06-30"
+    }
+  ]
+}

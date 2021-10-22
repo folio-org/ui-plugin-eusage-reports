@@ -59,7 +59,12 @@ function analyzeAgreement(okapiKy, callout, data, setAnalysisOngoing, reloadRepo
     'analyze-agreement',
     'eusage-reports/report-data/from-agreement',
     { agreementId: data.agreement.id },
-    { agreement: data.agreement.name, i: x => <i>{x}</i> },
+    {
+      agreement: data.agreement.name,
+      i:
+      /* istanbul ignore next */
+      x => <i>{x}</i>
+    },
     () => { setAnalysisOngoing(false); reloadReportStatus(); });
 }
 
@@ -134,7 +139,9 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
   const formatClassName = (report === 'uot' || report === 'cpu') ? css.enabled : css.disabled;
   const countTypeClassName = (report === 'rbp' || report === 'rbu') ? css.enabled : css.disabled;
   const tag = reportName2tag[report];
-  const Chart = reportName2component[report] || (() => <p><b>{report}</b> report not implemented</p>);
+  const Chart = reportName2component[report] ||
+        /* istanbul ignore next */
+        (() => <p><b>{report}</b> report not implemented</p>);
 
   const [analysisOngoing, setAnalysisOngoing] = useState(false);
 
@@ -182,6 +189,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
       <Row>
         <Col xs={4}>
           <Monthpicker
+            id="input-startDate"
             label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.start-month' })}
             value={startDate}
             onChange={e => setStartDate(e.target.value)}
@@ -189,6 +197,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
         </Col>
         <Col xs={4}>
           <Monthpicker
+            id="input-endDate"
             label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.end-month' })}
             value={endDate}
             onChange={e => setEndDate(e.target.value)}

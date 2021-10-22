@@ -59,7 +59,10 @@ function mutateAndReport(callout, okapiKy, rec, tag, triggerReRender, reportTitl
       callout.sendCallout({
         message: <FormattedMessage
           id={`ui-plugin-eusage-reports.action.${tag}`}
-          values={{ title: rec.counterReportTitle, i: x => <i>{x}</i> }}
+          values={{
+            title: rec.counterReportTitle,
+            i: x => <i>{x}</i>
+          }}
         />
       });
     }).catch(err => {
@@ -174,7 +177,10 @@ function MatchEditor({ matchType, onClose, data, source, onNeedMoreData, mutator
               modalLabel={
                 <FormattedMessage
                   id="ui-plugin-eusage-reports.select-eresource"
-                  values={{ title: recordToEdit.counterReportTitle, i: x => <i>{x}</i> }}
+                  values={{
+                    title: recordToEdit.counterReportTitle,
+                    i: x => <i>{x}</i>
+                  }}
                 />
               }
             >
@@ -211,10 +217,8 @@ function MatchEditor({ matchType, onClose, data, source, onNeedMoreData, mutator
                     virtualize
                     visibleColumns={['counterReportTitle', 'kbTitleName', 'isbn', 'issn', 'eissn', 'doi', 'status', 'action']}
                     columnMapping={{
-                      id: <FormattedMessage id="ui-plugin-eusage-reports.column.id" />,
                       counterReportTitle: <FormattedMessage id="ui-plugin-eusage-reports.column.counterReportTitle" />,
                       kbTitleName: <FormattedMessage id="ui-plugin-eusage-reports.column.kbTitleName" />,
-                      kbTitleId: <FormattedMessage id="ui-plugin-eusage-reports.column.kbTitleId" />,
                       isbn: <FormattedMessage id="ui-plugin-eusage-reports.column.isbn" />,
                       issn: <FormattedMessage id="ui-plugin-eusage-reports.column.issn" />,
                       eissn: <FormattedMessage id="ui-plugin-eusage-reports.column.eissn" />,
@@ -223,10 +227,8 @@ function MatchEditor({ matchType, onClose, data, source, onNeedMoreData, mutator
                       action: <FormattedMessage id="ui-plugin-eusage-reports.column.action" />,
                     }}
                     columnWidths={{
-                      id: '90px',
                       counterReportTitle: '300px',
                       kbTitleName: '300px',
-                      kbTitleId: '90px',
                       isbn: '150px',
                       issn: '100px',
                       eissn: '100px',
@@ -236,8 +238,6 @@ function MatchEditor({ matchType, onClose, data, source, onNeedMoreData, mutator
                     }}
                     formatter={{
                       kbTitleName: r => maybeLinkTitle(r),
-                      id: r => r.id.substring(0, 8),
-                      kbTitleId: r => (r.kbTitleId || '').substring(0, 8),
                       isbn: r => r.ISBN,
                       issn: r => r.printISSN,
                       eissn: r => r.onlineISSN,

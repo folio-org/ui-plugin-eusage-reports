@@ -5,6 +5,8 @@ test('chooses color by seeded method', () => {
   expect(chooseColor(1, 1)).toBe('red');
   expect(chooseColor(2, 1)).toBe('yellow');
   expect(chooseColor(3, 1)).toBe('green');
+  expect(chooseColor(4, 1)).toBe('#ff4');
+  expect(chooseColor(5, 1)).toBe('#3f1');
 });
 
 test('chooses color by rotating method', () => {
@@ -21,4 +23,3 @@ test('chooses color by default method', () => {
   // There is really not much point in asserting more about the output
   // of an opaque third-party library.
 });
-
