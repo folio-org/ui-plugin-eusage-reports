@@ -36,7 +36,13 @@ function okapiKy(path, options) {
   const titles = options.json?.titles;
   if (!titles) throw new Error('mocked okapiKy: no titles in POSTed JSON');
 
+  let ok = true;
   titles.forEach(newRec => {
+    if (newRec.id === 'bad') {
+      ok = false;
+      return;
+    }
+
     const rec = reportTitles.find(x => x.id === newRec.id);
     // console.log('found record', rec);
     Object.assign(rec, newRec);
@@ -50,9 +56,13 @@ function okapiKy(path, options) {
     } // else ...
   });
 
-  return new Promise((resolve, _reject) => {
-    // console.log('*** mocked okapiKy resolving promise');
-    resolve({ status: 'ok' });
+  return new Promise((resolve, reject) => {
+    // console.log('*** mocked okapiKy resolving promise, ok =', ok);
+    if (ok) {
+      resolve({ status: 'ok' });
+    } else {
+      reject(new Error('bad ID'));
+    }
   });
 }
 
@@ -88,11 +98,18 @@ const renderMatchEditor = () => {
   const history = createBrowserHistory();
   const callout = {
     sendCallout: (calloutData) => {
-      const translated = ReactDOMServer.renderToString(withIntlConfiguration(<>{calloutData.message}</>));
-      if (calloutData.message.props.id === 'ui-plugin-eusage-reports.action.ignored') {
-        expect(translated).toBe('Title <i>Silmarillion</i> will now be ignored');
-      } else if (calloutData.message.props.id === 'ui-plugin-eusage-reports.action.unignored') {
+      // console.log('*** calloutData =', calloutData);
+      const translated = ReactDOMServer.renderToString(withIntlConfiguration(calloutData.message));
+      const msgId = calloutData.message.props.id;
+      if (msgId === 'ui-plugin-eusage-reports.action.ignored') {
+        expect(translated).toMatch(/^Title <i>(Silmarillion|Lord of the Rings)<.i> will now be ignored$/);
+      } else if (msgId === 'ui-plugin-eusage-reports.action.unignored') {
         expect(translated).toBe('Title <i>Silmarillion</i> will no longer be ignored');
+      } else if (msgId === 'ui-plugin-eusage-reports.action.not-ignored') {
+        expect(translated).toBe('It was not possible to ignore this title: Error: bad ID');
+      } else {
+        // eslint-disable-next-line no-console
+        console.error('sendCallout with unexpected msgId', msgId);
       }
     }
   };
@@ -216,6 +233,19 @@ describe('Match Editor page', () => {
       await userEvent.click(unIgnoreButton);
     });
     expect(reportTitles[0].kbManualMatch).toBe(false);
+  });
+
+  it('should fail to ignore a record with bad ID', async () => {
+    const rows = container.querySelectorAll('[data-test-match-editor] .mclRowContainer > [role=row]');
+    const row = rows[1];
+    const actionButton = row.querySelector('button');
+
+    // Try to ignore the second title, which okapiKy is rigged to fail
+    userEvent.click(actionButton);
+    const ignoreButton = getByText(row, 'Ignore');
+    await act(async () => {
+      await userEvent.click(ignoreButton);
+    });
   });
 
   it('should change the match of a record', async () => {
