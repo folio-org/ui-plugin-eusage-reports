@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
 import ReactDOMServer from 'react-dom/server';
@@ -15,12 +15,15 @@ jest.unmock('react-intl');
 
 
 Pluggable.mockImplementation(props => {
-  if (props.type !== 'find-eresource') throw new Error(`mocked Pluggable: unsupported type ${props.type}`);
-  props.onEresourceSelected({
-    id: '29168',
-    name: 'Lost Tales special edition',
+  useEffect(() => {
+    if (props.type !== 'find-eresource') throw new Error(`mocked Pluggable: unsupported type ${props.type}`);
+    props.onEresourceSelected({
+      id: '29168',
+      name: 'Lost Tales special edition',
+    });
+    props.onClose();
   });
-  props.onClose();
+
   return (
     <>
       <h3>{props.modalLabel}</h3>
