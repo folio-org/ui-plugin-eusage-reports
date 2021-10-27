@@ -33,6 +33,7 @@ RequestsByPublicationYearLoader.manifest = {
         includeOA: props.params.includeOA,
         accessCountPeriod: props.params.accessCountPeriod,
         periodOfUse: props.params.periodOfUse,
+        full: false,
       };
     },
   },

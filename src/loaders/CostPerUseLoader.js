@@ -33,6 +33,7 @@ CostPerUseLoader.manifest = {
         format: props.params.format,
         includeOA: props.params.includeOA,
         accessCountPeriod: props.params.accessCountPeriod,
+        full: false,
       };
     },
   },

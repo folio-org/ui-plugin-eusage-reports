@@ -4,7 +4,8 @@ function downloadCSV(url, stripes, params, mocks) {
   const effectiveWindow = mocks ? mocks.window : window;
 
   const partialPath = url.replace(/.*\/(.*?)\?.*/, '$1');
-  return fetch(`${url}&csv=true`, {
+  const cleanedURL = url.replace('&full=false', '');
+  return fetch(`${cleanedURL}&csv=true`, {
     headers: {
       'X-Okapi-Tenant': stripes.okapi.tenant,
       'X-Okapi-Token': stripes.okapi.token,

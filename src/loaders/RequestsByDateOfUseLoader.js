@@ -33,6 +33,7 @@ RequestsByDateOfUseLoader.manifest = {
         includeOA: props.params.includeOA,
         accessCountPeriod: props.params.accessCountPeriod,
         yopInterval: props.params.yopInterval,
+        full: false,
       };
     },
   },
