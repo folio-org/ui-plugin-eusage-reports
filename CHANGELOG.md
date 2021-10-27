@@ -3,6 +3,7 @@
 ## [2.2.3](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.3) (IN PROGRESS)
 
 * Many, many more tests. Fixes UIPER-28.
+* Dependency on `eusage-reports` Okapi interface is no longer optional. Fixes UIPER-64.
 
 ## [2.2.2](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.2) (2021-10-22)
 

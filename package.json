@@ -19,7 +19,7 @@
     "handlerName": "eventHandler",
     "pluginType": "ui-agreements-extension",
     "displayName": "ui-plugin-eusage-reports.meta.title",
-    "optionalOkapiInterfaces": {
+    "okapiInterfaces": {
       "eusage-reports": "1.0"
     },
     "permissionSets": [
