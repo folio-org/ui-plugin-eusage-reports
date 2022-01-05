@@ -26,7 +26,7 @@
     "action.unignore": "Ne pas ignorer",
     "action.edited": "Title <i>{title}</i> now manually matched",
     "action.not-edited": "It was not possible to manually match this title: {error}",
-    "action.ignored": "Le titre {title} sera désormais ignoré",
+    "action.ignored": "Le titre <i>{title}</i> sera désormais ignoré",
     "action.unignored": "Le titre <i>{title}</i> ne sera plus ignoré",
     "action.not-ignored": "It was not possible to ignore this title: {error}",
     "action.not-unignored": "It was not possible to stop ignoring this title: {error}",
