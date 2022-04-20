@@ -87,7 +87,7 @@
     "report-form.count-type.unique": "Unique accesses",
     "costPerUse.metric.Total_Item_Requests": "Cost per request - total",
     "costPerUse.metric.Unique_Item_Requests": "Cost per request - unique",
-    "costPerUse.titleCount": "Počet titulů",
+    "costPerUse.titleCount": "Tituly s využitím",
     "button.download-csv": "Stáhnout CSV",
     "report-form.access-count-period": "Group access count by",
     "report-form.yop-interval": "Group publication year by",

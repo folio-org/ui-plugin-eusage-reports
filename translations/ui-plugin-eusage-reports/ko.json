@@ -38,7 +38,7 @@
     "report-form.format.journals": "Journals",
     "report-form.format.books": "Books",
     "report-form.format.databases": "Databases",
-    "report-form.include-oa": "Include Open Access use?",
+    "report-form.include-oa": "오픈 액세스 사용을 포함합니까?",
     "report-form.include-oa.yes": "Yes",
     "report-form.include-oa.no": "No",
     "report-form.start-month": "Start month",
