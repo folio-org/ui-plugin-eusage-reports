@@ -68,7 +68,7 @@
     "useOverTime.totalUniqueItemRequests": "Jedinečné žádanky položky napříč obdobím",
     "useOverTime.totalItemRequests": "Součty - všechny žádanky položky",
     "useOverTime.uniqueItemRequests": "Součty – Jedinečné žádanky položky",
-    "useOverTime.column.title": "Title",
+    "useOverTime.column.title": "Název",
     "useOverTime.column.accessType": "Access type",
     "useOverTime.column.metricType": "Metric type",
     "useOverTime.access.Controlled": "Controlled",
