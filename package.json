@@ -60,6 +60,7 @@
     "qlint": "eslint -f unix  --rule '{\"no-console\":\"off\"}' .",
     "test": "jest",
     "coverage": "jest --coverage",
+    "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
     "start": "stripes serve --port 3005"
   },
   "devDependencies": {
