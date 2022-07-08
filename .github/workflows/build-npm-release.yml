@@ -23,7 +23,7 @@ jobs:
     env:
       YARN_TEST_OPTIONS: '--coverage'
       SQ_ROOT_DIR: './src'
-      COMPILE_TRANSLATION_FILES: 'true'
+      COMPILE_TRANSLATION_FILES: 'false'
       PUBLISH_MOD_DESCRIPTOR: 'true'
       FOLIO_NPM_REGISTRY: 'https://repository.folio.org/repository/npm-folio/'
       FOLIO_NPM_REGISTRY_AUTH: '//repository.folio.org/repository/npm-folio/'
