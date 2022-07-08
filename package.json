@@ -60,6 +60,8 @@
     "qlint": "eslint -f unix  --rule '{\"no-console\":\"off\"}' .",
     "test": "jest",
     "coverage": "jest --coverage",
+    "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
+    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-bulk-edit ./translations/ui-bulk-edit/compiled"
     "start": "stripes serve --port 3005"
   },
   "devDependencies": {
