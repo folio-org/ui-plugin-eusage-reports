@@ -61,7 +61,7 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
-    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-plugin-eusage-reports ./translations/ui-plugin-eusage-reports/compiled",
+    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-plugin-eusage-reports,
     "start": "stripes serve --port 3005"
   },
   "devDependencies": {
