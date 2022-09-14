@@ -24,7 +24,7 @@
     "action.edit": "Edit",
     "action.ignore": "Ignore",
     "action.unignore": "Stop ignoring",
-    "action.edited": "Title {title} now manually matched",
+    "action.edited": "Title <i>{title}</i> now manually matched",
     "action.not-edited": "It was not possible to manually match this title: {error}",
     "action.ignored": "Title <i>{title}</i> will now be ignored",
     "action.unignored": "Title <i>{title}</i> will no longer be ignored",
