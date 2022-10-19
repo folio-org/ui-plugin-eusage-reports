@@ -42,7 +42,7 @@ const PluginEusageReports = ({ data }) => {
       </IfPermission>
     );
   } else {
-    return (
+    return data?.data?.agreement?.usageDataProviders?.length ? (
       <IfPermission perm="plugin-eusage-reports.view-charts">
         <Accordion
           id="plugin-eusage-reports-charts"
@@ -52,7 +52,7 @@ const PluginEusageReports = ({ data }) => {
           <EusageVisualizationLoader data={data?.data} />
         </Accordion>
       </IfPermission>
-    );
+    ) : null;
   }
 };
 
