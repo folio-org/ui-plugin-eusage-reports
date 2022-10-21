@@ -35,7 +35,7 @@ const PluginEusageReports = ({ data }) => {
         <Accordion
           id="plugin-eusage-reports-titles"
           label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.label" />}
-          closedByDefault={false}
+          closedByDefault
         >
           <MatchingSummary data={data?.data} />
         </Accordion>
