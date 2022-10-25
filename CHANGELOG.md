@@ -1,5 +1,13 @@
 # Change history for ui-plugin-eusage-reports
 
+## [2.3.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.3.0) (2022-10-25)
+
+* Replace `babel-eslint` with `@babel/eslint-parser`. Fixes [UIPER-93](https://issues.folio.org/browse/UIPER-93).
+* Move `prop-types` from peer-dependency to regular dependency. Fixes [UIPER-98](https://issues.folio.org/browse/UIPER-98).
+* "eUsage reports" accordion is not displayed, if no Usage data provider is linked. Fixes [UIPER-99](https://issues.folio.org/browse/UIPER-99).
+* "Matching summary" accordion is closed by default. Fixes [UIPER-100](https://issues.folio.org/browse/UIPER-100).
+* Test no longer relies on external api endpoint. Fixes [UIPER-101](https://issues.folio.org/browse/UIPER-101).
+
 ## [2.2.3](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.3) (2021-10-27)
 
 * Many, many more tests. Fixes UIPER-28.
