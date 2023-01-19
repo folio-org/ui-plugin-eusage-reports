@@ -1,5 +1,8 @@
 # Change history for ui-plugin-eusage-reports
 
+## 2.4.0 (IN PROGRESS)
+* Add support for Stripes v8. Fixes [UIPER-105](https://issues.folio.org/browse/UIPER-105).
+
 ## [2.3.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.3.0) (2022-10-25)
 
 * Replace `babel-eslint` with `@babel/eslint-parser`. Fixes [UIPER-93](https://issues.folio.org/browse/UIPER-93).
