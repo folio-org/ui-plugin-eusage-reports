@@ -1,6 +1,7 @@
 # Change history for ui-plugin-eusage-reports
 
 ## 2.4.0 (IN PROGRESS)
+* Add support for `@folio/stripes-acq-components` v4 and make it a `devDependency`. Fixes [UIPER-107](https://issues.folio.org/browse/UIPER-107).
 * Add support for Stripes v8. Fixes [UIPER-105](https://issues.folio.org/browse/UIPER-105).
 
 ## [2.3.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.3.0) (2022-10-25)
