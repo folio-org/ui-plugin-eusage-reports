@@ -1,6 +1,6 @@
 # Change history for ui-plugin-eusage-reports
 
-## [2.4.1](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.4.1) (IN PROGRESS)
+## [2.4.1](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.4.1) (2023-03-06)
 
 * `plugin-find-eresource` version 5.x is accepted. Fixes UIPER-108.
 
