@@ -2,6 +2,7 @@ import fetch from 'node-fetch';
 import downloadCSV from './downloadCSV';
 
 window.fetch = fetch;
+jest.unmock('./downloadCSV');
 
 const mockAnchorElement = {
   click: () => undefined,
