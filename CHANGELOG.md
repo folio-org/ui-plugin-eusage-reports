@@ -1,5 +1,11 @@
 # Change history for ui-plugin-eusage-reports
 
+## [2.4.2](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.4.2) (2023-07-14)
+
+* Update query parameters used to fetch erm titles. Fixes [UIPER-113](https://issues.folio.org/browse/UIPER-113).
+* Update link from matched resources to agreements. Fixes [UIPER-111](https://issues.folio.org/browse/UIPER-111).
+* Mock `downloadCSV` function in tests. Fixes [UIPER-109](https://issues.folio.org/browse/UIPER-109).
+
 ## [2.4.1](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.4.1) (2023-03-06)
 
 * `plugin-find-eresource` version 5.x is accepted. Fixes UIPER-108.

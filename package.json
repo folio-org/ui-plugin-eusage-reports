@@ -1,6 +1,6 @@
 {
   "name": "@folio/plugin-eusage-reports",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Stripes plugin module to View eUsage reports",
   "repository": "folio-org/ui-plugin-eusage-reports",
   "publishConfig": {
@@ -67,8 +67,8 @@
     "@babel/core": "^7.19.3",
     "@babel/eslint-parser": "^7.19.1",
     "@folio/eslint-config-stripes": "^6.1.0",
-    "@folio/stripes": "^7.0.0 || ^8.0.0",
-    "@folio/stripes-acq-components": "^3.0.0 || ~4.0.0",
+    "@folio/stripes": "^8.0.0",
+    "@folio/stripes-acq-components": "~4.0.0",
     "@folio/stripes-cli": "^2.4.0",
     "@folio/stripes-components": "^11.0.0",
     "@folio/stripes-core": "^9.0.0",
