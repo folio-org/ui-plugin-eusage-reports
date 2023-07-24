@@ -1,5 +1,3 @@
-import getLegacyTokenHeader from '../util/getLegacyTokenHeader';
-
 // Note: mocks should ONLY be passed in testing
 function downloadCSV(url, stripes, params, mocks) {
   const effectiveDocument = mocks ? mocks.document : document;
@@ -10,7 +8,7 @@ function downloadCSV(url, stripes, params, mocks) {
   return fetch(`${cleanedURL}&csv=true`, {
     headers: {
       'X-Okapi-Tenant': stripes.okapi.tenant,
-      ...getLegacyTokenHeader(stripes.okapi),
+      ...(stripes.okapi.token ? { 'X-Okapi-Token': stripes.okapi.token } : {}),
     },
     credentials: 'include',
   }).then(response => response.blob())
