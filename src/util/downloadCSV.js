@@ -8,8 +8,9 @@ function downloadCSV(url, stripes, params, mocks) {
   return fetch(`${cleanedURL}&csv=true`, {
     headers: {
       'X-Okapi-Tenant': stripes.okapi.tenant,
-      'X-Okapi-Token': stripes.okapi.token,
-    }
+      ...(stripes.okapi.token ? { 'X-Okapi-Token': stripes.okapi.token } : {}),
+    },
+    credentials: 'include',
   }).then(response => response.blob())
     .then(blob => {
       const a = effectiveDocument.createElement('a');
