@@ -1,5 +1,10 @@
 # Change history for ui-plugin-eusage-reports
 
+## (3.0.0) IN PROGRESS
+* Upgrade React to v18. Fixes [UIPER-115](https://issues.folio.org/browse/UIPER-115).
+* Update Node.js to v18 in GitHub Actions. Fixes [UIPER-116](https://issues.folio.org/browse/UIPER-116).
+* Leverage cookie-based authentication in all API requests. Fixes [UIPER-104](https://issues.folio.org/browse/UIPER-104).
+
 ## [2.4.2](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.4.2) (2023-07-14)
 
 * Update query parameters used to fetch erm titles. Fixes [UIPER-113](https://issues.folio.org/browse/UIPER-113).
