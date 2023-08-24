@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
 import ReactDOMServer from 'react-dom/server';
-import { cleanup, render, screen, act, getByText } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { cleanup, render, screen, getByText } from '@folio/jest-config-stripes/testing-library/react';
+import userEvent from '@folio/jest-config-stripes/testing-library/user-event';
 import { useOkapiKy, CalloutContext, Pluggable } from '@folio/stripes/core';
 import { mockOffsetSize } from '@folio/stripes-acq-components/test/jest/helpers/mockOffsetSize';
 import generateTitleCategories from '../util/generateTitleCategories';
@@ -80,10 +80,7 @@ okapiKy.delete = (path, options) => okapiKy(path, { method: 'DELETE', ...options
 // Empirically, this has to be done at the top level, not within the test. No-one knows why
 // See https://folio-project.slack.com/archives/C210UCHQ9/p1632425791183300?thread_ts=1632350696.158900&cid=C210UCHQ9
 useOkapiKy.mockReturnValue(okapiKy);
-
-
-const queryData = { matchType: 'loaded' };
-
+const queryMutatorMock = jest.fn();
 
 // By exhaustive and painful experiment, I have determined that when
 // rendered by RTL, the actual content of a <MultiColumnList> is not
@@ -97,7 +94,7 @@ const queryData = { matchType: 'loaded' };
 // https://folio-project.slack.com/archives/C210UCHQ9/p1634060517309500?thread_ts=1634057810.308200&cid=C210UCHQ9
 //
 //
-const renderMatchEditor = () => {
+const renderMatchEditor = (matchType) => {
   const categories = generateTitleCategories(reportTitles);
   const history = createBrowserHistory();
   const callout = {
@@ -125,18 +122,18 @@ const renderMatchEditor = () => {
     <CalloutContext.Provider value={callout}>
       <Router history={history}>
         <MatchEditor
-          matchType={queryData.matchType}
+          matchType={matchType}
           onClose={() => {}}
           data={{
             usageDataProvider: {
               label: 'JSTOR',
             },
             categories: categories.map(({ key, data }) => ({ key, count: data.length })),
-            reportTitles,
+            reportTitles: [...reportTitles],
           }}
           mutator={{
             query: {
-              update: (newData) => Object.assign(queryData, newData),
+              update: queryMutatorMock,
             },
           }}
           hasLoaded
@@ -148,12 +145,12 @@ const renderMatchEditor = () => {
 };
 
 
-describe('Match Editor page', () => {
+describe('Match Editor page matchType=\'loaded\'', () => {
   let node;
   let container;
 
   beforeEach(() => {
-    node = renderMatchEditor();
+    node = renderMatchEditor('loaded');
     container = node.container;
   });
 
@@ -169,6 +166,9 @@ describe('Match Editor page', () => {
     expect(screen.getByText('Matched (2)')).toBeVisible();
     expect(screen.getByText('Unmatched (1)')).toBeVisible();
     expect(screen.getByText('Ignored (1)')).toBeVisible();
+
+    expect(screen.getByRole('button', { name: /Records loaded/ })).toHaveClass('primary');
+    expect(screen.getByRole('button', { name: /Matched/ })).toHaveClass('default');
   });
 
   it('should contain actual content', async () => {
@@ -177,37 +177,12 @@ describe('Match Editor page', () => {
     expect(container.querySelectorAll('[data-test-match-editor] .mclRowContainer > [role=row]').length).toEqual(4);
   });
 
-  function expectButtonToHaveClass(pattern, shouldBeIncluded, singleClass) {
-    const matchedButton = screen.getByRole('button', { name: pattern });
-    const classNames = matchedButton.className.split(' ');
+  it('switching tabs should call query mutator', async () => {
+    await userEvent.click(screen.getByRole('button', { name: /Matched/ }));
+    expect(queryMutatorMock).toHaveBeenCalledWith({ matchType: 'matched' });
 
-    if (shouldBeIncluded) {
-      expect(classNames).toContain(singleClass);
-    } else {
-      expect(classNames).not.toContain(singleClass);
-    }
-  }
-
-  it('should switch between tabs', () => {
-    expectButtonToHaveClass(/Records loaded/, true, 'primary');
-    expectButtonToHaveClass(/Records loaded/, false, 'default');
-    expectButtonToHaveClass(/Matched/, true, 'default');
-    expectButtonToHaveClass(/Matched/, false, 'primary');
-
-    act(() => {
-      userEvent.click(screen.getByRole('button', { name: /Matched/ }));
-    });
-
-    // I don't know why we need a timeout, but we do. Wrapping in
-    // act() doesn't suffice for the re-rendering updates to complete
-    // before the next assertions happen.
-    // See https://folio-project.slack.com/archives/C210UCHQ9/p1634201292315200
-    setTimeout(() => {
-      expectButtonToHaveClass(/Records loaded/, false, 'primary');
-      expectButtonToHaveClass(/Records loaded/, true, 'default');
-      expectButtonToHaveClass(/Matched/, false, 'default');
-      expectButtonToHaveClass(/Matched/, true, 'primary');
-    }, 0);
+    await userEvent.click(screen.getByRole('button', { name: /Ignored/ }));
+    expect(queryMutatorMock).toHaveBeenCalledWith({ matchType: 'ignored' });
   });
 
   it('should change a matched record to ignored', async () => {
@@ -222,22 +197,18 @@ describe('Match Editor page', () => {
     expect(reportTitles[0].kbTitleId).toBeDefined();
 
     // Ignore the first title
-    userEvent.click(actionButton);
+    await userEvent.click(actionButton);
     const ignoreButton = getByText(row, 'Ignore');
     expect(ignoreButton).toBeVisible();
-    await act(async () => {
-      await userEvent.click(ignoreButton);
-    });
+    await userEvent.click(ignoreButton);
     expect(reportTitles[0].kbManualMatch).toBe(true);
     expect(reportTitles[0].kbTitleId).toBeUndefined();
 
     // Unignore the first title
-    userEvent.click(actionButton);
+    await userEvent.click(actionButton);
     const unIgnoreButton = getByText(row, 'Stop ignoring');
     expect(unIgnoreButton).toBeVisible();
-    await act(async () => {
-      await userEvent.click(unIgnoreButton);
-    });
+    await userEvent.click(unIgnoreButton);
     expect(reportTitles[0].kbManualMatch).toBe(false);
   });
 
@@ -247,11 +218,9 @@ describe('Match Editor page', () => {
     const actionButton = row.querySelector('button');
 
     // Try to ignore the second title, which okapiKy is rigged to fail
-    userEvent.click(actionButton);
+    await userEvent.click(actionButton);
     const ignoreButton = getByText(row, 'Ignore');
-    await act(async () => {
-      await userEvent.click(ignoreButton);
-    });
+    await userEvent.click(ignoreButton);
   });
 
   it('should change the match of a record', async () => {
@@ -264,17 +233,39 @@ describe('Match Editor page', () => {
     expect(reportTitles[2].kbTitleId).toBeUndefined();
 
     // Edit the match for the second title
-    userEvent.click(actionButton);
+    await userEvent.click(actionButton);
     const editButton = getByText(row, 'Edit');
     expect(editButton).toBeVisible();
-    await act(async () => {
-      // I have no idea why this generates a "Cannot update a
-      // component while rendering a different component" error, but
-      // it doesn't seem to prevent things from working.
-      await userEvent.click(editButton);
-    });
+    await userEvent.click(editButton);
 
     expect(reportTitles[2].kbTitleName).toBe('Lost Tales special edition');
     expect(reportTitles[2].kbTitleId).toBe('29168');
+  });
+});
+
+describe('Match Editor page matchType=\'matched\'', () => {
+  let node;
+  let container;
+
+  beforeEach(() => {
+    node = renderMatchEditor('matched');
+    container = node.container;
+  });
+
+  afterEach(cleanup);
+
+  it('should be rendered', async () => {
+    const content = container.querySelector('[data-test-match-editor]');
+    expect(container).toBeVisible();
+    expect(content).toBeVisible();
+
+    // Counts of records in various categories
+    expect(screen.getByText('Records loaded (4)')).toBeVisible();
+    expect(screen.getByText('Matched (2)')).toBeVisible();
+    expect(screen.getByText('Unmatched (1)')).toBeVisible();
+    expect(screen.getByText('Ignored (1)')).toBeVisible();
+
+    expect(screen.getByRole('button', { name: /Records loaded/ })).toHaveClass('default');
+    expect(screen.getByRole('button', { name: /Matched/ })).toHaveClass('primary');
   });
 });

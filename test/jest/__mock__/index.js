@@ -3,9 +3,9 @@
 // But we need our own local stripes-core mock, so instead we have to
 // laboriously include each of the stripes-acq-components mocks individually.
 
-import '@folio/stripes-acq-components/test/jest/__mock__';
+// import '@folio/stripes-acq-components/test/jest/__mock__';
 import '@folio/stripes-acq-components/test/jest/__mock__/currencyData.mock';
-import '@folio/stripes-acq-components/test/jest/__mock__/documentCreateRange.mock';
+// import '@folio/stripes-acq-components/test/jest/__mock__/documentCreateRange.mock';
 import '@folio/stripes-acq-components/test/jest/__mock__/localStorage.mock';
 import '@folio/stripes-acq-components/test/jest/__mock__/matchMedia.mock';
 import '@folio/stripes-acq-components/test/jest/__mock__/reactIntl.mock';

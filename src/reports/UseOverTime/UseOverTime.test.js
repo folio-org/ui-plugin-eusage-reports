@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import fetch from 'node-fetch';
-import { cleanup, render, screen, fireEvent } from '@testing-library/react';
+import { cleanup, render, screen, fireEvent } from '@folio/jest-config-stripes/testing-library/react';
 import { useStripes } from '@folio/stripes/core';
 import withIntlConfiguration from '../../../test/jest/util/withIntlConfiguration';
 import data from '../../../test/jest/data/use-over-time-report';
