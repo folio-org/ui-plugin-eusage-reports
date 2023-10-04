@@ -5,7 +5,7 @@ import { IfPermission } from '@folio/stripes/core';
 import { Accordion } from '@folio/stripes/components';
 import MatchingSummary from './loaders/MatchingSummaryLoader';
 import EusageVisualizationLoader from './loaders/EusageVisualizationLoader';
-
+import 'chart.js/auto';
 
 // Thank Michal Kuklis for the seeds of this abomination :-)
 //
