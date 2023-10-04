@@ -114,25 +114,19 @@ function renderUseOverTimeChart(intl, uot, xCaption, yCaption) {
 
   const options = {
     scales: {
-      xAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: xCaption,
-          },
+      x: {
+        title: {
+          display: true,
+          text: xCaption,
         },
-      ],
-      yAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: yCaption,
-          },
-          ticks: {
-            beginAtZero: true,
-          },
+      },
+      y: {
+        title: {
+          display: true,
+          text: yCaption,
         },
-      ],
+        beginAtZero: true,
+      },
     },
     animation: false,
     maintainAspectRatio: false,

@@ -1,4 +1,5 @@
 import './__mock__';
+import './setupCharts';
 import { TextDecoder, TextEncoder } from 'util';
 
 global.TextEncoder = TextEncoder;
