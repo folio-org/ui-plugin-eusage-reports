@@ -1,6 +1,8 @@
 # Change history for ui-plugin-eusage-reports
 
-## (3.0.0) IN PROGRESS
+## (3.1.0) IN PROGRESS
+
+## [3.0.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v3.0.0) (2023-10-12)
 * Bump `react-chartjs-2` to v5 [UIPER-118](https://issues.folio.org/browse/UIPER-118).
 * Upgrade React to v18. Fixes [UIPER-115](https://issues.folio.org/browse/UIPER-115).
 * Update Node.js to v18 in GitHub Actions. Fixes [UIPER-116](https://issues.folio.org/browse/UIPER-116).
