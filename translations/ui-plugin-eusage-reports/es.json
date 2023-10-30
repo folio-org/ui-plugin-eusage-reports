@@ -88,7 +88,7 @@
     "costPerUse.metric.Total_Item_Requests": "Cost per request - total",
     "costPerUse.metric.Unique_Item_Requests": "Cost per request - unique",
     "costPerUse.titleCount": "Titles with usage",
-    "button.download-csv": "Download CSV",
+    "button.download-csv": "Descargar CSV",
     "report-form.access-count-period": "Group access count by",
     "report-form.yop-interval": "Group publication year by",
     "report-form.period-of-use": "Group period of use by",
