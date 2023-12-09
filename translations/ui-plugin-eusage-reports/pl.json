@@ -68,7 +68,7 @@
     "useOverTime.totalUniqueItemRequests": "Unique item requests across period",
     "useOverTime.totalItemRequests": "Totals - Total item requests",
     "useOverTime.uniqueItemRequests": "Totals - Unique item requests",
-    "useOverTime.column.title": "Title",
+    "useOverTime.column.title": "Tytuł",
     "useOverTime.column.accessType": "Access type",
     "useOverTime.column.metricType": "Metric type",
     "useOverTime.access.Controlled": "Controlled",
