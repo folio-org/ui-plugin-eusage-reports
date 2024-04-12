@@ -1,6 +1,6 @@
 {
-    "meta.title": "Výstupy statistik (plugin)",
-    "accordion.label": "Výstupy statistik",
+    "meta.title": "Výstupy eStatistik (plugin)",
+    "accordion.label": "Výstupy eStatistik",
     "costPerUse.cpr-total": "Cena za žádanku - celkem",
     "costPerUse.cpr-unique": "Cena za žádanku – jedinečná",
     "SENTINEL": "Prázdné",
@@ -14,7 +14,7 @@
     "matching-summary.status.reviewed": "Zkontrolováno",
     "matching-summary.status.pending": "Čeká na kontrolu",
     "matching-summary.loaded": "Načtené záznamy",
-    "matching-summary.matcher-heading": "názvy statistik — {label}",
+    "matching-summary.matcher-heading": "názvy eStatistik — {label}",
     "column.id": "ID",
     "column.counterReportTitle": "Název",
     "column.kbTitleName": "Název v KB",
