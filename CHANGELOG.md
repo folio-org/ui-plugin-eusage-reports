@@ -1,6 +1,7 @@
 # Change history for ui-plugin-eusage-reports
 
 ## (3.2.0) IN PROGRESS
+* Update plugin-find-eresource dependency [UIPER-122](https://folio-org.atlassian.net/browse/UIPER-122)
 
 ## [3.1.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v3.1.0) (2024-03-20)
 * Translation updates

@@ -88,7 +88,7 @@
     "react-chartjs-2": "^5.2.0"
   },
   "optionalDependencies": {
-    "@folio/plugin-find-eresource": "^6.0.0"
+    "@folio/plugin-find-eresource": "^7.0.0"
   },
   "peerDependencies": {
     "@folio/stripes": "^9.0.0",
