@@ -14,7 +14,7 @@
     "matching-summary.status.reviewed": "Revisado",
     "matching-summary.status.pending": "Revisão pendente",
     "matching-summary.loaded": "Registros carregados",
-    "matching-summary.matcher-heading": "Títulos de eUsage - {label}",
+    "matching-summary.matcher-heading": "Títulos de eUso - {label}",
     "column.id": "ID",
     "column.counterReportTitle": "Título",
     "column.kbTitleName": "Título no Base de Conhecimento",
