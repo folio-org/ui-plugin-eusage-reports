@@ -1,6 +1,6 @@
 {
-    "meta.title": "Relatórios de eUso (plugin)",
-    "accordion.label": "Relatórios do eUso",
+    "meta.title": "Relatórios de Uso eletrônico (plugin)",
+    "accordion.label": "Relatórios do Uso eletrônico",
     "costPerUse.cpr-total": "Custo por requisição - total",
     "costPerUse.cpr-unique": "Custo por requisição - único",
     "SENTINEL": "",
@@ -14,7 +14,7 @@
     "matching-summary.status.reviewed": "Revisado",
     "matching-summary.status.pending": "Revisão pendente",
     "matching-summary.loaded": "Registros carregados",
-    "matching-summary.matcher-heading": "Títulos de eUso - {label}",
+    "matching-summary.matcher-heading": "Títulos de Uso eletrônico - {label}",
     "column.id": "ID",
     "column.counterReportTitle": "Título",
     "column.kbTitleName": "Título no Base de Conhecimento",
