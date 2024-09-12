@@ -5,14 +5,13 @@ import ReactDOMServer from 'react-dom/server';
 import { cleanup, render, screen, getByText } from '@folio/jest-config-stripes/testing-library/react';
 import userEvent from '@folio/jest-config-stripes/testing-library/user-event';
 import { useOkapiKy, CalloutContext, Pluggable } from '@folio/stripes/core';
-import { mockOffsetSize } from '@folio/stripes-acq-components/test/jest/helpers/mockOffsetSize';
+
 import generateTitleCategories from '../util/generateTitleCategories';
 import reportTitles from '../../test/jest/data/reportTitles';
 import withIntlConfiguration from '../../test/jest/util/withIntlConfiguration';
 import MatchEditor from './MatchEditor';
 
 jest.unmock('react-intl');
-
 
 Pluggable.mockImplementation(props => {
   useEffect(() => {
@@ -117,7 +116,9 @@ const renderMatchEditor = (matchType) => {
     }
   };
 
-  mockOffsetSize(500, 500); // See above
+  // mockOffsetSize(500, 500); // See above
+  // use 'react-virtualized-auto-sizer' instead of mockOffsetSize
+  jest.mock('react-virtualized-auto-sizer', () => ({ children }) => children({ width: 500, height: 500 }));
   return render(withIntlConfiguration(
     <CalloutContext.Provider value={callout}>
       <Router history={history}>

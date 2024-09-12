@@ -2,6 +2,7 @@
 
 ## (3.2.0) IN PROGRESS
 * Update plugin-find-eresource dependency [UIPER-122](https://folio-org.atlassian.net/browse/UIPER-122)
+* Remove dependency to stripes-acq-components, use mocks local ([UIPER-123](https://folio-org.atlassian.net/browse/UIPER-123))
 
 ## [3.1.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v3.1.0) (2024-03-20)
 * Translation updates
