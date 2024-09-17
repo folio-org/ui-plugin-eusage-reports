@@ -55,8 +55,7 @@
   "scripts": {
     "lint": "eslint -f unix .",
     "qlint": "eslint -f unix  --rule '{\"no-console\":\"off\"}' .",
-    "test": "jest",
-    "coverage": "jest --coverage",
+    "test": "jest --coverage",
     "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
     "start": "stripes serve --port 3005",
     "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-plugin-eusage-reports ./translations/ui-plugin-eusage-reports/compiled"
