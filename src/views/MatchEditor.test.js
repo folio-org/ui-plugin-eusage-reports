@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
 import ReactDOMServer from 'react-dom/server';
-import { cleanup, render, screen, getByText } from '@folio/jest-config-stripes/testing-library/react';
+import { cleanup, render, screen, within } from '@folio/jest-config-stripes/testing-library/react';
 import userEvent from '@folio/jest-config-stripes/testing-library/user-event';
 import { useOkapiKy, CalloutContext, Pluggable } from '@folio/stripes/core';
 
@@ -199,7 +199,9 @@ describe('Match Editor page matchType=\'loaded\'', () => {
 
     // Ignore the first title
     await userEvent.click(actionButton);
-    const ignoreButton = getByText(row, 'Ignore');
+    const dropdownMenu = screen.getByRole('menu');
+    expect(dropdownMenu).toBeVisible();
+    const ignoreButton = within(dropdownMenu).getByText('Ignore');
     expect(ignoreButton).toBeVisible();
     await userEvent.click(ignoreButton);
     expect(reportTitles[0].kbManualMatch).toBe(true);
@@ -207,7 +209,9 @@ describe('Match Editor page matchType=\'loaded\'', () => {
 
     // Unignore the first title
     await userEvent.click(actionButton);
-    const unIgnoreButton = getByText(row, 'Stop ignoring');
+    const dropdownMenu2 = screen.getByRole('menu');
+    expect(dropdownMenu2).toBeVisible();
+    const unIgnoreButton = within(dropdownMenu2).getByText('Stop ignoring');
     expect(unIgnoreButton).toBeVisible();
     await userEvent.click(unIgnoreButton);
     expect(reportTitles[0].kbManualMatch).toBe(false);
@@ -220,7 +224,9 @@ describe('Match Editor page matchType=\'loaded\'', () => {
 
     // Try to ignore the second title, which okapiKy is rigged to fail
     await userEvent.click(actionButton);
-    const ignoreButton = getByText(row, 'Ignore');
+    const dropdownMenu = screen.getByRole('menu');
+    expect(dropdownMenu).toBeVisible();
+    const ignoreButton = within(dropdownMenu).getByText('Ignore');
     await userEvent.click(ignoreButton);
   });
 
@@ -235,7 +241,9 @@ describe('Match Editor page matchType=\'loaded\'', () => {
 
     // Edit the match for the second title
     await userEvent.click(actionButton);
-    const editButton = getByText(row, 'Edit');
+    const dropdownMenu = screen.getByRole('menu');
+    expect(dropdownMenu).toBeVisible();
+    const editButton = within(dropdownMenu).getByText('Edit');
     expect(editButton).toBeVisible();
     await userEvent.click(editButton);
 
