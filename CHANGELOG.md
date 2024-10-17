@@ -1,10 +1,10 @@
 # Change history for ui-plugin-eusage-reports
 
-## (3.2.0) IN PROGRESS
-* Update plugin-find-eresource dependency [UIPER-122](https://folio-org.atlassian.net/browse/UIPER-122)
-* Remove dependency to stripes-acq-components, use mocks local ([UIPER-123](https://folio-org.atlassian.net/browse/UIPER-123))
-* Fix tests ([UIPER-125](https://folio-org.atlassian.net/browse/UIPER-125))
-* Fix GitHub Actions workflow not running for tags ([FOLIO-4086](https://folio-org.atlassian.net/browse/FOLIO-4086))
+## [3.2.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v3.2.0) (2024-10-17)
+* Update plugin-find-eresource dependency. Fixes [UIPER-122](https://folio-org.atlassian.net/browse/UIPER-122).
+* Remove dependency to stripes-acq-components, use mocks local. Fixes [UIPER-123](https://folio-org.atlassian.net/browse/UIPER-123).
+* Fix tests that had been broken by changes in stripes-components. Fixes [UIPER-125](https://folio-org.atlassian.net/browse/UIPER-125).
+* Fix GitHub Actions workflow not running for tags. Fixes [FOLIO-4086](https://folio-org.atlassian.net/browse/FOLIO-4086).
 
 ## [3.1.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v3.1.0) (2024-03-20)
 * Translation updates
