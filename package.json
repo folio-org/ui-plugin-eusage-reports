@@ -1,6 +1,6 @@
 {
   "name": "@folio/plugin-eusage-reports",
-  "version": "3.2.0",
+  "version": "4.0.0",
   "description": "Stripes plugin module to View eUsage reports",
   "repository": "folio-org/ui-plugin-eusage-reports",
   "publishConfig": {
@@ -58,7 +58,7 @@
     "test": "jest --coverage",
     "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
     "start": "stripes serve --port 3005",
-    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-plugin-eusage-reports ./translations/ui-plugin-eusage-reports/compiled"
+    "formatjs-compile": "stripes translate compile"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
@@ -75,7 +75,7 @@
     "node-fetch": "^2.6.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-intl": "^6.4.4",
+    "react-intl": "^7.1.5",
     "react-router-dom": "^5.2.0"
   },
   "dependencies": {
@@ -92,7 +92,7 @@
     "@folio/stripes": "^9.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-intl": "^6.4.4",
+    "react-intl": "^7.1.5",
     "react-router-dom": "^5.2.0"
   }
 }
