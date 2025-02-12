@@ -1,5 +1,8 @@
 # Change history for ui-plugin-eusage-reports
 
+## 4.0.0 (IN PROGRESS)
+* Migrate react-intl to v7 ([UIPER-138](https://folio-org.atlassian.net/browse/UIPER-138))
+
 ## [3.2.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v3.2.0) (2024-10-17)
 * Update plugin-find-eresource dependency. Fixes [UIPER-122](https://folio-org.atlassian.net/browse/UIPER-122).
 * Remove dependency to stripes-acq-components, use mocks local. Fixes [UIPER-123](https://folio-org.atlassian.net/browse/UIPER-123).
