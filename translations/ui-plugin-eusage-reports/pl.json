@@ -1,5 +1,5 @@
 {
-    "meta.title": "eUsage reports (plugin)",
+    "meta.title": "Raporty e-Użycie (wtyczka)",
     "accordion.label": "Raporty e-Użycia",
     "costPerUse.cpr-total": "Cost per request - total",
     "costPerUse.cpr-unique": "Cost per request — unique",
