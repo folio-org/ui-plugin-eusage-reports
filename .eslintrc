@@ -1,7 +1,9 @@
 {
   "parser": "@babel/eslint-parser",
   "extends": "@folio/eslint-config-stripes",
-
+  "rules": {
+    "react/forbid-prop-types": ["warn", { "forbid": ["any", "array"] }]
+  },
   "overrides": [
     {
       "files": ["**/*.test.js", "test/jest/**/*"],
