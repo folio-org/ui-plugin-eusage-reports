@@ -1,5 +1,8 @@
 # Change history for ui-plugin-eusage-reports
 
+## [4.0.1](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.0.1) (IN PROGRESS)
+* Update `@folio/plugin-find-eresource` dependency to ^8.0.0. Fixes UIPER-142.
+
 ## [4.0.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.0.0) (2025-03-13)
 * Migrate react-intl to v7 ([UIPER-138](https://folio-org.atlassian.net/browse/UIPER-138))
 * Migrate stripes dependencies to their Sunflower versions ([UIPER-137](https://folio-org.atlassian.net/browse/UIPER-137))

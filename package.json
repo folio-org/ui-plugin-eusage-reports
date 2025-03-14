@@ -1,6 +1,6 @@
 {
   "name": "@folio/plugin-eusage-reports",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Stripes plugin module to View eUsage reports",
   "repository": "folio-org/ui-plugin-eusage-reports",
   "publishConfig": {
@@ -86,7 +86,7 @@
     "react-chartjs-2": "^5.2.0"
   },
   "optionalDependencies": {
-    "@folio/plugin-find-eresource": "^7.0.0"
+    "@folio/plugin-find-eresource": "^8.0.0"
   },
   "peerDependencies": {
     "@folio/stripes": "^10.0.0",
