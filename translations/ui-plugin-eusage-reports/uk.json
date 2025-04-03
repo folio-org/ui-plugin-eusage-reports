@@ -12,7 +12,7 @@
     "matching-summary.unmatched": "Unmatched",
     "matching-summary.ignored": "Ignored",
     "matching-summary.status.reviewed": "Reviewed",
-    "matching-summary.status.pending": "Pending review",
+    "matching-summary.status.pending": "Перегляд \"В очікуванні\"",
     "matching-summary.loaded": "Records loaded",
     "matching-summary.matcher-heading": "eUsage titles — {label}",
     "column.id": "ID",
