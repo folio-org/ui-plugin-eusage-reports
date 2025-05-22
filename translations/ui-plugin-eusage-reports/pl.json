@@ -105,7 +105,7 @@
     "report-form.report.requests-by-date-of-use.x-axis": "Period of use",
     "report-form.report.requests-by-date-of-use.y-axis": "Access count",
     "report-form.report.requests-by-date-of-use.left-picker": "Skala: wybierz interwał dla okresu użycia",
-    "report-form.report.requests-by-date-of-use.right-picker": "Stacks: Group publication year by",
+    "report-form.report.requests-by-date-of-use.right-picker": "Półki: grupuj rok wydania według",
     "report-form.report.requests-by-publication-year.x-axis": "Publication year",
     "report-form.report.requests-by-publication-year.y-axis": "Access count",
     "report-form.report.requests-by-publication-year.left-picker": "Scale: Select interval for publication year",
