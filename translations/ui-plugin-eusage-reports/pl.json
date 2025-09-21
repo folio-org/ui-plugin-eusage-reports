@@ -11,7 +11,7 @@
     "matching-summary.matched": "Matched",
     "matching-summary.unmatched": "Unmatched",
     "matching-summary.ignored": "Ignored",
-    "matching-summary.status.reviewed": "Reviewed",
+    "matching-summary.status.reviewed": "Przejrzana",
     "matching-summary.status.pending": "Pending review",
     "matching-summary.loaded": "Rekordy załadowane",
     "matching-summary.matcher-heading": "eUsage titles — {label}",
