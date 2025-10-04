@@ -17,7 +17,7 @@
     "matching-summary.matcher-heading": "电子使用标题 - {label}",
     "column.id": "ID",
     "column.counterReportTitle": "题名",
-    "column.kbTitleName": "KB标题",
+    "column.kbTitleName": "知识库中的标题",
     "column.kbTitleId": "KB 中的 ID",
     "column.kbManualMatch": "人工匹配？",
     "column.action": "操作",
