@@ -3,7 +3,7 @@
     "accordion.label": "Relatórios do Uso eletrônico",
     "costPerUse.cpr-total": "Custo por requisição - total",
     "costPerUse.cpr-unique": "Custo por requisição - único",
-    "SENTINEL": "",
+    "SENTINEL": "Vazio",
     "costPerUse.select-agreement-line": "Selecione a linha de contrato",
     "matching-summary.label": "Resumo de coincidências",
     "matching-summary.date-of-last-harvest": "Data da último harvest",
