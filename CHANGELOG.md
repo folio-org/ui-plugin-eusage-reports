@@ -1,5 +1,8 @@
 # Change history for ui-plugin-eusage-reports
 
+## [4.0.2](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.0.2) (2026-04-15)
+* Update Polish, Ukrainian, Chinese and Taiwanese translations.
+
 ## [4.0.1](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.0.1) (2025-03-14)
 * Update `@folio/plugin-find-eresource` dependency to ^8.0.0. Fixes UIPER-142.
 
