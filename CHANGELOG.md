@@ -1,5 +1,9 @@
 # Change history for ui-plugin-eusage-reports
 
+## [4.1.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.1.0) (2026-04-22)
+* Update Japanese translations.
+* Update `@folio/plugin-find-eresource` dependency to ^8.1.0.
+
 ## [4.0.2](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.0.2) (2026-04-15)
 * Update Polish, Ukrainian, Chinese and Taiwanese translations.
 
