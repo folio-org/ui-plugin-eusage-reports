@@ -96,7 +96,7 @@ function renderUseOverTimeTable(uot) {
 
 
 // Chart.js plugin that draws each bar's value just above the top of the bar.
-const barValueLabels = {
+export const barValueLabels = {
   id: 'barValueLabels',
   afterDatasetsDraw(chart) {
     const { ctx } = chart;
