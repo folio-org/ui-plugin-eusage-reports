@@ -5,7 +5,7 @@ import { cleanup, render, screen, fireEvent } from '@folio/jest-config-stripes/t
 import { useStripes } from '@folio/stripes/core';
 import withIntlConfiguration from '../../../test/jest/util/withIntlConfiguration';
 import data from '../../../test/jest/data/use-over-time-report';
-import UseOverTime, { barValueLabels } from './UseOverTime';
+import UseOverTime, { barValueLabels, seriesForMetricType } from './UseOverTime';
 
 jest.unmock('react-intl');
 window.fetch = fetch;
@@ -92,6 +92,42 @@ describe('Use-over-time report', () => {
     expect(screen.getByText('Totals - Total item requests')).toBeVisible();
     expect(screen.getByText('185')).toBeVisible();
     expect(screen.getByText('74')).toBeVisible();
+  });
+});
+
+
+describe('seriesForMetricType', () => {
+  it('uses the pre-computed top-level totals for the two request metric types', () => {
+    expect(seriesForMetricType(data, 'Total_Item_Requests')).toEqual(data.totalItemRequestsByPeriod);
+    expect(seriesForMetricType(data, 'Unique_Item_Requests')).toEqual(data.uniqueItemRequestsByPeriod);
+  });
+
+  it('returns null for a metric type not present in the report', () => {
+    expect(seriesForMetricType(data, 'Searches_Regular')).toBeNull();
+  });
+
+  it('aggregates by-period counts across all items sharing a metric type', () => {
+    const uot = {
+      accessCountPeriods: ['2019', '2020', '2021'],
+      items: [
+        { metricType: 'Total_Item_Investigations', accessCountsByPeriod: [1, 2, 3] },
+        { metricType: 'Unique_Item_Requests', accessCountsByPeriod: [99, 99, 99] },
+        { metricType: 'Total_Item_Investigations', accessCountsByPeriod: [10, 20, 30] },
+      ],
+    };
+
+    expect(seriesForMetricType(uot, 'Total_Item_Investigations')).toEqual([11, 22, 33]);
+  });
+
+  it('treats missing per-period entries as zero', () => {
+    const uot = {
+      accessCountPeriods: ['2019', '2020', '2021'],
+      items: [
+        { metricType: 'Searches_Regular', accessCountsByPeriod: [5] },
+      ],
+    };
+
+    expect(seriesForMetricType(uot, 'Searches_Regular')).toEqual([5, 0, 0]);
   });
 });
 
