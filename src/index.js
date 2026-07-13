@@ -5,7 +5,7 @@ import { IfPermission } from '@folio/stripes/core';
 import { Accordion } from '@folio/stripes/components';
 import MatchingSummary from './loaders/MatchingSummaryLoader';
 import EusageVisualizationLoader from './loaders/EusageVisualizationLoader';
-
+import 'chart.js/auto';
 
 // Thank Michal Kuklis for the seeds of this abomination :-)
 //
@@ -35,14 +35,14 @@ const PluginEusageReports = ({ data }) => {
         <Accordion
           id="plugin-eusage-reports-titles"
           label={<FormattedMessage id="ui-plugin-eusage-reports.matching-summary.label" />}
-          closedByDefault={false}
+          closedByDefault
         >
           <MatchingSummary data={data?.data} />
         </Accordion>
       </IfPermission>
     );
   } else {
-    return (
+    return data?.data?.agreement?.usageDataProviders?.length ? (
       <IfPermission perm="plugin-eusage-reports.view-charts">
         <Accordion
           id="plugin-eusage-reports-charts"
@@ -52,7 +52,7 @@ const PluginEusageReports = ({ data }) => {
           <EusageVisualizationLoader data={data?.data} />
         </Accordion>
       </IfPermission>
-    );
+    ) : null;
   }
 };
 

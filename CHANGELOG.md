@@ -1,5 +1,62 @@
 # Change history for ui-plugin-eusage-reports
 
+## [4.2.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.2.0) (IN PROGRESS)
+* [UIPER-143](https://folio-org.atlassian.net/browse/UIPER-143) Visualization of Use over time: display the number above the bar
+* [UIPER-144](https://folio-org.atlassian.net/browse/UIPER-144)  Visualization of Use over time: support different count types
+
+## [4.1.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.1.0) (2026-04-22)
+* Update Japanese translations.
+* Update `@folio/plugin-find-eresource` dependency to ^8.1.0.
+
+## [4.0.2](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.0.2) (2026-04-15)
+* Update Polish, Ukrainian, Chinese and Taiwanese translations.
+
+## [4.0.1](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.0.1) (2025-03-14)
+* Update `@folio/plugin-find-eresource` dependency to ^8.0.0. Fixes UIPER-142.
+
+## [4.0.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.0.0) (2025-03-13)
+* Migrate react-intl to v7 ([UIPER-138](https://folio-org.atlassian.net/browse/UIPER-138))
+* Migrate stripes dependencies to their Sunflower versions ([UIPER-137](https://folio-org.atlassian.net/browse/UIPER-137))
+
+## [3.2.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v3.2.0) (2024-10-17)
+* Update plugin-find-eresource dependency. Fixes [UIPER-122](https://folio-org.atlassian.net/browse/UIPER-122).
+* Remove dependency to stripes-acq-components, use mocks local. Fixes [UIPER-123](https://folio-org.atlassian.net/browse/UIPER-123).
+* Fix tests that had been broken by changes in stripes-components. Fixes [UIPER-125](https://folio-org.atlassian.net/browse/UIPER-125).
+* Fix GitHub Actions workflow not running for tags. Fixes [FOLIO-4086](https://folio-org.atlassian.net/browse/FOLIO-4086).
+
+## [3.1.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v3.1.0) (2024-03-20)
+* Translation updates
+
+## [3.0.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v3.0.0) (2023-10-12)
+* Bump `react-chartjs-2` to v5 [UIPER-118](https://issues.folio.org/browse/UIPER-118).
+* Upgrade React to v18. Fixes [UIPER-115](https://issues.folio.org/browse/UIPER-115).
+* Update Node.js to v18 in GitHub Actions. Fixes [UIPER-116](https://issues.folio.org/browse/UIPER-116).
+* Leverage cookie-based authentication in all API requests. Fixes [UIPER-104](https://issues.folio.org/browse/UIPER-104).
+* *BREAKING* bump `react-intl` to `v6.4.4`. Refs [UIPER-117](https://issues.folio.org/browse/UIPER-117).
+
+## [2.4.2](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.4.2) (2023-07-14)
+
+* Update query parameters used to fetch erm titles. Fixes [UIPER-113](https://issues.folio.org/browse/UIPER-113).
+* Update link from matched resources to agreements. Fixes [UIPER-111](https://issues.folio.org/browse/UIPER-111).
+* Mock `downloadCSV` function in tests. Fixes [UIPER-109](https://issues.folio.org/browse/UIPER-109).
+
+## [2.4.1](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.4.1) (2023-03-06)
+
+* `plugin-find-eresource` version 5.x is accepted. Fixes UIPER-108.
+
+## [2.4.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.4.0) (2023-02-20)
+
+* Add support for `@folio/stripes-acq-components` v4 and make it a `devDependency`. Fixes [UIPER-107](https://issues.folio.org/browse/UIPER-107).
+* Add support for Stripes v8. Fixes [UIPER-105](https://issues.folio.org/browse/UIPER-105).
+
+## [2.3.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.3.0) (2022-10-25)
+
+* Replace `babel-eslint` with `@babel/eslint-parser`. Fixes [UIPER-93](https://issues.folio.org/browse/UIPER-93).
+* Move `prop-types` from peer-dependency to regular dependency. Fixes [UIPER-98](https://issues.folio.org/browse/UIPER-98).
+* "eUsage reports" accordion is not displayed, if no Usage data provider is linked. Fixes [UIPER-99](https://issues.folio.org/browse/UIPER-99).
+* "Matching summary" accordion is closed by default. Fixes [UIPER-100](https://issues.folio.org/browse/UIPER-100).
+* Test no longer relies on external api endpoint. Fixes [UIPER-101](https://issues.folio.org/browse/UIPER-101).
+
 ## [2.2.3](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v2.2.3) (2021-10-27)
 
 * Many, many more tests. Fixes UIPER-28.

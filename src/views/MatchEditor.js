@@ -24,7 +24,7 @@ function maybeLinkTitle(rec) {
 
   if (!kbId) return rec.kbTitleName;
   return (
-    <Link to={`/erm/eresources/${kbId}`}>
+    <Link to={`/erm/titles/${kbId}`}>
       {rec.kbTitleName}
     </Link>
   );

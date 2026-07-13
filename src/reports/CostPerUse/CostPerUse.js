@@ -44,36 +44,26 @@ function CostPerUse({ url, params, hasLoaded, data, xCaption, yCaption }) {
 
   const options = {
     scales: {
-      xAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: xCaption,
-          },
+      x: {
+        title: {
+          display: true,
+          text: xCaption,
         },
-      ],
-      yAxes: [
-        {
-          id: 'costPerUse',
-          scaleLabel: {
-            display: true,
-            labelString: yCaption,
-          },
-          ticks: {
-            beginAtZero: true,
-          },
+      },
+      costPerUse: {
+        title: {
+          display: true,
+          text: yCaption,
         },
-        {
-          id: 'titleCount',
-          position: 'right',
-          ticks: {
-            beginAtZero: true,
-          },
-          gridLines: {
-            display: false,
-          },
+        beginAtZero: true,
+      },
+      titleCount: {
+        position: 'right',
+        beginAtZero: true,
+        grid: {
+          display: false,
         },
-      ],
+      },
     },
     animation: false,
     maintainAspectRatio: false,

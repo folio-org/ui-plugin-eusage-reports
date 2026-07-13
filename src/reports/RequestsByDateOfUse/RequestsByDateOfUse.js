@@ -11,34 +11,25 @@ import downloadCSV from '../../util/downloadCSV';
 function renderRequestsByDateOfUseChart(intl, data, xCaption, yCaption) {
   const options = {
     scales: {
-      xAxes: [
+      x:
         {
-          scaleLabel: {
+          title: {
             display: true,
-            labelString: xCaption,
+            text: xCaption,
           },
+          stacked: true
         },
-      ],
-      yAxes: [
+      y:
         {
-          scaleLabel: {
+          title: {
             display: true,
-            labelString: yCaption,
+            text: yCaption,
           },
-          ticks: {
-            beginAtZero: true,
-          },
+          beginAtZero: true,
+          stacked: true,
         },
-      ],
-      x: {
-        stacked: true,
-      },
-      y: {
-        stacked: true
-      },
     },
     animation: false,
-    stacked: true,
     maintainAspectRatio: false,
   };
 

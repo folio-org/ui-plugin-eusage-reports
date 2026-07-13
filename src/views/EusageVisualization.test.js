@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render, screen, act, fireEvent } from '@testing-library/react';
+import { cleanup, render, screen, act, fireEvent } from '@folio/jest-config-stripes/testing-library/react';
 import { useOkapiKy, CalloutContext } from '@folio/stripes/core';
 import withIntlConfiguration from '../../test/jest/util/withIntlConfiguration';
 import EusageVisualization from './EusageVisualization';

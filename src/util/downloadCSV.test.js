@@ -1,8 +1,8 @@
 import fetch from 'node-fetch';
-import { useOkapiKy } from '@folio/stripes/core';
 import downloadCSV from './downloadCSV';
 
 window.fetch = fetch;
+jest.unmock('./downloadCSV');
 
 const mockAnchorElement = {
   click: () => undefined,
@@ -28,13 +28,9 @@ const mocks = {
   window: mockWindow,
 };
 
-useOkapiKy.mockReturnValue({
-  post: (_path) => {
-    return new Promise((resolve, _reject) => {
-      resolve({ status: 'ok' });
-    });
-  },
-});
+jest.mock('node-fetch');
+const { Response } = jest.requireActual('node-fetch');
+fetch.mockResolvedValue(new Response('Mocked response content'));
 
 test('should issue a download-CSV request', async () => {
   // document.createElement('a');
@@ -54,5 +50,5 @@ test('should issue a download-CSV request', async () => {
   await downloadCSV(url, stripes, params, mocks);
   expect(savedBlob).toBeDefined();
   const text = await savedBlob.text();
-  expect(text).toBe('Invalid token');
+  expect(text).toBe('Mocked response content');
 });

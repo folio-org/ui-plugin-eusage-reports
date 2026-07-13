@@ -1,6 +1,6 @@
 {
   "name": "@folio/plugin-eusage-reports",
-  "version": "2.2.3",
+  "version": "4.1.0",
   "description": "Stripes plugin module to View eUsage reports",
   "repository": "folio-org/ui-plugin-eusage-reports",
   "publishConfig": {
@@ -8,9 +8,6 @@
   },
   "license": "Apache-2.0",
   "main": "src/index.js",
-  "engines": {
-    "node": ">=6.0.0"
-  },
   "stripes": {
     "actsAs": [
       "handler",
@@ -58,53 +55,44 @@
   "scripts": {
     "lint": "eslint -f unix .",
     "qlint": "eslint -f unix  --rule '{\"no-console\":\"off\"}' .",
-    "test": "jest",
-    "coverage": "jest --coverage",
+    "test": "jest --coverage",
     "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
-    "start": "stripes serve --port 3005"
+    "start": "stripes serve --port 3005",
+    "formatjs-compile": "stripes translate compile"
   },
   "devDependencies": {
-    "@folio/eslint-config-stripes": "^5.4.0",
-    "@folio/stripes": "^7.0.0",
-    "@folio/stripes-cli": "^2.4.0",
-    "@folio/stripes-components": "^10.0.0",
-    "@folio/stripes-core": "^8.0.0",
-    "@testing-library/dom": "^7.26.3",
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.1.10",
-    "babel-eslint": "^10.0.3",
-    "babel-jest": "^26.6.3",
+    "@babel/core": "^7.19.3",
+    "@babel/eslint-parser": "^7.19.1",
+    "@folio/eslint-config-stripes": "^8.0.0",
+    "@folio/jest-config-stripes": "^3.0.0",
+    "@folio/stripes": "^10.0.0",
+    "@folio/stripes-cli": "^4.0.0",
+    "@folio/stripes-components": "^13.0.0",
+    "@folio/stripes-core": "^11.0.0",
     "core-js": "^3.6.4",
-    "eslint": "^6.8.0",
+    "eslint": "^7.32.0",
     "history": "^4.6.3",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^26.6.3",
-    "jest-canvas-mock": "^2.3.0",
-    "jest-junit": "^12.0.0",
     "node-fetch": "^2.6.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-intl": "^5.8.0",
-    "react-router-dom": "^5.2.0",
-    "regenerator-runtime": "^0.13.3"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-intl": "^7.1.5",
+    "react-router-dom": "^5.2.0"
   },
   "dependencies": {
-    "chart.js": "^2.6.0",
-    "@folio/stripes-acq-components": "^3.0.0",
+    "chart.js": "^4.4.0",
     "lodash": "^4.17.21",
+    "prop-types": "*",
     "randomcolor": "^0.6.2",
-    "react-chartjs-2": "^2.11.1"
+    "react-chartjs-2": "^5.2.0"
   },
   "optionalDependencies": {
-    "@folio/plugin-find-eresource": "^2.1.0 || ^3.0.0 || ^4.0.0"
+    "@folio/plugin-find-eresource": "^8.1.0"
   },
   "peerDependencies": {
-    "@folio/stripes": "^7.0.0",
-    "prop-types": "*",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-intl": "^5.8.0",
+    "@folio/stripes": "^10.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-intl": "^7.1.5",
     "react-router-dom": "^5.2.0"
   }
 }

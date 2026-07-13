@@ -13,6 +13,7 @@ import {
 } from '@folio/stripes/components';
 import { Monthpicker } from '../components';
 import UseOverTimeLoader from '../loaders/UseOverTimeLoader';
+import { UOT_METRIC_TYPES } from '../reports/UseOverTime';
 import RequestsByDateOfUseLoader from '../loaders/RequestsByDateOfUseLoader';
 import RequestsByPublicationYearLoader from '../loaders/RequestsByPublicationYearLoader';
 import CostPerUseLoader from '../loaders/CostPerUseLoader';
@@ -82,6 +83,11 @@ const yopIntervalOptions = ['1Y', '2Y', '5Y', '10Y'];
 const periodOfUseOptions = accessCountPeriodOptions;
 
 
+// Count types selectable for the Use-over-time report. 'overview' shows all
+// metric types together; the rest each show a single metric type.
+const uotCountTypeOptions = ['overview', ...UOT_METRIC_TYPES];
+
+
 function yearsBefore(base, n) {
   const year = base.getFullYear();
   const month = base.getMonth();
@@ -128,6 +134,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
   const [startDate, setStartDate] = useState(yearsBefore(now, 2).toISOString().substring(0, 7));
   const [endDate, setEndDate] = useState(now.toISOString().substring(0, 7));
   const [countType, setCountType] = useState('total');
+  const [uotCountType, setUotCountType] = useState('overview');
 
   const [accessCountPeriod, setAccessCountPeriod] = useState('1Y');
   const [yopInterval, setYopInterval] = useState('5Y');
@@ -137,7 +144,16 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
 
   const format = (report === 'uot' || report === 'cpu') ? persistentFormat : 'JOURNAL';
   const formatClassName = (report === 'uot' || report === 'cpu') ? css.enabled : css.disabled;
-  const countTypeClassName = (report === 'rbp' || report === 'rbu') ? css.enabled : css.disabled;
+  const countTypeClassName = (report === 'uot' || report === 'rbp' || report === 'rbu') ? css.enabled : css.disabled;
+
+  // Use-over-time filters client-side on the selected metric type; the other
+  // reports use the total/unique radio group.
+  const uotCountTypeOptionsWithLabels = uotCountTypeOptions.map(x => ({
+    value: x,
+    label: x === 'overview' ?
+      intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.count-type.overview' }) :
+      intl.formatMessage({ id: `ui-plugin-eusage-reports.useOverTime.metric.${x}` }),
+  }));
   const tag = reportName2tag[report];
   const Chart = reportName2component[report] ||
         /* istanbul ignore next */
@@ -204,25 +220,48 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
           />
         </Col>
         <Col xs={4} className={countTypeClassName}>
-          <KeyValue
-            label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.count-type' })}
-            value={
-              <RadioButtonGroup
-                value={countType}
-                onChange={e => setCountType(e.target.value)}
-              >
-                {
-                  ['total', 'unique'].map(token => (
-                    <RadioButton
-                      key={token}
-                      value={token}
-                      label={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.count-type.${token}` })}
-                    />
-                  ))
+          {
+            report === 'uot' ?
+              <KeyValue
+                label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.count-type' })}
+                value={
+                  <RadioButtonGroup
+                    value={uotCountType}
+                    onChange={e => setUotCountType(e.target.value)}
+                  >
+                    {
+                      uotCountTypeOptionsWithLabels.map(({ value, label }) => (
+                        <RadioButton
+                          key={value}
+                          value={value}
+                          label={label}
+                        />
+                      ))
+                    }
+                  </RadioButtonGroup>
                 }
-              </RadioButtonGroup>
-            }
-          />
+              />
+              :
+              <KeyValue
+                label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.count-type' })}
+                value={
+                  <RadioButtonGroup
+                    value={countType}
+                    onChange={e => setCountType(e.target.value)}
+                  >
+                    {
+                      ['total', 'unique'].map(token => (
+                        <RadioButton
+                          key={token}
+                          value={token}
+                          label={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.count-type.${token}` })}
+                        />
+                      ))
+                    }
+                  </RadioButtonGroup>
+                }
+              />
+          }
         </Col>
       </Row>
       <Row>
@@ -268,7 +307,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
               includeOA: (includeOA === 'yes'),
               startDate,
               endDate,
-              countType,
+              countType: report === 'uot' ? uotCountType : countType,
               accessCountPeriod,
               yopInterval,
               periodOfUse,
