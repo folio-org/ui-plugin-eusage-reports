@@ -1,7 +1,8 @@
 # Change history for ui-plugin-eusage-reports
 
 ## [4.2.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.2.0) (IN PROGRESS)
-* [UIPER-143](https://folio-org.atlassian.net/browse/UIPER-143) Visualization of Use over time. Display the number above the bar
+* [UIPER-143](https://folio-org.atlassian.net/browse/UIPER-143) Visualization of Use over time: display the number above the bar
+* [UIPER-144](https://folio-org.atlassian.net/browse/UIPER-144)  Visualization of Use over time: support different count types
 
 ## [4.1.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.1.0) (2026-04-22)
 * Update Japanese translations.
