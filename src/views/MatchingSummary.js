@@ -68,7 +68,7 @@ function MatchingSummary({ hasLoaded, data, mutator, reloadReportTitles }) {
                       {
                         (cat.key !== 'loaded' || cat.count === data.reportTitlesCount) ?
                           cat.count :
-                          `${cat.count} of ${data.reportTitlesCount}`
+                          <FormattedMessage id="ui-plugin-eusage-reports.n-of-m" values={{ n: cat.count, m: data.reportTitlesCount }} />
                       }
                     </span> :
                     <Loading />
