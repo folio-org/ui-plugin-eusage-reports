@@ -162,7 +162,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
   const tag = reportName2tag[report];
   const Chart = reportName2component[report] ||
         /* istanbul ignore next */
-        (() => <p><b>{report}</b> report not implemented</p>);
+        (() => <p><FormattedMessage id="ui-plugin-eusage-reports.chart-unimplemented" values={{ report }} /></p>);
 
   const [analysisOngoing, setAnalysisOngoing] = useState(false);
 
