@@ -2,6 +2,7 @@
   "meta.title": "eUsage reports (plugin)",
   "accordion.label": "eUsage reports",
   "chart-unimplemented": "Chart <b>{report}</b> not implemented",
+  "n-of-m": "{n} of {m}",
   "costPerUse.cpr-total": "Cost per request - total",
   "costPerUse.cpr-unique": "Cost per request — unique",
   "costPerUse.select-agreement-line": "Select agreement line",
