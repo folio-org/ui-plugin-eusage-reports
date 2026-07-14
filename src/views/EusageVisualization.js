@@ -30,9 +30,8 @@ function AnalysisOngoing() {
 }
 
 
-// eslint-disable-next-line react/prop-types
 function DateLastAnalyzed({ loaded, isoDateTime }) {
-  // Render according to the browser's (and therefore user's) timezone, not tenant's
+  // Render according to the browser's (and therefore user's) locale and timezone, not tenant's
 
   return (
     <>
@@ -41,18 +40,24 @@ function DateLastAnalyzed({ loaded, isoDateTime }) {
       {
         !loaded ?
           <FormattedMessage id="ui-plugin-eusage-reports.last-analyzed.unknown" /> :
-          <>
-            <FormattedDate value={isoDateTime} />
-            <span>, </span>
-            {/* eslint-disable-next-line react/prop-types */}
-            {isoDateTime.replace(/.*T(.*)\..*/, '$1')}
-            <span> </span>
-            UCT
-          </>
+          <FormattedDate
+            value={isoDateTime}
+            year="numeric"
+            month="numeric"
+            day="numeric"
+            hour="numeric"
+            minute="numeric"
+            second="numeric"
+          />
       }
     </>
   );
 }
+
+DateLastAnalyzed.propTypes = {
+  loaded: PropTypes.bool,
+  isoDateTime: PropTypes.string,
+};
 
 function analyzeAgreement(okapiKy, callout, data, setAnalysisOngoing, reloadReportStatus) {
   setAnalysisOngoing(true);
@@ -325,7 +330,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
           </Button>
         </div>
         <div style={{ float: 'right' }}>
-          <DateLastAnalyzed loaded={lastUpdatedHasLoaded} isoDateTime={data.reportStatus?.lastUpdated} intl={intl} />
+          <DateLastAnalyzed loaded={lastUpdatedHasLoaded} isoDateTime={data.reportStatus?.lastUpdated} />
         </div>
       </div>
 
