@@ -73,8 +73,6 @@
     "useOverTime.column.metricType": "Metric type",
     "useOverTime.access.Controlled": "Controlled",
     "useOverTime.access.OA_Gold": "Gold open access",
-    "useOverTime.metric.Total_Item_Requests": "Total item requests",
-    "useOverTime.metric.Unique_Item_Requests": "Unique item requests",
     "report-form.report.use-over-time": "Use over time",
     "report-form.report.requests-by-date-of-use": "Use over time, grouped by publication year",
     "report-form.report.requests-by-publication-year": "Use over publication year, grouped by time",
