@@ -5,6 +5,7 @@ import { Bar } from 'react-chartjs-2';
 import { useStripes } from '@folio/stripes/core';
 import { Loading, MultiColumnList, NoValue, Button, Accordion } from '@folio/stripes/components';
 import downloadCSV from '../../util/downloadCSV';
+import barValueLabels from '../../util/barValueLabels';
 
 
 function renderUseOverTimeTable(uot) {
@@ -141,30 +142,6 @@ export function seriesForMetricType(uot, metricType) {
 
   return seen ? totals : null;
 }
-
-
-// Chart.js plugin that draws each bar's value just above the top of the bar.
-export const barValueLabels = {
-  id: 'barValueLabels',
-  afterDatasetsDraw(chart) {
-    const { ctx } = chart;
-    chart.data.datasets.forEach((dataset, datasetIndex) => {
-      const meta = chart.getDatasetMeta(datasetIndex);
-      if (meta.hidden) return;
-      meta.data.forEach((element, index) => {
-        const value = dataset.data[index];
-        if (value === null || value === undefined) return;
-        ctx.save();
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'bottom';
-        ctx.font = '12px sans-serif';
-        ctx.fillText(value, element.x, element.y - 2);
-        ctx.restore();
-      });
-    });
-  },
-};
 
 
 function renderUseOverTimeChart(intl, uot, xCaption, yCaption, countType) {

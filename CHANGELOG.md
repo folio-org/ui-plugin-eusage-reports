@@ -2,7 +2,8 @@
 
 ## [4.2.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.2.0) (IN PROGRESS)
 * [UIPER-143](https://folio-org.atlassian.net/browse/UIPER-143) Visualization of Use over time: display the number above the bar
-* [UIPER-144](https://folio-org.atlassian.net/browse/UIPER-144)  Visualization of Use over time: support different count types
+* [UIPER-144](https://folio-org.atlassian.net/browse/UIPER-144) Visualization of Use over time: support different count types
+* [UIPER-146](https://folio-org.atlassian.net/browse/UIPER-146) Visualization of Cost per use: display the number above the bar
 
 ## [4.1.0](https://github.com/folio-org/ui-plugin-eusage-reports/tree/v4.1.0) (2026-04-22)
 * Update Japanese translations.
