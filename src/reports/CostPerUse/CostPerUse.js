@@ -5,6 +5,7 @@ import { Bar } from 'react-chartjs-2';
 import { useStripes } from '@folio/stripes/core';
 import { Loading, Button } from '@folio/stripes/components';
 import downloadCSV from '../../util/downloadCSV';
+import barValueLabels from '../../util/barValueLabels';
 
 
 function CostPerUse({ url, params, hasLoaded, data, xCaption, yCaption }) {
@@ -56,6 +57,7 @@ function CostPerUse({ url, params, hasLoaded, data, xCaption, yCaption }) {
           text: yCaption,
         },
         beginAtZero: true,
+        grace: '8%',
       },
       titleCount: {
         position: 'right',
@@ -63,6 +65,14 @@ function CostPerUse({ url, params, hasLoaded, data, xCaption, yCaption }) {
         grid: {
           display: false,
         },
+      },
+    },
+    plugins: {
+      tooltip: {
+        // The bar series now show their values above each bar, so their
+        // tooltips are redundant. The title-count line has no such labels,
+        // so keep its tooltip as the only way to read its values.
+        filter: (item) => item.dataset.type === 'line',
       },
     },
     animation: false,
@@ -77,6 +87,7 @@ function CostPerUse({ url, params, hasLoaded, data, xCaption, yCaption }) {
           data={graphData}
           height={400}
           options={options}
+          plugins={[barValueLabels]}
         />
       </div>
       <div style={{ textAlign: 'right', marginTop: '1em' }}>
