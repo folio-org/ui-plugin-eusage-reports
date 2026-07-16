@@ -27,6 +27,7 @@
   "costPerUse.metric.Total_Item_Requests": "Cost per request - total",
   "costPerUse.metric.Unique_Item_Requests": "Cost per request - unique",
   "costPerUse.titleCount": "Titles with usage",
+  "costPerUse.usesPerItem": "Average {average, number, ::.##} {average, plural, one {use} other {uses}} per item ({total, plural, one {# use} other {# uses}}/{unique} unique)",
   "matching-summary.label": "Matching summary",
   "matching-summary.date-of-last-harvest": "Date of last harvest",
   "matching-summary.status": "Status",
