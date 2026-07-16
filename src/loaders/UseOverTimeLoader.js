@@ -33,7 +33,10 @@ UseOverTimeLoader.manifest = {
         format: props.params.format,
         includeOA: props.params.includeOA,
         accessCountPeriod: props.params.accessCountPeriod,
-        full: false,
+        // The back-end omits `items` unless full=true, and all the metric
+        // types except Total_Item_Requests and Unique_Item_Requests are
+        // aggregated from them: see seriesForMetricType.
+        full: true,
       };
     },
   },
