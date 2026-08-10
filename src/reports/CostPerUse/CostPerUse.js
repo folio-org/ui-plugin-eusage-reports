@@ -6,6 +6,7 @@ import { useStripes } from '@folio/stripes/core';
 import { Loading, Button } from '@folio/stripes/components';
 import downloadCSV from '../../util/downloadCSV';
 import barValueLabels from '../../util/barValueLabels';
+import CostPerUseTable from './CostPerUseTable';
 
 
 // The average number of times each item that was used at all got used: the
@@ -35,6 +36,10 @@ function CostPerUse({ url, params, hasLoaded, data, xCaption, yCaption }) {
   const stripes = useStripes();
   if (!hasLoaded) return <><br /><Loading /><br /></>;
   const cpu = data.costPerUse;
+
+  if (params.representation === 'table') {
+    return <CostPerUseTable cpu={cpu} />;
+  }
 
   const graphData = {
     labels: cpu.accessCountPeriods,

@@ -10,7 +10,7 @@ jest.unmock('react-intl');
 window.fetch = fetch;
 
 
-const renderCostPerUse = (hasLoaded) => {
+const renderCostPerUse = (hasLoaded, extraParams = {}) => {
   const url = 'https://thor-okapi.ci.folio.org/eusage-reports/stored-reports/cost-per-use?accessCountPeriod=1Y&agreementId=a0416544-6027-4fac-97f7-547d34946db2&endDate=2021-10&format=JOURNAL&includeOA=true&startDate=2019-10';
   return render(
     withIntlConfiguration(
@@ -22,6 +22,7 @@ const renderCostPerUse = (hasLoaded) => {
           includeOA: true,
           startDate: "doesn't matter",
           endDate: "doesn't matter",
+          ...extraParams,
         }}
         data={{ costPerUse: data }}
         xCaption="Period of use"
@@ -101,5 +102,27 @@ describe('Cost-per-use report', () => {
 
     // Just checking we can click the download-CSV button; actual testing for this is elsewhere
     fireEvent.click(screen.getByRole('button'));
+  });
+
+  // The same report can be shown as a plot or as a table: the choice arrives in
+  // the params alongside the query that fetched the data.
+  it('should render the graph when the representation is the plot', async () => {
+    const { container } = renderCostPerUse(true, { representation: 'plot' });
+
+    expect(container.querySelector('canvas')).toBeVisible();
+    expect(screen.queryByRole('table')).toBeNull();
+  });
+
+  it('should render the table instead of the graph when the representation is the table', async () => {
+    const { container } = renderCostPerUse(true, { representation: 'table' });
+
+    expect(screen.getByRole('table')).toBeVisible();
+    expect(container.querySelector('canvas')).toBeNull();
+  });
+
+  it('should not render the table when not loaded', async () => {
+    renderCostPerUse(false, { representation: 'table' });
+
+    expect(screen.queryByRole('table')).toBeNull();
   });
 });

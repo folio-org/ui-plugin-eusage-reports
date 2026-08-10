@@ -137,6 +137,39 @@ describe('eUsage visualization page', () => {
     expect(rightPicker2.value).toBe('5Y');
   });
 
+  // The plot/table choice is offered only for the cost-per-use report: the
+  // other reports have no table rendering to switch to.
+  it('should offer the form of representation only for the cost-per-use report', async () => {
+    const report = screen.getByLabelText('Report');
+
+    ['uot', 'rbu', 'rbp'].forEach(reportCode => {
+      fireEvent.change(report, { target: { value: reportCode } });
+      expect(screen.queryByLabelText('Plot')).toBeNull();
+      expect(screen.queryByLabelText('Table')).toBeNull();
+    });
+
+    fireEvent.change(report, { target: { value: 'cpu' } });
+    expect(screen.getByLabelText('Plot')).toBeVisible();
+    expect(screen.getByLabelText('Table')).toBeVisible();
+  });
+
+  it('should switch the representation between the plot and the table', async () => {
+    fireEvent.change(screen.getByLabelText('Report'), { target: { value: 'cpu' } });
+
+    const plot = screen.getByLabelText('Plot');
+    const table = screen.getByLabelText('Table');
+    expect(plot.checked).toEqual(true);
+    expect(table.checked).toEqual(false);
+
+    fireEvent.click(table);
+    expect(plot.checked).toEqual(false);
+    expect(table.checked).toEqual(true);
+
+    fireEvent.click(plot);
+    expect(plot.checked).toEqual(true);
+    expect(table.checked).toEqual(false);
+  });
+
   it('should be able to analyse the agreement', async () => {
     const analyzeButton = screen.getByRole('button', { name: 'Analyze agreement' });
     expect(analyzeButton).toBeVisible();
