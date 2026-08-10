@@ -1,0 +1,32 @@
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ccc;
+    padding: 0.25em 0.75em;
+}
+
+.table th,
+.total {
+    background: #d9e2f1;
+}
+
+.total {
+    font-weight: bold;
+}
+
+/* Higher specificity than `.table th` so the group tint wins on the header. */
+.table .totalGroup {
+    background: #8fa9db;
+}
+
+.table .uniqueGroup {
+    background: #f4af84;
+}
+
+.numeric {
+    text-align: right;
+}

@@ -296,21 +296,25 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
                   onChange={e => setPeriodOfUse(e.target.value)}
                 />
                 : report === 'cpu' ?
-                  <RadioButtonGroup
+                  <KeyValue
                     label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.representation' })}
-                    value={representation}
-                    onChange={e => setRepresentation(e.target.value)}
-                  >
-                    {
-                      ['plot', 'table'].map(token => (
-                        <RadioButton
-                          key={token}
-                          value={token}
-                          label={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.representation.${token}` })}
-                        />
-                      ))
+                    value={
+                      <RadioButtonGroup
+                        value={representation}
+                        onChange={e => setRepresentation(e.target.value)}
+                      >
+                        {
+                          ['plot', 'table'].map(token => (
+                            <RadioButton
+                              key={token}
+                              value={token}
+                              label={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.representation.${token}` })}
+                            />
+                          ))
+                        }
+                      </RadioButtonGroup>
                     }
-                  </RadioButtonGroup>
+                  />
                   : null
           }
         </Col>
@@ -333,6 +337,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
               accessCountPeriod,
               yopInterval,
               periodOfUse,
+              representation,
             }}
             xCaption={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.report.${tag}.x-axis` })}
             yCaption={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.report.${tag}.y-axis` })}
