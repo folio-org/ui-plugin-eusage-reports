@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { useStripes } from '@folio/stripes/core';
 import css from './CostPerUseTable.css';
 
@@ -10,8 +10,9 @@ import css from './CostPerUseTable.css';
 // The amounts are already in the tenant's system currency, so we format them
 // with its symbol in a locale-appropriate way.
 function Cost({ value, currency }) {
+  const intl = useIntl();
   if (value === null || value === undefined) return null;
-  return <FormattedNumber value={value} style="currency" currency={currency} />;
+  return intl.formatNumber(value, { style: 'currency', currency });
 }
 
 Cost.propTypes = {
@@ -26,23 +27,27 @@ function sum(list) {
 
 function CostPerUseTable({ cpu }) {
   const stripes = useStripes();
+  const intl = useIntl();
   const { currency } = stripes;
   const periods = cpu.accessCountPeriods || [];
+  const costPerUse = intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.report.cost-per-use' });
+  const uses = intl.formatMessage({ id: 'ui-plugin-eusage-reports.costPerUse.table.uses' });
 
   return (
     <table className={css.table}>
       <thead>
         <tr>
-          <th><FormattedMessage id="ui-plugin-eusage-reports.costPerUse.table.reporting-period" /></th>
-          <th colSpan={2} className={css.totalGroup}><FormattedMessage id="ui-plugin-eusage-reports.useOverTime.metric.Total_Item_Requests" /></th>
-          <th colSpan={2} className={css.uniqueGroup}><FormattedMessage id="ui-plugin-eusage-reports.useOverTime.metric.Unique_Item_Requests" /></th>
+          {/* The period column has a single heading spanning both rows, so
+              there is no empty corner cell for screen-readers to announce. */}
+          <th rowSpan={2}>{intl.formatMessage({ id: 'ui-plugin-eusage-reports.costPerUse.table.reporting-period' })}</th>
+          <th colSpan={2} className={css.totalGroup}>{intl.formatMessage({ id: 'ui-plugin-eusage-reports.useOverTime.metric.Total_Item_Requests' })}</th>
+          <th colSpan={2} className={css.uniqueGroup}>{intl.formatMessage({ id: 'ui-plugin-eusage-reports.useOverTime.metric.Unique_Item_Requests' })}</th>
         </tr>
         <tr>
-          <th />
-          <th><FormattedMessage id="ui-plugin-eusage-reports.report-form.report.cost-per-use" /></th>
-          <th><FormattedMessage id="ui-plugin-eusage-reports.costPerUse.table.uses" /></th>
-          <th><FormattedMessage id="ui-plugin-eusage-reports.report-form.report.cost-per-use" /></th>
-          <th><FormattedMessage id="ui-plugin-eusage-reports.costPerUse.table.uses" /></th>
+          <th>{costPerUse}</th>
+          <th>{uses}</th>
+          <th>{costPerUse}</th>
+          <th>{uses}</th>
         </tr>
       </thead>
       <tbody>
@@ -58,7 +63,7 @@ function CostPerUseTable({ cpu }) {
           ))
         }
         <tr className={css.total}>
-          <td><FormattedMessage id="ui-plugin-eusage-reports.costPerUse.table.total" /></td>
+          <td>{intl.formatMessage({ id: 'ui-plugin-eusage-reports.costPerUse.table.total' })}</td>
           <td />
           <td className={css.numeric}>{sum(cpu.totalItemRequestsByPeriod)}</td>
           <td />
