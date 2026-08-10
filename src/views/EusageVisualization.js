@@ -140,6 +140,7 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
   const [endDate, setEndDate] = useState(now.toISOString().substring(0, 7));
   const [countType, setCountType] = useState('total');
   const [uotCountType, setUotCountType] = useState('overview');
+  const [representation, setRepresentation] = useState('plot');
 
   const [accessCountPeriod, setAccessCountPeriod] = useState('1Y');
   const [yopInterval, setYopInterval] = useState('5Y');
@@ -294,7 +295,23 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
                   value={periodOfUse}
                   onChange={e => setPeriodOfUse(e.target.value)}
                 />
-                : null
+                : report === 'cpu' ?
+                  <RadioButtonGroup
+                    label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.representation' })}
+                    value={representation}
+                    onChange={e => setRepresentation(e.target.value)}
+                  >
+                    {
+                      ['plot', 'table'].map(token => (
+                        <RadioButton
+                          key={token}
+                          value={token}
+                          label={intl.formatMessage({ id: `ui-plugin-eusage-reports.report-form.representation.${token}` })}
+                        />
+                      ))
+                    }
+                  </RadioButtonGroup>
+                  : null
           }
         </Col>
         {/* There no column 3 in this row */}
