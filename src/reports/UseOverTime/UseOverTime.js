@@ -96,29 +96,21 @@ function renderUseOverTimeTable(uot) {
 }
 
 
-// The metric (count) types that Use-over-time can display, in the order
-// they should appear in the "Overview (all)" chart and in the picker.
-export const UOT_METRIC_TYPES = [
-  'Total_Item_Requests',
-  'Unique_Item_Requests',
-  'Unique_Title_Requests',
-  'Searches_Regular',
-  'Total_Item_Investigations',
-  'Unique_Item_Investigations',
-  'Unique_Title_Investigations',
+// The metric (count) types that Use-over-time can display, each paired with
+// a stable colour so a given series keeps its colour whether it is shown on
+// its own or alongside the others in "Overview". Listed in the order they
+// should appear in the "Overview (all)" chart and in the picker.
+// Each entry is [type, colour, enabled]; disabled types are shown in the
+// picker but cannot be selected.
+export const UOT_METRICS = [
+  ['Total_Item_Requests', 'blue', true],
+  ['Unique_Item_Requests', 'red', true],
+  ['Unique_Title_Requests', '#FF9900', false],
+  ['Searches_Regular', '#109618', false],
+  ['Total_Item_Investigations', '#990099', false],
+  ['Unique_Item_Investigations', '#0099C6', false],
+  ['Unique_Title_Investigations', '#DD4477', false],
 ];
-
-// A stable colour per metric type, so a given series keeps its colour
-// whether it is shown on its own or alongside the others in "Overview".
-const METRIC_COLORS = {
-  Total_Item_Requests: 'blue',
-  Unique_Item_Requests: 'red',
-  Unique_Title_Requests: '#FF9900',
-  Searches_Regular: '#109618',
-  Total_Item_Investigations: '#990099',
-  Unique_Item_Investigations: '#0099C6',
-  Unique_Title_Investigations: '#DD4477',
-};
 
 
 // Return the by-period access counts for a single metric type, or null if
@@ -146,17 +138,17 @@ export function seriesForMetricType(uot, metricType) {
 
 function renderUseOverTimeChart(intl, uot, xCaption, yCaption, countType) {
   // "overview" shows every metric type; any other value shows just that one.
-  const selectedTypes = (!countType || countType === 'overview') ?
-    UOT_METRIC_TYPES :
-    [countType];
+  const selectedMetrics = (!countType || countType === 'overview') ?
+    UOT_METRICS :
+    UOT_METRICS.filter(([metricType]) => metricType === countType);
 
-  const datasets = selectedTypes
-    .map(metricType => ({ metricType, values: seriesForMetricType(uot, metricType) }))
+  const datasets = selectedMetrics
+    .map(([metricType, color]) => ({ metricType, color, values: seriesForMetricType(uot, metricType) }))
     .filter(d => d.values) // drop metric types absent from this report
     .map(d => ({
       label: intl.formatMessage({ id: `ui-plugin-eusage-reports.useOverTime.metric.${d.metricType}` }),
       data: d.values,
-      backgroundColor: METRIC_COLORS[d.metricType],
+      backgroundColor: d.color,
     }));
 
   const data = {

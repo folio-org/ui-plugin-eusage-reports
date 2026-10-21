@@ -1,1 +1,1 @@
-export { default, UOT_METRIC_TYPES } from './UseOverTime';
+export { default, UOT_METRICS } from './UseOverTime';
