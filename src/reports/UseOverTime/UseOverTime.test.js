@@ -5,7 +5,7 @@ import { cleanup, render, screen, fireEvent } from '@folio/jest-config-stripes/t
 import { useStripes } from '@folio/stripes/core';
 import withIntlConfiguration from '../../../test/jest/util/withIntlConfiguration';
 import data from '../../../test/jest/data/use-over-time-report';
-import UseOverTime, { seriesForMetricType } from './UseOverTime';
+import UseOverTime, { seriesForMetricType, UOT_METRICS } from './UseOverTime';
 
 jest.unmock('react-intl');
 window.fetch = fetch;
@@ -92,6 +92,22 @@ describe('Use-over-time report', () => {
     expect(screen.getByText('Totals - Total item requests')).toBeVisible();
     expect(screen.getByText('185')).toBeVisible();
     expect(screen.getByText('74')).toBeVisible();
+  });
+});
+
+
+describe('UOT_METRICS', () => {
+  it('pairs every metric type with a colour and an enabled flag', () => {
+    UOT_METRICS.forEach(([type, colour, enabled]) => {
+      expect(typeof type).toBe('string');
+      expect(typeof colour).toBe('string');
+      expect(typeof enabled).toBe('boolean');
+    });
+  });
+
+  it('enables only the two request metric types', () => {
+    const enabled = UOT_METRICS.filter(([,, isEnabled]) => isEnabled).map(([type]) => type);
+    expect(enabled).toEqual(['Total_Item_Requests', 'Unique_Item_Requests']);
   });
 });
 
