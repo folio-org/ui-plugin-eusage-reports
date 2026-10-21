@@ -13,7 +13,7 @@ import {
 } from '@folio/stripes/components';
 import { Monthpicker } from '../components';
 import UseOverTimeLoader from '../loaders/UseOverTimeLoader';
-import { UOT_METRIC_TYPES } from '../reports/UseOverTime';
+import { UOT_METRICS } from '../reports/UseOverTime';
 import RequestsByDateOfUseLoader from '../loaders/RequestsByDateOfUseLoader';
 import RequestsByPublicationYearLoader from '../loaders/RequestsByPublicationYearLoader';
 import CostPerUseLoader from '../loaders/CostPerUseLoader';
@@ -90,7 +90,10 @@ const periodOfUseOptions = accessCountPeriodOptions;
 
 // Count types selectable for the Use-over-time report. 'overview' shows all
 // metric types together; the rest each show a single metric type.
-const uotCountTypeOptions = ['overview', ...UOT_METRIC_TYPES];
+const uotCountTypeOptions = [
+  ['overview', true],
+  ...UOT_METRICS.map(([type,, enabled]) => [type, enabled]),
+];
 
 
 function yearsBefore(base, n) {
@@ -154,11 +157,12 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
 
   // Use-over-time filters client-side on the selected metric type; the other
   // reports use the total/unique radio group.
-  const uotCountTypeOptionsWithLabels = uotCountTypeOptions.map(x => ({
-    value: x,
-    label: x === 'overview' ?
+  const uotCountTypeOptionsWithLabels = uotCountTypeOptions.map(([value, enabled]) => ({
+    value,
+    disabled: !enabled,
+    label: value === 'overview' ?
       intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.count-type.overview' }) :
-      intl.formatMessage({ id: `ui-plugin-eusage-reports.useOverTime.metric.${x}` }),
+      intl.formatMessage({ id: `ui-plugin-eusage-reports.useOverTime.metric.${value}` }),
   }));
   const tag = reportName2tag[report];
   const Chart = reportName2component[report] ||
@@ -231,20 +235,23 @@ function EusageVisualization({ data, lastUpdatedHasLoaded, reloadReportStatus })
               <KeyValue
                 label={intl.formatMessage({ id: 'ui-plugin-eusage-reports.report-form.count-type' })}
                 value={
-                  <RadioButtonGroup
-                    value={uotCountType}
-                    onChange={e => setUotCountType(e.target.value)}
-                  >
-                    {
-                      uotCountTypeOptionsWithLabels.map(({ value, label }) => (
-                        <RadioButton
-                          key={value}
-                          value={value}
-                          label={label}
-                        />
-                      ))
-                    }
-                  </RadioButtonGroup>
+                  <div className={css.uotCountTypes}>
+                    <RadioButtonGroup
+                      value={uotCountType}
+                      onChange={e => setUotCountType(e.target.value)}
+                    >
+                      {
+                        uotCountTypeOptionsWithLabels.map(({ value, label, disabled }) => (
+                          <RadioButton
+                            key={value}
+                            value={value}
+                            label={label}
+                            disabled={disabled}
+                          />
+                        ))
+                      }
+                    </RadioButtonGroup>
+                  </div>
                 }
               />
               :

@@ -6,6 +6,22 @@
     opacity: 0.5;
 }
 
+/*
+ * stripes-components fills a disabled radio's circle solid grey (see
+ * RadioButton.css `.disabled .pseudoButton`). We want disabled count-type
+ * options to read as unselected: a hollow circle and grey caption. Element
+ * and attribute selectors pass through CSS Modules unchanged, so these reach
+ * stripes' internal markup (input, then its pseudo-button span, then label).
+ */
+.uotCountTypes input:disabled + span {
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.uotCountTypes input:disabled ~ label {
+    color: #888;
+}
+
 .ongoing {
     width: 100%;
     padding: 5em 0em;

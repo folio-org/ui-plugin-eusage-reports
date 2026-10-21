@@ -137,6 +137,33 @@ describe('eUsage visualization page', () => {
     expect(rightPicker2.value).toBe('5Y');
   });
 
+  // The use-over-time count-type picker lists every metric type, but only the
+  // two with pre-computed totals are currently selectable; the rest appear
+  // disabled. 'uot' is the initial report, so the picker is already on screen.
+  it('should disable the unsupported use-over-time count types', async () => {
+    const selectable = ['Overview (all)', 'Total_Item_Requests', 'Unique_Item_Requests'];
+    const unselectable = [
+      'Unique_Title_Requests',
+      'Searches_Regular',
+      'Total_Item_Investigations',
+      'Unique_Item_Investigations',
+      'Unique_Title_Investigations',
+    ];
+
+    selectable.forEach(label => expect(screen.getByLabelText(label).disabled).toEqual(false));
+    unselectable.forEach(label => expect(screen.getByLabelText(label).disabled).toEqual(true));
+
+    // An enabled option can be chosen, replacing the default 'overview'.
+    // (We don't assert that a disabled option can't be clicked: that is
+    // browser behaviour that jsdom does not emulate via fireEvent.)
+    const overview = screen.getByLabelText('Overview (all)');
+    const totalRequests = screen.getByLabelText('Total_Item_Requests');
+    expect(overview.checked).toEqual(true);
+    fireEvent.click(totalRequests);
+    expect(totalRequests.checked).toEqual(true);
+    expect(overview.checked).toEqual(false);
+  });
+
   // The plot/table choice is offered only for the cost-per-use report: the
   // other reports have no table rendering to switch to.
   it('should offer the form of representation only for the cost-per-use report', async () => {
