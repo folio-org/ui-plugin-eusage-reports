@@ -98,6 +98,7 @@ function CostPerUse({ url, params, hasLoaded, data, xCaption, yCaption }) {
     },
     plugins: {
       tooltip: {
+        enabled: false,
         // Report only the element under the pointer. Chart.js would otherwise
         // be free to pull in the whole period, which would repeat the shared
         // use-count caption once per bar.
